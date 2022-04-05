@@ -11,11 +11,16 @@ import {MatProgressBar, MatProgressBarModule} from '@angular/material/progress-b
 import {MatCardModule} from '@angular/material/card';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatIconModule} from '@angular/material/icon';
-import {MatDrawer} from '@angular/material/sidenav'
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatDividerModule} from '@angular/material/divider';
+import { FooterComponent } from './footer/footer.component';
+import { LungFormComponent } from './lung-form/lung-form.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    FooterComponent,
+    LungFormComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +34,8 @@ import {MatDrawer} from '@angular/material/sidenav'
     MatButtonModule,
     BrowserAnimationsModule,
     MatIconModule,
-    MatDrawer
+    MatSidenavModule,
+    MatDividerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

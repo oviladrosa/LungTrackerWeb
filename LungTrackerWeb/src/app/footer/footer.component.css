@@ -1,0 +1,32 @@
+.main-div {
+    width: 100%;
+    height: 50px;
+    background-color: white;
+    color: black;
+    text-align: center;
+    border-bottom: 1px solid #000;
+    vertical-align: middle;
+}
+
+.copy-span {
+    color: gray;
+    font-weight: lighter;
+}
+
+.name-text {
+    font-weight: 700;
+}
+
+.svg-icon {
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.rr-icon {
+    transition: all .2s ease-in-out;
+}
+
+.rr-icon:hover {
+    color: #9C6ADF;
+    transform: scale(1.1);
+}
