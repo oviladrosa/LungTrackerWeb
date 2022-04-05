@@ -306,6 +306,7 @@
     background-color: #F6F6F6;
     height: 70px;
     vertical-align: middle;
+    cursor: pointer;
   }
 
   .second-title-drawer {

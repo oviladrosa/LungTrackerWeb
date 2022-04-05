@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { MatDrawer } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +10,23 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'LungTrackerWeb';
 
+  @ViewChild('drawer', { static: true }) public drawer!: MatDrawer;
+
+  constructor(private router: Router){
+
+  }
+
   printSomething() {
     console.log("hi");
   }
-  
+
+  goToForm() {
+    this.router.navigate(['/form']);
+    this.drawer.toggle()
+  }
+
+  goToHome() {
+    this.router.navigate(['/home']);
+  }
 }
 
