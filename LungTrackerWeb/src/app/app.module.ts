@@ -15,12 +15,14 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatDividerModule} from '@angular/material/divider';
 import { FooterComponent } from './footer/footer.component';
 import { LungFormComponent } from './lung-form/lung-form.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FooterComponent,
-    LungFormComponent
+    LungFormComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
