@@ -1,0 +1,60 @@
+.welcome-text {
+    font-weight: 6500;
+    font-size: 35px;
+    width: 95%;
+}
+
+.light-text {
+    font-weight: 400;
+    font-size: 17px;
+    width: 90%;
+}
+
+/deep/ .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+    background-color: #9C6ADF;
+}
+
+/deep/ .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+    background-color: #9C6ADF;
+}
+
+
+.slide-combo {
+    margin-top: 30px;
+}
+
+.mat-slide-toggle-label {
+    flex: 1;
+}
+
+.mat-slide-toggle-label * {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+.start-button {
+    background-color: gray;
+    color: white;
+    transition: all 0.2s ease-in-out;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 60px;
+    margin-bottom: 123px;
+}
+
+.start-button:hover {
+    background-color: #9C6ADF;
+}
+
+.slide-toggles {
+    margin-left: 12%;
+}
+
+.space-text {
+    margin-left: 10px;
+}
