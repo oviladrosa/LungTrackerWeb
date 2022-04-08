@@ -16,13 +16,17 @@ import {MatDividerModule} from '@angular/material/divider';
 import { FooterComponent } from './footer/footer.component';
 import { LungFormComponent } from './lung-form/lung-form.component';
 import { HomeComponent } from './home/home.component';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LungFormQuestionsComponent } from './lung-form/lung-form-questions/lung-form-questions.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FooterComponent,
     LungFormComponent,
-    HomeComponent
+    HomeComponent,
+    LungFormQuestionsComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +41,11 @@ import { HomeComponent } from './home/home.component';
     BrowserAnimationsModule,
     MatIconModule,
     MatSidenavModule,
-    MatDividerModule
+    MatDividerModule,
+    MatSlideToggleModule,
+    FormsModule,
+    ReactiveFormsModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]
