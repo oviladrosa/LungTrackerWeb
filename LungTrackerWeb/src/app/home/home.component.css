@@ -3,9 +3,17 @@ h1{
     margin: 50px ;
 }
 
+h2 {
+    margin: 50px ;
+}
+
 p {
     margin: 50px ;
     font-size: 18px;
+}
+
+.icons {
+    margin: 50px;
 }
 
 span {
@@ -14,6 +22,9 @@ span {
     color: rgb(255, 255, 255)
 }
 
+.content {
+    background-color: lavender;
+}
 
 .card {
     border-radius: 4px;
@@ -29,6 +40,23 @@ span {
     align-items: center;
     line-height: 24px;
   }
+
+.svg-icon {
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.logo {
+    margin-right: 350px;
+    margin-bottom: 100px;
+}
+
+.name-text {
+    font-size:30px;
+    font-weight: bold;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color:black;
+}
 
 
 
