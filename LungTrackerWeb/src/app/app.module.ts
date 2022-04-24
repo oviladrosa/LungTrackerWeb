@@ -19,6 +19,12 @@ import { HomeComponent } from './home/home.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LungFormQuestionsComponent } from './lung-form/lung-form-questions/lung-form-questions.component';
+import { MatStepperModule, MatStepper} from '@angular/material/stepper'
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {  MatInputModule } from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+
+
 
 @NgModule({
   declarations: [
@@ -44,8 +50,11 @@ import { LungFormQuestionsComponent } from './lung-form/lung-form-questions/lung
     MatDividerModule,
     MatSlideToggleModule,
     FormsModule,
-    ReactiveFormsModule
-
+    ReactiveFormsModule,
+    MatStepperModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

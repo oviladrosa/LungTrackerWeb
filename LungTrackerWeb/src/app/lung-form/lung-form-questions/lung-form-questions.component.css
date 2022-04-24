@@ -1,5 +1,43 @@
 .append-menu {
-    height: 100%;
-    width: 70px;
+
+    width: 100%;
     border-right: 2px solid #9C6ADF;
+    padding-left: 35%;
+    margin-top: 150px;
+    padding-bottom: 50px;
+}
+
+.form-item {
+    margin-top: 40px;
+}
+
+.form-title {
+    padding-top: 70px;
+    padding-left: 5%;
+    font-size: 32px;
+    margin-bottom: 0;
+}
+
+.nsnc-informer {
+    color: gray;
+    padding-left: 5%;
+
+}
+
+/deep/ .mat-horizontal-stepper-header-container {
+    display: none !important;
+}
+
+.questions-div {
+    padding-top: 50px;
+    padding-left: 3%;
+}
+
+.light-text {
+    font-weight: 800;
+}
+
+.cancerType {
+    margin-top: 20px;
+    border-top: solid black 1px;
 }
