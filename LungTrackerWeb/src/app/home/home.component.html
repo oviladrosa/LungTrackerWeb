@@ -1,9 +1,9 @@
-<div class="content" role="main">
+<div class="content" role="main" >
 
   <div class="home"  fxLayout="row" fxLayoutAlign="space-between center">
 
     <div class ="principal text"  fxLayoutGap="10px" fxLayout="column" fxLayoutAlign= "center start">
-      <h1>Benvinguts a 
+      <h1>Bienvenidos a 
         <br>LungTracker 
         <br>Web!</h1>
       <p>Estas luchando contra el cáncer  
@@ -32,15 +32,140 @@
     
     </div>
 
+  </div>
+
+  <div class = "logo" fxLayout="column" fxLayoutAlign= "center end">
+    <img
+    width="150"
+    alt="Lung Tracker Logo"
+    src="assets/images/lung_tracker_icon.png"  />
+    <br>
+    <span class="name-text">Lung Tracker</span>
+  </div>
+</div>
+<div class = "about_us" fxLayoutGap="10px" fxLayout = "column" fxLayoutAlign = "start start">
+  <h4>SOBRE NOSOTROS</h4>
+  <div class = "texto_us" fxLayout = "row" fxLayoutAlign = "start center">
+  <p>A pesar de que el cancer de pulmón se asocia al tabaquismo, la OMS identifica más de 120 causas 
+    que provocan cáncer (carcionogenos)
+  </p>
+  <p>Mediante una recogida exhaustiva de datos e información obtenida previamente, se realizaran diferentes 
+    estudios e analisis.
+  </p>
+</div>
+</div>
+
+<mat-divider class="linia"></mat-divider>
+<div class = "objetivo" fxLayout = "column" fxLayoutAlign = "space-around center" >
+  <h4>NUESTRO OBJETIVO</h4>
+  <p> Hacer partícipes a los pacientes de cáncer de pulmón en la investigación de esta enfermedad</p>
+
+  <div class = "iconos_obj" fxLayout="row" fxLayoutAlign="space-around center">
+    <div class="icon_1" fxFlex="33" fxLayout="column" fxLayoutAlign="space-between center">
+      <img
+      width="120"
+      alt="dades_logo"
+      src="assets/images/patience_science.png"  />
+
+      <h6>Patience Science</h6>
+      <p>Herramienta tecnológica para el equipo investigador de cáncer de pulmón mediante los datos proporcionados por los pacientes</p>
     </div>
 
-      <div class = "logo" fxLayout="column" fxLayoutAlign= "center end">
-        <img
-        width="150"
-        alt="Lung Tracker Logo"
-        src="assets/images/lung_tracker_icon.png"  />
-        <br>
-        <span class="name-text">Lung Tracker</span>
+    <div class="icon_2" fxFlex="33" fxLayout="column" fxLayoutAlign="space-between center">
+      <img
+      width ="100"
+      alt="dades_logo"
+      src="assets/images/data_icon.png"  />
+      <h6>Recogida de datos</h6>
+      <p>Recoger datos de pacientes de càncer de pulmón para ayudar en la lucha.</p>
     </div>
+
+    <div class="icon_3" fxFlex="33" fxLayout="column" fxLayoutAlign="space-between center">
+      <img
+      width="70"
+      alt="dades_logo"
+      src="assets/images/previsio_icon.png"  />
+      <h6>Previsión</h6>
+      <p>Ofrecer a los usuarios información personalizada sobre su situación.</p>
+    </div>
+
   </div>
+</div>
+<mat-divider class="linia"></mat-divider>
+<h4>EQUIPO DESARROLLADOR</h4>
+<div class="equipo" fxLayout="row" fxLayoutAlign="space-evenly center">
+  <div class="subequipo1" fxLayout="column" fxLayoutAlign="space-around center">
+    <img
+      width="150"
+      alt="foto_oriol"
+      src="assets/images/oriolviladrosa.jpeg"  />
+    <h6>Oriol Viladrosa</h6>
+
+    <img
+      width="150"
+      alt="foto_dani"
+      src="assets/images/danielvega.jpeg"  />
+      <h6>Daniel Vega</h6>
+  </div>
+  <div class="subequipo2" fxLayout="column" fxLayoutAlign="space-around center">
+    <img
+      width="150"
+      alt="foto_marc"
+      src="assets/images/marcvizcaino.jpeg"  />
+    <h6>Marc Vizcaino</h6>
+
+    <img
+      width="150"
+      alt="foto_roger"
+      src="assets/images/rogerhoms.jpeg"  />
+      <h6>Roger Homs</h6>
+  </div>
+
+</div>
+
+<div class="paint_line" >
+  <br>
+  <br>
+</div>
+
+<div class="sugerencia">
+  <h6>Tienes alguna sugerencia?</h6>
+  <div class="textinputs" fxLayout="column" fxLayoutAlign="space-around center">
+    <div class="inputs1" fxLayoutGap="10px" fxLayout="row" fxLayoutAlign="space-around center">
+      <div class="name" fxLayoutGap="1px" fxLayout="column" fxLayoutAlign="space-around start">
+        <h3>Nombre</h3>
+        <textarea id="nombre" placeholder="Tu nombre" rows="1" cols="25" ></textarea>
+      </div>
+      <div class="correo" fxLayoutGap="1px" fxLayout="column" fxLayoutAlign="space-around start">
+        <h3>Correo electrónico</h3>
+        <textarea id="email" placeholder="Correo" rows="1" cols="25" ></textarea>
+       
+      </div>
+    </div>
+    
+      <div class="inputs2" fxLayoutGap="1px" fxLayout="column" fxLayoutAlign="space-around start">
+        <h3>Descripción</h3>
+        <textarea id="textdescription" rows="6" cols="51" style="font-size: 12px;"></textarea>
+
+        <div class="terminos" fxLayoutGap="10px" fxLayout="row" fxLayoutAlign="space-around start">
+          <input id="checkbox" type="checkbox">
+          <var>He leído y acepto los términos y condiciones</var>
+        </div>
+      </div>
+      <a class="enviar" target="_blank" rel="noopener" href="">
+        <span style="font-size:12px">Enviar</span>
+    </a>
+  </div>
+</div>
+
+<mat-divider class="linia"></mat-divider>
+
+<div class="terminos_text">
+  <h2 style="margin-top:15px; font-size:14px">TERMINOS Y CONDICIONES</h2>
+  <p style="font-size:11px">Aqui van los terminos y condiciones</p>
+</div>
+
+
+</div>
+
 
