@@ -6,7 +6,9 @@ import { CookieService } from "ngx-cookie-service";
   providedIn: "root"
 })
 export class UserService {
+ 
   constructor(private http: HttpClient, private cookies: CookieService) {}
+
 
   login(user: any): any{
     return this.http.post("http://localhost:3000/login", user);
@@ -23,5 +25,8 @@ export class UserService {
     console.log(token)
     // Aquí iría el endpoint para devolver el usuario para un token
     //return this.http.get("http://localhost:3000/user");
+  }
+  getTableData() {
+    return this.http.get("http://localhost:3000/persons")
   }
 }

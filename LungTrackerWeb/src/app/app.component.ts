@@ -29,6 +29,10 @@ export class AppComponent {
     this.drawer.toggle()
   }
 
+  goToLoginButton(){
+    this.router.navigate(['/login']);
+  }
+
   goToHome() {
     this.router.navigate(['/home']);
   }

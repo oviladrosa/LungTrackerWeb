@@ -26,6 +26,8 @@ import {MatSelectModule} from '@angular/material/select';
 import { LoginComponent } from './login/login.component';
 import { CookieService } from 'ngx-cookie-service';
 import { ResearcherComponent } from './researcher/researcher.component';
+import {MatTableModule} from '@angular/material/table'
+
 
 
 
@@ -60,6 +62,7 @@ import { ResearcherComponent } from './researcher/researcher.component';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    MatTableModule
     
   ],
   providers: [CookieService],
