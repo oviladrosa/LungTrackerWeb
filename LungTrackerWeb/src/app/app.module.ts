@@ -23,6 +23,9 @@ import { MatStepperModule, MatStepper} from '@angular/material/stepper'
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {  MatInputModule } from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
+import { LoginComponent } from './login/login.component';
+import { CookieService } from 'ngx-cookie-service';
+import { ResearcherComponent } from './researcher/researcher.component';
 
 
 
@@ -32,7 +35,9 @@ import {MatSelectModule} from '@angular/material/select';
     FooterComponent,
     LungFormComponent,
     HomeComponent,
-    LungFormQuestionsComponent
+    LungFormQuestionsComponent,
+    LoginComponent,
+    ResearcherComponent
   ],
   imports: [
     BrowserModule,
@@ -54,9 +59,10 @@ import {MatSelectModule} from '@angular/material/select';
     MatStepperModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
