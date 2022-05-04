@@ -11,11 +11,13 @@ export class UserService {
 
 
   login(user: any): any{
-    return this.http.post("http://localhost:3000/login", user);
+    return this.http.post("http://localhost:3000/auth", user);
   }
-
   setToken(token: string) {
     this.cookies.set("token", token);
+  }
+  logOut() {
+    this.cookies.delete("token");
   }
   getToken() {
     return this.cookies.get("token");
@@ -28,5 +30,11 @@ export class UserService {
   }
   getTableData() {
     return this.http.get("http://localhost:3000/persons")
+  }
+  getUser(){
+    if(this.getToken()){
+      return this.getToken();
+    }
+    return undefined;
   }
 }
