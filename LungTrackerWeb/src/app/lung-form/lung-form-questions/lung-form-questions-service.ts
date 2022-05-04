@@ -19,7 +19,7 @@ export class LungFormQuestionsService {
         // headers.append('Access-Control-Allow-Methods', 'GET');
         // headers.append('Access-Control-Allow-Origin', '*');
 
-        return this.httpService.get(`http://www.qualificalia.com/terms/cno/services.php?task=search&arg=${text}&output=json`, {headers: header}).toPromise();
+        return this.httpService.get(`https://www.qualificalia.com/terms/cno/services.php?task=search&arg=${text}&output=json`, {headers: header}).toPromise();
     }
 
 }
