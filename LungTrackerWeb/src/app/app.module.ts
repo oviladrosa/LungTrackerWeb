@@ -23,6 +23,7 @@ import { MatStepperModule, MatStepper} from '@angular/material/stepper'
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {  MatInputModule } from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
+import { LungFormQuestionsService } from './lung-form/lung-form-questions/lung-form-questions-service';
 
 
 
@@ -56,7 +57,9 @@ import {MatSelectModule} from '@angular/material/select';
     MatInputModule,
     MatSelectModule
   ],
-  providers: [],
+  providers: [
+    LungFormQuestionsService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

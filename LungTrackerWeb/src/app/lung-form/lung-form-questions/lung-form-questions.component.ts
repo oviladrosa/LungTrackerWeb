@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl,FormGroup,Validators,FormBuilder, FormArray } from '@angular/forms';
 import Geonames from 'geonames.js';
 import { Country, State, City }  from 'country-state-city';
+import { LungFormQuestionsService } from './lung-form-questions-service'
 
 console.log(State.getAllStates())
 
@@ -94,6 +95,29 @@ export class LungFormQuestionsComponent implements OnInit {
     'NO',
     'NS/NC',
     ]
+
+  otherSubstances: any = [
+    'No',
+    'Cigarrillo electrónico',
+    'Cannabis',
+    'Puros',
+    'Otros'
+  ]
+
+  dangerousSubstances: any = [
+    'Amianto',
+'Humo de combustión de gasolina/diesel',
+'Soldadura',
+'Radiación',
+'Otros (texto)',
+'NS/NC'
+  ]
+
+  workingAnswers: any = [
+    'Si',
+    'No',
+    'NS/NC'
+  ]
   countries: any;
   regions: any;
   cities: any;
@@ -105,7 +129,8 @@ export class LungFormQuestionsComponent implements OnInit {
   cancerItems: FormArray | undefined;
 
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,
+              private questionService: LungFormQuestionsService) {
     this.demographicDetails = this.formBuilder.group({
       birthDate: ['', Validators.required],
       gender: ['', Validators.required],
@@ -152,8 +177,10 @@ export class LungFormQuestionsComponent implements OnInit {
       endSmokeYear: ['', Validators.required],
       averageCigarettes: ['', Validators.required],
       otherSusbtancesAnswer: ['', Validators.required],
+      extraOtherSusbtancesAnswer: ['', Validators.required],
       residenceNearRoadAnswer: ['', Validators.required],
-      dangerousSubstances: ['', Validators.required] // multiplechoice
+      dangerousSubstances: ['', Validators.required], // multiplechoice
+      extraDangerousSubstances: ['', Validators.required] 
     });
     this.jobDetails = this.formBuilder.group({
       currentlyWorkingAnswer: ['', Validators.required],
@@ -413,6 +440,12 @@ export class LungFormQuestionsComponent implements OnInit {
       this.clinicDetails.controls['otherNonSurgeryTreatment'].disable();
       this.clinicDetails.controls['otherNonSurgeryTreatment'].setValue("");
     }
+  }
+
+  async getJobOptions() {
+    const value = this.jobDetails.controls['currentJobDescription'].value;
+    const response = await this.questionService.findJobs(value);
+    console.log(response);
   }
 
 }

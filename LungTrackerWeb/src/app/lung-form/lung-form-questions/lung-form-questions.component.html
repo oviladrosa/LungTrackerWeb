@@ -15,7 +15,34 @@
       <span class="nsnc-informer">Para cualquier respuesta que desconozcas encontrarás la opción <i>NS/NC</i>.</span>
     </div>
     <mat-horizontal-stepper  #stepper>
-
+      <mat-step  [stepControl]="jobDetails" [editable]="true">
+        <div class="questions-div">
+          <form [formGroup]="jobDetails">
+            <h3>¿Está trabajando actualmente?</h3>
+            <mat-form-field appearance="outline">
+              <mat-label>Trabajando actualmente</mat-label>
+              <select  matNativeControl  formControlName="currentlyWorkingAnswer" matInput>
+                 <option value="" disabled>Respuesta</option>
+                 <option *ngFor="let w of workingAnswers" [ngValue]="w">{{w}}</option>
+              </select>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Año inicial</mat-label>
+              <input matInput formControlName="initialYearCurrentJob" required type="number">
+            </mat-form-field>
+            <mat-form-field appearance="outline" >
+              <mat-label>Otros</mat-label>
+              <input matInput formControlName="currentJobDescription" type="text" (blur)="getJobOptions()">
+            </mat-form-field>
+            <div>
+              <button mat-button matStepperPrevious (click)="this.previous()">Anterior</button>
+           </div>
+           <div>
+              <button mat-button matStepperNext (click)="this.next()" [disabled]="this.jobDetails.invalid">Siguiente</button>
+           </div>
+          </form>
+        </div>
+      </mat-step>
       <mat-step [stepControl]="demographicDetails" [editable]="true">
          <div class="questions-div">
             <form [formGroup]="demographicDetails">
@@ -304,7 +331,70 @@
            </form>
         </div>
      </mat-step>
-      
+     <mat-step [stepControl]="expositionDetails" [editable]="true">
+      <div class="questions-div">
+        <form [formGroup]="expositionDetails">
+          <h2>Tabaquismo</h2>
+          <h3>¿Alguna vez ha fumado tabaco? Si aún sigue fumando deje vacío el campo <i>Edad Final</i>.</h3>
+          <mat-form-field appearance="outline" >
+            <mat-label>Respuesta</mat-label>
+            <select  matNativeControl  formControlName="smokeAnswer" matInput>
+               <option value="" disabled>Indica la respuesta</option>
+               <option *ngFor="let t of surgeryAnswers" [ngValue]="t">{{t}}</option>
+            </select>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Edad inicio</mat-label>
+            <input matInput formControlName="initialSmokeYear" required type="number">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Edad final</mat-label>
+            <input matInput formControlName="endSmokeYear" type="number">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Media cigarrillos/dia</mat-label>
+            <input matInput formControlName="averageCigarettes" required type="number">
+          </mat-form-field>
+          <h3>¿Ha fumado otros productos?</h3>
+          <mat-form-field appearance="fill">
+            <mat-label>Sustancias</mat-label>
+            <mat-select  formControlName="otherSusbtancesAnswer" multiple>
+               <mat-option *ngFor="let t of otherSubstances" [value]="t">{{t}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline" >
+            <mat-label>Otros</mat-label>
+            <input matInput formControlName="extraOtherSusbtancesAnswer" type="text">
+          </mat-form-field>
+          <h2>Localización</h2>
+          <h3>¿Reside o trabaja a menos de 1km de una autovía/autopista?</h3>
+          <mat-form-field appearance="outline" >
+            <mat-label>Respuesta</mat-label>
+            <select  matNativeControl  formControlName="residenceNearRoadAnswer" matInput>
+               <option value="" disabled>Indica la respuesta</option>
+               <option *ngFor="let t of surgeryAnswers" [ngValue]="t">{{t}}</option>
+            </select>
+          </mat-form-field>
+          <h3>¿Sabe si ha estado expuesto a alguna sustancia cancerígena?</h3>
+          <mat-form-field appearance="fill">
+            <mat-label>Otros productos</mat-label>
+            <mat-select  formControlName="dangerousSubstances" multiple>
+               <mat-option *ngFor="let t of dangerousSubstances" [value]="t">{{t}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline" >
+            <mat-label>Otros</mat-label>
+            <input matInput formControlName="extraDangerousSubstances" type="text">
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperPrevious (click)="this.previous()">Anterior</button>
+         </div>
+         <div>
+            <button mat-button matStepperNext (click)="this.next()" [disabled]="this.expositionDetails.invalid">Siguiente</button>
+         </div>
+        </form>
+      </div>
+    </mat-step>
    </mat-horizontal-stepper>
    
  </div>

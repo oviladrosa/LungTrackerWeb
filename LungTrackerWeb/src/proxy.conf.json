@@ -1,0 +1,10 @@
+{
+    "/api": {
+        "target": "http://www.qualificalia.com/terms/cno/services.php",
+        "secure": false,
+        "changeOrigin": true,
+        "pathRewrite": {
+          "^/api": ""
+        }
+    }
+  }
