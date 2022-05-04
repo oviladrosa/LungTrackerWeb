@@ -1,0 +1,44 @@
+<div>
+    <p>Hola investigador</p>
+    <table  mat-table >
+        <tr mat-header-row>
+            <th mat-header-cell>
+                Id
+            </th>
+            <th mat-header-cell>
+                Género
+            </th>
+            <th mat-header-cell>
+                Edad
+            </th>
+            <th mat-header-cell>
+                País
+            </th>
+            <th mat-header-cell>
+                Código Postal
+            </th>
+            <th mat-header-cell>
+                Residencias
+            </th>
+            <th mat-header-cell>
+                Tumor principal
+            </th>
+        </tr>
+        
+        <tr mat-row *ngFor="let person of persons">
+            <td>{{person._id}}</td>
+            <td>{{person.sex}}</td>
+            <td>{{person.age}}</td>
+            <td>{{person.country}}</td>
+            <td>{{person.postalcode}}</td>
+            <td></td>
+            <td> 
+                <p>Diagnosticado en {{person.tumors[0].diagnoseYear}}</p>
+                <p>Tumor en {{person.tumors[0].type}}</p>
+                <p *ngIf="person.tumors[0].surgery"> Cirugía en {{person.tumors[0].surgery[0].year}} </p>
+            
+            </td>
+
+        </tr>
+    </table>
+</div>

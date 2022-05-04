@@ -24,6 +24,14 @@ export class AppComponent {
     this.router.navigate(['/form']);
     this.drawer.toggle()
   }
+  goToLoginInvestigadores(){
+    this.router.navigate(['/login']);
+    this.drawer.toggle()
+  }
+
+  goToLoginButton(){
+    this.router.navigate(['/login']);
+  }
 
   goToHome() {
     this.router.navigate(['/home']);
