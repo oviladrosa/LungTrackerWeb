@@ -309,6 +309,11 @@
     cursor: pointer;
   }
 
+  .login-button{
+    margin-left: 50px;
+
+  }
+
   .second-title-drawer {
       margin-left: 15px;
   }

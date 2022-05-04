@@ -1,4 +1,7 @@
+import { getLocaleDateFormat } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../services/UserService';
+import {MatTableModule} from '@angular/material/table'
 
 @Component({
   selector: 'app-researcher',
@@ -7,9 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ResearcherComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(public userService : UserService) { }
+  persons :any=[];
   ngOnInit(): void {
+
+    this.getTableData();
+  }
+  getTableData(){
+    this.userService.getTableData().subscribe(res=>{
+      this.persons=res;
+    });
   }
 
 }
