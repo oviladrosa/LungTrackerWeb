@@ -1,31 +1,31 @@
-<div>
-    <p>Hola investigador</p>
-    <table  mat-table >
-        <tr mat-header-row>
-            <th mat-header-cell>
+<div div="table-div" >
+    <h1>Área investigadores:</h1>
+    <h3> En esta área se pueden consultar los datos de las encuestas realizadas por pacientes de cancer de pulmón.</h3>
+    <table>
+        <tr>
+            <th>
                 Id
             </th>
-            <th mat-header-cell>
+            <th>
                 Género
             </th>
-            <th mat-header-cell>
+            <th>
                 Edad
             </th>
-            <th mat-header-cell>
+            <th>
                 País
             </th>
-            <th mat-header-cell>
+            <th>
                 Código Postal
             </th>
-            <th mat-header-cell>
+            <th>
                 Residencias
             </th>
-            <th mat-header-cell>
+            <th>
                 Tumor principal
             </th>
         </tr>
-        
-        <tr mat-row *ngFor="let person of persons">
+        <tr  *ngFor="let person of persons">
             <td>{{person._id}}</td>
             <td>{{person.sex}}</td>
             <td>{{person.age}}</td>
@@ -34,11 +34,9 @@
             <td></td>
             <td> 
                 <p>Diagnosticado en {{person.tumors[0].diagnoseYear}}</p>
-                <p>Tumor en {{person.tumors[0].type}}</p>
+                <p>Tumor de {{person.tumors[0].type}}</p>
                 <p *ngIf="person.tumors[0].surgery"> Cirugía en {{person.tumors[0].surgery[0].year}} </p>
-            
             </td>
-
         </tr>
     </table>
 </div>

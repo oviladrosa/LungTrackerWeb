@@ -1,6 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { MatDrawer } from '@angular/material/sidenav';
+import { UserService } from './services/UserService';
+
 
 @Component({
   selector: 'app-root',
@@ -12,7 +14,7 @@ export class AppComponent {
 
   @ViewChild('drawer', { static: true }) public drawer!: MatDrawer;
 
-  constructor(private router: Router){
+  constructor(private router: Router, private userService: UserService){
 
   }
 
@@ -20,12 +22,25 @@ export class AppComponent {
     console.log("hi");
   }
 
+  getToken(){
+    return this.userService.getToken()
+  }
+
+  logOut(){
+    this.userService.logOut();
+    this.router.navigate(['/home']);
+  }
+
   goToForm() {
     this.router.navigate(['/form']);
     this.drawer.toggle()
   }
   goToLoginInvestigadores(){
-    this.router.navigate(['/login']);
+    if(this.getToken()){
+      this.router.navigate(['/researcher']);
+    }else{
+      this.router.navigate(['/login']);
+    }
     this.drawer.toggle()
   }
 

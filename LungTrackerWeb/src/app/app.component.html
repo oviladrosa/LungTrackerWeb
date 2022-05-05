@@ -82,7 +82,8 @@
         src="assets/images/lung_tracker_icon.png"  />
       <span>Lung Tracker</span>
       </div>
-      <button  class="login-button" mat-raised-button color="primary" type="submit" (click)="goToLoginButton()">Acceso área investigadores</button>
+      <button  class="login-button" mat-raised-button color="primary" type="submit" *ngIf="!getToken()" (click)="goToLoginButton()">Acceso área investigadores</button>
+      <button  class="login-button" mat-raised-button color="primary" type="submit" *ngIf="getToken()" (click)="logOut()">Log Out</button>
     </div>
     <div style="width: 100%; height: 60px;"> </div>
     <div style="width: 100%;">
