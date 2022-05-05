@@ -28,6 +28,7 @@ import { LoginComponent } from './login/login.component';
 import { CookieService } from 'ngx-cookie-service';
 import { ResearcherComponent } from './researcher/researcher.component';
 import {MatTableModule} from '@angular/material/table'
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
 @NgModule({
@@ -61,7 +62,8 @@ import {MatTableModule} from '@angular/material/table'
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    MatTableModule
+    MatTableModule,
+    MatCheckboxModule
   ],
   providers: [
     LungFormQuestionsService,

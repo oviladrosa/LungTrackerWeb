@@ -118,6 +118,52 @@ export class LungFormQuestionsComponent implements OnInit {
     'No',
     'NS/NC'
   ]
+
+  familyAnswers: any = [
+    'Sí',
+    'No',
+    'NS/NC'
+  ]
+
+  familyRealtions: any = [
+    "Padre",
+    'Madre',
+    'Hijo',
+    'Hija',
+    'Hermano',
+    'Hermana',
+    'Tío Paterno',
+    'Tío Materno',
+    'Tía Paterna',
+    'Tía Materna',
+    'Abuelo Paterno',
+    'Abuelo Materno',
+    'Abuela Paterna',
+    'Abuela Materna',
+  ]
+
+  familiarCancerTypes: any = [
+    'Pulmón',
+    'Mama',
+    'Colon',
+    'Estómago',
+    'Pancreas',
+    'Cerebral',
+    'Hematológico',
+    'Ginecológico',
+    'Próstata',
+    'Vejiga',
+    'Cabeza y cuello',
+    'Piel',
+    'Otros'
+  ]
+
+  treatmentTypesList: any = [
+    'Cirugía',
+'Quimioterapia',
+'Radioterapia',
+'Otros (texto)'
+  ]
   countries: any;
   regions: any;
   cities: any;
@@ -127,6 +173,8 @@ export class LungFormQuestionsComponent implements OnInit {
   bornCities: any;
 
   cancerItems: FormArray | undefined;
+  jobItems: FormArray | undefined;
+  familyItems: FormArray | undefined;
 
 
   constructor(private formBuilder: FormBuilder,
@@ -165,8 +213,6 @@ export class LungFormQuestionsComponent implements OnInit {
       noSurgeryTreatmentAnswer: ['', Validators.required],
       otherNonSurgeryTreatment: ['', null],
       additionalDiagnoseAnswer: ['', Validators.required],
-      additionalDiagnoseType: ['', Validators.required],
-      otherAdditionalDiagnoseType: ['', Validators.required],
       otherCancers: new FormArray([]),
       previousDiseases: ['', Validators.required],
       otherPreviousDiseases: ['', Validators.required]
@@ -174,7 +220,7 @@ export class LungFormQuestionsComponent implements OnInit {
     this.expositionDetails = this.formBuilder.group({
       smokeAnswer: ['', Validators.required],
       initialSmokeYear: ['', Validators.required],
-      endSmokeYear: ['', Validators.required],
+      endSmokeYear: ['', null],
       averageCigarettes: ['', Validators.required],
       otherSusbtancesAnswer: ['', Validators.required],
       extraOtherSusbtancesAnswer: ['', Validators.required],
@@ -186,6 +232,7 @@ export class LungFormQuestionsComponent implements OnInit {
       currentlyWorkingAnswer: ['', Validators.required],
       initialYearCurrentJob: ['', Validators.required],
       currentJobDescription: ['', Validators.required],
+      currentJobProtections: [false, null],
       otherJobs: new FormArray([])
     });
     this.familyDetails = this.formBuilder.group({
@@ -199,9 +246,34 @@ export class LungFormQuestionsComponent implements OnInit {
       type: ['', Validators.required],
       year: ['', Validators.required],
       metastasis: ['', Validators.required],
-      metastasisYear: ['', Validators.required],
+      metastasisYear: ['', null],
       treatmentAnswer: ['', Validators.required],
+      treatmentType: ['',null],
+    });
+   }
+
+   createJobItems(): FormGroup {
+    return this.formBuilder.group({
+      initialYearJob: ['', Validators.required],
+      finalYearJob: ['', Validators.required],
+      jobDescription: ['', Validators.required],
+      jobProtections: [false, null],
+    });
+   }
+
+   createFamilyItems(): FormGroup {
+    return this.formBuilder.group({
+      relation: ['', Validators.required],
+      age: ['', Validators.required],
+      isDead: [false, null],
+      deadCause: [false, null],
+      deadDate: ['', Validators.required],
+      cancerType: ['', Validators.required],
+      otherCancerType: ['', Validators.required],
+      hasMetastasis: ['', Validators.required],
+      hasTreatment: ['', Validators.required],
       treatmentType: ['', Validators.required],
+      otherTreatment: ['', Validators.required],
     });
    }
 
@@ -209,6 +281,8 @@ export class LungFormQuestionsComponent implements OnInit {
     this.cancerItems = this.clinicDetails.get('otherCancers') as FormArray;
     const newFormGroup = this.createCancersItems();
     newFormGroup.enable();
+    newFormGroup.controls['metastasisYear'].disable();
+    newFormGroup.controls['treatmentType'].disable();
     this.cancerItems.push(newFormGroup);
    }
 
@@ -220,6 +294,54 @@ export class LungFormQuestionsComponent implements OnInit {
 
    get getOtherCancers () {
     return this.clinicDetails.get('otherCancers') as FormArray
+  }
+
+  addJobItem() {
+    this.jobItems = this.jobDetails.get('otherJobs') as FormArray;
+    const newFormGroup = this.createJobItems();
+    newFormGroup.enable();
+    this.jobItems.push(newFormGroup);
+   }
+
+   deleteJobItem() {
+    this.jobItems = this.jobDetails.get('otherJobs') as FormArray;
+    const leng = this.jobItems.length;
+    this.jobItems.removeAt(leng-1);
+   }
+
+   get getOtherJob () {
+    return this.jobDetails.get('otherJobs') as FormArray
+  }
+
+  addFamilyItem() {
+    this.familyItems = this.familyDetails.get('familyDiagnoses') as FormArray;
+    const newFormGroup = this.createFamilyItems();
+    newFormGroup.enable();
+    newFormGroup.controls['otherCancerType'].disable();
+    newFormGroup.controls['otherTreatment'].disable();
+    newFormGroup.controls['treatmentType'].disable();
+    newFormGroup.controls['deadDate'].disable();
+    newFormGroup.controls['deadCause'].disable();
+    this.familyItems.push(newFormGroup);
+   }
+
+   deleteFamilyItem() {
+    this.familyItems = this.familyDetails.get('familyDiagnoses') as FormArray;
+    const leng = this.familyItems.length;
+    this.familyItems.removeAt(leng-1);
+    console.log(this.familyDetails.get('familyDiagnoses') as FormArray);
+   }
+
+   get getOtherFamily () {
+    return this.familyDetails.get('familyDiagnoses') as FormArray
+  }
+
+  getFamilyForm (id: number) {
+    return this.getOtherFamily['controls'][id] as FormGroup;
+  }
+
+  getCancerForm (id: number) {
+    return this.getOtherCancers['controls'][id] as FormGroup;
   }
 
   async ngOnInit() {
@@ -251,6 +373,13 @@ export class LungFormQuestionsComponent implements OnInit {
     this.clinicDetails.controls['metastatisTreatment'].disable();
     this.clinicDetails.controls['otherMetastasisTreatment'].disable();
     this.clinicDetails.controls['otherNonSurgeryTreatment'].disable();
+    this.clinicDetails.controls['otherPreviousDiseases'].disable();
+
+    this.expositionDetails.controls['initialSmokeYear'].disable();
+    this.expositionDetails.controls['endSmokeYear'].disable();
+    this.expositionDetails.controls['averageCigarettes'].disable();
+    this.expositionDetails.controls['extraOtherSusbtancesAnswer'].disable();
+    this.expositionDetails.controls['extraDangerousSubstances'].disable();
   }
 
   getDemographic() { this.demographicDetails.controls;}
@@ -359,9 +488,13 @@ export class LungFormQuestionsComponent implements OnInit {
       case 1:
         return "1 - Datos demográficos";
       case 2:
-        return "2 - Datos cáncer de pulmón";
+        return "2 - Historial clínico";
       case 3:
-        return "3 - Datos de otros tumores";
+        return "3 - Exposición a tóxicos contaminantes";
+      case 4:
+        return "4 - Historial laboral";
+      case 5:
+        return "5 - Historial familiar";
     }
     return "";
   }
@@ -374,6 +507,7 @@ export class LungFormQuestionsComponent implements OnInit {
       this.clinicDetails.controls['otherCancerType'].disable();
       this.clinicDetails.controls['otherCancerType'].setValue("");
     }
+    console.log(this.clinicDetails);
   }
 
   enableMutationType() {
@@ -448,4 +582,138 @@ export class LungFormQuestionsComponent implements OnInit {
     console.log(response);
   }
 
+  enableOtherFamilyTypes(id: number) {
+    const fg = this.getFamilyForm(id);
+    const type = fg.get('cancerType')?.value;
+    if (type === 'Otros') {
+      fg.controls['otherCancerType'].enable();
+    } else {
+      fg.controls['otherCancerType'].disable();
+      fg.controls['otherCancerType'].setValue("");
+    }
+  }
+
+  enableTreatmentsFamily(id: number) {
+    const fg = this.getFamilyForm(id);
+    const type = fg.get('hasTreatment')?.value;
+    if (type === 'Sí') {
+      fg.controls['treatmentType'].enable();
+    } else {
+      fg.controls['treatmentType'].disable();
+      fg.controls['treatmentType'].setValue([]);
+    }
+  }
+
+  enableOtherFamilyTreatmentTypes(id: number) {
+    const fg = this.getFamilyForm(id);
+    const type = fg.get('treatmentType')?.value;
+    let other = false;
+    for (const value of type) {
+      if (value === 'Otros (texto)') other =true;
+    }
+    if (other) {
+      fg.controls['otherTreatment'].enable();
+    } else {
+      fg.controls['otherTreatment'].disable();
+      fg.controls['otherTreatment'].setValue("");
+    }
+    console.log(type);
+  }
+
+  isDeadEnables(id: number){
+    const fg = this.getFamilyForm(id);
+    const type = fg.get('isDead')?.value;
+    if (type == false) {
+      fg.controls['age'].enable();
+      fg.controls['deadDate'].disable();
+      fg.controls['deadCause'].disable();
+    } else {
+      fg.controls['age'].disable();
+      fg.controls['deadDate'].enable();
+      fg.controls['deadCause'].enable();
+    }
+  }
+
+  enableOtherPreviousDisease() {
+    
+    const type = this.clinicDetails.get('previousDiseases')?.value;
+    let other = false;
+    for (const value of type) {
+      if (value === 'Otros (texto)') other = true;
+    }
+    if (other) {
+      this.clinicDetails.controls['otherPreviousDiseases'].enable();
+    } else {
+      this.clinicDetails.controls['otherPreviousDiseases'].disable();
+      this.clinicDetails.controls['otherPreviousDiseases'].setValue("");
+    }
+  }
+
+  enableOtherCancerMetastasisYear(id: number) {
+    const fg = this.getCancerForm(id);
+    const type = fg.get('metastasis')?.value;
+    
+    if (type === 'Sí') {
+      fg.controls['metastasisYear'].enable();
+    } else {
+      fg.controls['metastasisYear'].disable();
+      fg.controls['metastasisYear'].setValue("");
+    }
+  }
+
+  enableOtherCancerTreatments(id: number) {
+    const fg = this.getCancerForm(id);
+    const type = fg.get('treatmentAnswer')?.value;
+    
+    if (type === 'Sí') {
+      fg.controls['treatmentType'].enable();
+    } else {
+      fg.controls['treatmentType'].disable();
+      fg.controls['treatmentType'].setValue("");
+    }
+  }
+
+  enableSmokeInfo() {
+    const answer = this.expositionDetails.get('smokeAnswer')?.value;
+    if (answer === 'Sí') {
+      this.expositionDetails.controls['initialSmokeYear'].enable();
+      this.expositionDetails.controls['endSmokeYear'].enable();
+      this.expositionDetails.controls['averageCigarettes'].enable();
+    } else {
+      this.expositionDetails.controls['initialSmokeYear'].disable();
+      this.expositionDetails.controls['initialSmokeYear'].setValue('');
+      this.expositionDetails.controls['endSmokeYear'].disable();
+      this.expositionDetails.controls['endSmokeYear'].setValue('');
+      this.expositionDetails.controls['averageCigarettes'].disable();
+      this.expositionDetails.controls['averageCigarettes'].setValue('');
+    }
+  }
+
+  enableOtherSmokingProducts() {
+    const type = this.expositionDetails.get('otherSusbtancesAnswer')?.value;
+    let other = false;
+    for (const value of type) {
+      if (value === 'Otros') other = true;
+    }
+    if (other) {
+      this.expositionDetails.controls['extraOtherSusbtancesAnswer'].enable();
+    } else {
+      this.expositionDetails.controls['extraOtherSusbtancesAnswer'].disable();
+      this.expositionDetails.controls['extraOtherSusbtancesAnswer'].setValue("");
+    }
+  }
+
+  enableOtherExpositions() {
+    const type = this.expositionDetails.get('dangerousSubstances')?.value;
+    let other = false;
+    for (const value of type) {
+      if (value === 'Otros (texto)') other = true;
+    }
+    if (other) {
+      this.expositionDetails.controls['extraDangerousSubstances'].enable();
+    } else {
+      this.expositionDetails.controls['extraDangerousSubstances'].disable();
+      this.expositionDetails.controls['extraDangerousSubstances'].setValue("");
+    }
+  }
 }

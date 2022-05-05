@@ -31,9 +31,43 @@
               <input matInput formControlName="initialYearCurrentJob" required type="number">
             </mat-form-field>
             <mat-form-field appearance="outline" >
-              <mat-label>Otros</mat-label>
+              <mat-label>Puesto de trabajo</mat-label>
               <input matInput formControlName="currentJobDescription" type="text" (blur)="getJobOptions()">
             </mat-form-field>
+        
+            <mat-checkbox formControlName="currentJobProtections" color="primary">¿Utilizaba medidas de protección (mascarillas, guantes…)?</mat-checkbox>
+            <div fxLayout="column" style="margin-top: 50px;">
+              <span>¿Ha tenido trabajos previos? Para cada trabajo que haya tenido añada una pestaña y rellene los datos relacionados.</span>
+              <div fxLayout="row" fxLayoutAlign="center center">
+                <button mat-button type="button" (click)="addJobItem()" >Añadir</button>
+                <button mat-button type="button" (click)="deleteJobItem()">Eliminar</button>
+              </div>
+            </div>
+  
+            <div formArrayName="otherJobs"
+                *ngFor="let item of getOtherJob['controls']; let i = index;"
+               class="cancerType">
+                <div [formGroupName]="i" >
+                  <h3>Trabajo {{i+1}}</h3>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Año inicial</mat-label>
+                    <input matInput formControlName="initialYearJob" required type="number">
+                  </mat-form-field>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Año final</mat-label>
+                    <input matInput formControlName="finalYearJob" required type="number">
+                  </mat-form-field>
+                  <mat-form-field appearance="outline" >
+                    <mat-label>Puesto de trabajo</mat-label>
+                    <input matInput formControlName="jobDescription" type="text" (blur)="getJobOptions()">
+                  </mat-form-field>
+              
+                  <mat-checkbox formControlName="jobProtections" color="primary">¿Utilizaba medidas de protección (mascarillas, guantes…)?</mat-checkbox>
+                  
+                </div>
+              </div>
+  
+  
             <div>
               <button mat-button matStepperPrevious (click)="this.previous()">Anterior</button>
            </div>
@@ -43,114 +77,114 @@
           </form>
         </div>
       </mat-step>
-      <mat-step [stepControl]="demographicDetails" [editable]="true">
-         <div class="questions-div">
-            <form [formGroup]="demographicDetails">
-               <h2>Información personal</h2>
-               <div style="width: 100%;" fxLayout.gt-sm="row" fxLayout="column">
-                  <mat-form-field appearance="outline" fxFlex.gt-sm="30">
-                     <mat-label>Data de naixement</mat-label>
-                     <input matInput formControlName="birthDate" required type="date">
-                   
-                   </mat-form-field>
-                   <mat-form-field appearance="outline" fxFlex.gt-sm="30" fxFlexOffset.gt-sm="10">
-                      <mat-label>Sexo</mat-label>
-                      <select  matNativeControl  formControlName="gender" matInput>
-                         <option value="" disabled>Indica tu sexo</option>
-                         <option *ngFor="let gen of generos" [ngValue]="gen">{{gen}}</option>
-                      </select>
-                    </mat-form-field>
-               </div>
-               
-                <h2>Lugar de residencia</h2>
+    <mat-step [stepControl]="demographicDetails" [editable]="true">
+        <div class="questions-div">
+          <form [formGroup]="demographicDetails">
+              <h2>Información personal</h2>
+              <div style="width: 100%;" fxLayout.gt-sm="row" fxLayout="column">
+                <mat-form-field appearance="outline" fxFlex.gt-sm="30">
+                    <mat-label>Data de naixement</mat-label>
+                    <input matInput formControlName="birthDate" required type="date">
+                  
+                  </mat-form-field>
+                  <mat-form-field appearance="outline" fxFlex.gt-sm="30" fxFlexOffset.gt-sm="10">
+                    <mat-label>Sexo</mat-label>
+                    <select  matNativeControl  formControlName="gender" matInput>
+                        <option value="" disabled>Indica tu sexo</option>
+                        <option *ngFor="let gen of generos" [ngValue]="gen">{{gen}}</option>
+                    </select>
+                  </mat-form-field>
+              </div>
+              
+              <h2>Lugar de residencia</h2>
 
-                <mat-form-field appearance="outline" >
-                  <mat-label>País de residencia</mat-label>
-                  <select  matNativeControl  formControlName="residenceCountry" matInput (change)="changeRegions()">
-                     <option value="" disabled>Indica el país</option>
-                     <option *ngFor="let c of countries" [ngValue]="c">{{c.name}}</option>
-                  </select>
-                
-                </mat-form-field>
-                <mat-form-field appearance="outline" >
-                  <mat-label>Región de residencia</mat-label>
-                  <select  matNativeControl  formControlName="residenceRegion" matInput (change)="changeCities()">
-                     <option value="" disabled>Indica la región</option>
-                     <option *ngFor="let r of regions" [ngValue]="r">{{r.name}}</option>
-                  </select>
-                
-                </mat-form-field>
-                <mat-form-field appearance="outline" >
-                  <mat-label>Ciudad de residencia</mat-label>
-                  <select  matNativeControl  formControlName="residenceCity" matInput>
-                     <option value="" disabled>Indica la ciutad</option>
-                     <option *ngFor="let c of cities" [ngValue]="c">{{c.name}}</option>
-                  </select>
-                
-                </mat-form-field>
-                <mat-form-field appearance="outline">
-                  <mat-label>Código postal</mat-label>
-                  <input matInput formControlName="residencePostCode" required type="number">
-                </mat-form-field>
+              <mat-form-field appearance="outline" >
+                <mat-label>País de residencia</mat-label>
+                <select  matNativeControl  formControlName="residenceCountry" matInput (change)="changeRegions()">
+                    <option value="" disabled>Indica el país</option>
+                    <option *ngFor="let c of countries" [ngValue]="c">{{c.name}}</option>
+                </select>
+              
+              </mat-form-field>
+              <mat-form-field appearance="outline" >
+                <mat-label>Región de residencia</mat-label>
+                <select  matNativeControl  formControlName="residenceRegion" matInput (change)="changeCities()">
+                    <option value="" disabled>Indica la región</option>
+                    <option *ngFor="let r of regions" [ngValue]="r">{{r.name}}</option>
+                </select>
+              
+              </mat-form-field>
+              <mat-form-field appearance="outline" >
+                <mat-label>Ciudad de residencia</mat-label>
+                <select  matNativeControl  formControlName="residenceCity" matInput>
+                    <option value="" disabled>Indica la ciutad</option>
+                    <option *ngFor="let c of cities" [ngValue]="c">{{c.name}}</option>
+                </select>
+              
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Código postal</mat-label>
+                <input matInput formControlName="residencePostCode" required type="number">
+              </mat-form-field>
 
-                <mat-form-field appearance="outline">
-                  <mat-label>Año inicial</mat-label>
-                  <input matInput formControlName="residenceInitialYears" required type="number">
-                </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Año inicial</mat-label>
+                <input matInput formControlName="residenceInitialYears" required type="number">
+              </mat-form-field>
 
-                <mat-form-field appearance="outline">
-                  <mat-label>Año final</mat-label>
-                  <input matInput formControlName="residenceEndYears" required type="number">
-                </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Año final</mat-label>
+                <input matInput formControlName="residenceEndYears" required type="number">
+              </mat-form-field>
 
-                <!-- Born Form Questions -->
-                <h2>Lugar de nacimiento</h2>
+              <!-- Born Form Questions -->
+              <h2>Lugar de nacimiento</h2>
 
-                <mat-form-field appearance="outline">
-                  <mat-label>País</mat-label>
-                  <select  matNativeControl  formControlName="bornCountry" matInput (change)="changeBornRegions()">
-                     <option value="" disabled>Indica el país</option>
-                     <option *ngFor="let c of bornCountries" [ngValue]="c">{{c.name}}</option>
-                  </select>
-                
-                </mat-form-field>
-                <mat-form-field appearance="outline" >
-                  <mat-label>Región de residencia</mat-label>
-                  <select  matNativeControl  formControlName="bornRegion" matInput (change)="changeBornCities()">
-                     <option value="" disabled>Indica la región</option>
-                     <option *ngFor="let r of bornRegions" [ngValue]="r">{{r.name}}</option>
-                  </select>
-                
-                </mat-form-field>
-                <mat-form-field appearance="outline" >
-                  <mat-label>Ciudad de residencia</mat-label>
-                  <select  matNativeControl  formControlName="bornCity" matInput>
-                     <option value="" disabled>Indica la ciudad</option>
-                     <option *ngFor="let c of bornCities" [ngValue]="c">{{c.name}}</option>
-                  </select>
-                
-                </mat-form-field>
-                <mat-form-field appearance="outline">
-                  <mat-label>Código postal</mat-label>
-                  <input matInput formControlName="bornPostCode" required type="number">
-                </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>País</mat-label>
+                <select  matNativeControl  formControlName="bornCountry" matInput (change)="changeBornRegions()">
+                    <option value="" disabled>Indica el país</option>
+                    <option *ngFor="let c of bornCountries" [ngValue]="c">{{c.name}}</option>
+                </select>
+              
+              </mat-form-field>
+              <mat-form-field appearance="outline" >
+                <mat-label>Región de residencia</mat-label>
+                <select  matNativeControl  formControlName="bornRegion" matInput (change)="changeBornCities()">
+                    <option value="" disabled>Indica la región</option>
+                    <option *ngFor="let r of bornRegions" [ngValue]="r">{{r.name}}</option>
+                </select>
+              
+              </mat-form-field>
+              <mat-form-field appearance="outline" >
+                <mat-label>Ciudad de residencia</mat-label>
+                <select  matNativeControl  formControlName="bornCity" matInput>
+                    <option value="" disabled>Indica la ciudad</option>
+                    <option *ngFor="let c of bornCities" [ngValue]="c">{{c.name}}</option>
+                </select>
+              
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Código postal</mat-label>
+                <input matInput formControlName="bornPostCode" required type="number">
+              </mat-form-field>
 
-                <mat-form-field appearance="outline">
-                  <mat-label>Año inicial</mat-label>
-                  <input matInput formControlName="bornInitialYears" required type="number">
-                </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Año inicial</mat-label>
+                <input matInput formControlName="bornInitialYears" required type="number">
+              </mat-form-field>
 
-                <mat-form-field appearance="outline">
-                  <mat-label>Año final</mat-label>
-                  <input matInput formControlName="bornEndYears" required type="number">
-                </mat-form-field>
-               <div>
-                  <button mat-button matStepperNext (click)="this.next()" [disabled]="this.demographicDetails.invalid">Siguiente</button>
-               </div>
-             </form>
-         </div>
-      </mat-step>
-      <mat-step  [stepControl]="clinicDetails" [editable]="true">
+              <mat-form-field appearance="outline">
+                <mat-label>Año final</mat-label>
+                <input matInput formControlName="bornEndYears" required type="number">
+              </mat-form-field>
+              <div>
+                <button mat-button matStepperNext (click)="this.next()" [disabled]="this.demographicDetails.invalid">Siguiente</button>
+              </div>
+            </form>
+        </div>
+    </mat-step>
+    <mat-step  [stepControl]="clinicDetails" [editable]="true">
         <div class="questions-div">
            <form [formGroup]="clinicDetails">
               <h2>Diagnóstico</h2>
@@ -178,7 +212,7 @@
                     <option *ngFor="let t of mutationAnswer" [ngValue]="t">{{t}}</option>
                  </select>
                </mat-form-field>
-
+  
                <mat-form-field appearance="outline" >
                  <mat-label>Tipo de mutación</mat-label>
                  <select  matNativeControl  formControlName="mutationType" matInput (change)="enableOtherMutationType()">
@@ -244,22 +278,22 @@
                  <mat-label>Otros tratamientos</mat-label>
                  <input matInput formControlName="otherNonSurgeryTreatment" type="text">
                </mat-form-field>
-
+  
                <h3>¿Le han diagnosticado alguna enfermedad pulmonar previa al cáncer de pulmón?</h3>
                <mat-form-field appearance="fill">
                 <mat-label>Enfermedades previas</mat-label>
-                <mat-select  formControlName="previousDiseases" multiple>
+                <mat-select  formControlName="previousDiseases" multiple (selectionChange)="enableOtherPreviousDisease()">
                    <mat-option *ngFor="let t of previousDiseasesOptions" [value]="t">{{t}}</mat-option>
                 </mat-select>
               </mat-form-field>
-
+  
               <mat-form-field appearance="outline" >
                 <mat-label>Otros</mat-label>
                 <input matInput formControlName="otherPreviousDiseases" type="text">
               </mat-form-field>
-
-               <h2>Datos de otros tumores</h2>
-               <h3>Aparte del cáncer de pulmón, ¿se le ha diagnosticado otro tipo de cáncer?
+  
+              <h2>Datos de otros tumores</h2>
+              <h3>Aparte del cáncer de pulmón, ¿se le ha diagnosticado otro tipo de cáncer?
               </h3>
               <mat-form-field appearance="outline" >
                 <mat-label>Respuesta</mat-label>
@@ -282,46 +316,55 @@
                class="cancerType">
                 <div [formGroupName]="i" >
                   <h3>Tipo de càncer - {{i+1}}</h3>
-                  <mat-form-field appearance="outline" >
-                    <mat-label>Tipo de càncer</mat-label>
-                    <select  matNativeControl  formControlName="type" matInput >
-                       <option value="" disabled>Indica el tipo</option>
-                       <option value="" >Hola</option>
-                       <option *ngFor="let o of otherCancerTypes" [ngValue]="o">{{o}}</option>
-                    </select>
-                  </mat-form-field>
-                  <mat-form-field appearance="outline">
-                    <mat-label>Año de diágnostico</mat-label>
-                    <input matInput formControlName="year" required type="number">
-                  </mat-form-field>
-                  <mat-form-field appearance="outline" >
-                    <mat-label>Ha desarrolado metastasis?</mat-label>
-                    <select  matNativeControl  formControlName="metastasis" matInput>
-                       <option value="" disabled>Indica la respuesta</option>
-                       <option *ngFor="let t of surgeryAnswers" [ngValue]="t">{{t}}</option>
-                    </select>
-                  </mat-form-field>
-                  <mat-form-field appearance="outline">
-                    <mat-label>Año de la metastasis</mat-label>
-                    <input matInput formControlName="metastasisYear" required type="number">
-                  </mat-form-field>
-                  <mat-form-field appearance="outline" >
-                    <mat-label>Ha realizado tratamiento?</mat-label>
-                    <select  matNativeControl  formControlName="treatmentAnswer" matInput>
-                       <option value="" disabled>Indica la respuesta</option>
-                       <option *ngFor="let t of surgeryAnswers" [ngValue]="t">{{t}}</option>
-                    </select>
-                  </mat-form-field>
-                  <mat-form-field appearance="outline" >
-                    <mat-label>Qué tipo de tratamiento?</mat-label>
-                    <select  matNativeControl  formControlName="treatmentType" matInput>
-                       <option value="" disabled>Indica la respuesta</option>
-                       <option *ngFor="let t of otherCancerTreatments" [ngValue]="t">{{t}}</option>
-                    </select>
-                  </mat-form-field>
+                  <div fxLayout="row">
+                    <mat-form-field appearance="outline" >
+                      <mat-label>Tipo de càncer</mat-label>
+                      <select  matNativeControl  formControlName="type" matInput >
+                         <option value="" disabled>Indica el tipo</option>
+                         <option *ngFor="let o of otherCancerTypes" [ngValue]="o">{{o}}</option>
+                      </select>
+                    </mat-form-field>
+                    <div fxFlex="10"></div>
+                    <mat-form-field appearance="outline">
+                      <mat-label>Año de diágnostico</mat-label>
+                      <input matInput formControlName="year" required type="number">
+                    </mat-form-field>
+                  </div>
+                  <div fxLayout="row">
+                    <mat-form-field appearance="outline" >
+                      <mat-label>Ha desarrolado metastasis?</mat-label>
+                      <select  matNativeControl  formControlName="metastasis" matInput (change)="enableOtherCancerMetastasisYear(i)">
+                         <option value="" disabled>Indica la respuesta</option>
+                         <option *ngFor="let t of surgeryAnswers" [ngValue]="t">{{t}}</option>
+                      </select>
+                    </mat-form-field>
+                    <div fxFlex="10"></div>
+                    <mat-form-field appearance="outline">
+                      <mat-label>Año de la metastasis</mat-label>
+                      <input matInput formControlName="metastasisYear" required type="number">
+                    </mat-form-field>
+                  </div>
+                  <div fxLayout="row">
+                    <mat-form-field appearance="outline" >
+                      <mat-label>Ha realizado tratamiento?</mat-label>
+                      <select  matNativeControl  formControlName="treatmentAnswer" matInput (change)="enableOtherCancerTreatments(i)">
+                         <option value="" disabled>Indica la respuesta</option>
+                         <option *ngFor="let t of surgeryAnswers" [ngValue]="t">{{t}}</option>
+                      </select>
+                    </mat-form-field>
+                    <div fxFlex="10"></div>
+                    <mat-form-field appearance="outline">
+                      <mat-label>Qué tipo de tratamiento?</mat-label>
+                      <select  matNativeControl  formControlName="treatmentType" matInput>
+                         <option value="" disabled>Indica la respuesta</option>
+                         <option *ngFor="let t of otherCancerTreatments" [ngValue]="t">{{t}}</option>
+                      </select>
+                    </mat-form-field>
+                  </div>
+                 
                 </div>
               </div>
-
+  
               <div>
                  <button mat-button matStepperPrevious (click)="this.previous()">Anterior</button>
               </div>
@@ -338,7 +381,7 @@
           <h3>¿Alguna vez ha fumado tabaco? Si aún sigue fumando deje vacío el campo <i>Edad Final</i>.</h3>
           <mat-form-field appearance="outline" >
             <mat-label>Respuesta</mat-label>
-            <select  matNativeControl  formControlName="smokeAnswer" matInput>
+            <select  matNativeControl  formControlName="smokeAnswer" matInput (change)="enableSmokeInfo()">
                <option value="" disabled>Indica la respuesta</option>
                <option *ngFor="let t of surgeryAnswers" [ngValue]="t">{{t}}</option>
             </select>
@@ -358,7 +401,7 @@
           <h3>¿Ha fumado otros productos?</h3>
           <mat-form-field appearance="fill">
             <mat-label>Sustancias</mat-label>
-            <mat-select  formControlName="otherSusbtancesAnswer" multiple>
+            <mat-select  formControlName="otherSusbtancesAnswer" multiple (selectionChange)="enableOtherSmokingProducts()">
                <mat-option *ngFor="let t of otherSubstances" [value]="t">{{t}}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -378,7 +421,7 @@
           <h3>¿Sabe si ha estado expuesto a alguna sustancia cancerígena?</h3>
           <mat-form-field appearance="fill">
             <mat-label>Otros productos</mat-label>
-            <mat-select  formControlName="dangerousSubstances" multiple>
+            <mat-select  formControlName="dangerousSubstances" multiple (selectionChange)="enableOtherExpositions()">
                <mat-option *ngFor="let t of dangerousSubstances" [value]="t">{{t}}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -391,6 +434,119 @@
          </div>
          <div>
             <button mat-button matStepperNext (click)="this.next()" [disabled]="this.expositionDetails.invalid">Siguiente</button>
+         </div>
+        </form>
+      </div>
+    </mat-step>
+
+    <mat-step [stepControl]="familyDetails" [editable]="true">
+      <div class="questions-div">
+        <form [formGroup]="familyDetails">
+           <h2>Familiares</h2>
+           <h3>¿Se ha diagnosticado algún miembro de su familia (no política) de cáncer?</h3>
+           <mat-form-field appearance="outline" >
+            <mat-label>Respuesta</mat-label>
+            <select  matNativeControl  formControlName="anyFamilyDiagnoseAnswer" matInput >
+               <option value="" disabled>Respuesta</option>
+               <option *ngFor="let t of familyAnswers" [ngValue]="t">{{t}}</option>
+            </select>
+          
+          </mat-form-field>
+
+          <div fxLayout="column" style="margin-top: 50px;">
+            <span>Para cada familiar diagnosticado que haya tenido añada una pestaña y rellene los datos relacionados.</span>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <button mat-button type="button" (click)="addFamilyItem()" >Añadir</button>
+              <button mat-button type="button" (click)="deleteFamilyItem()">Eliminar</button>
+            </div>
+          </div>
+          <div formArrayName="familyDiagnoses"
+            *ngFor="let item of getOtherFamily['controls']; let i = index;"
+           class="cancerType">
+            <div [formGroupName]="i" >
+              <h3><b>Familiar {{i+1}}</b></h3>
+              <h3>Información personal</h3>
+              <div fxLayout="row" fxLayoutAlign="start center" >
+                <mat-form-field appearance="outline" >
+                  <mat-label>Relación</mat-label>
+                  <select  matNativeControl  formControlName="relation" matInput >
+                     <option value="" disabled>Tipo de relación</option>
+                     <option *ngFor="let t of familyRealtions" [ngValue]="t">{{t}}</option>
+                  </select>
+                </mat-form-field>
+                <div fxFlex="10"></div>
+                <mat-checkbox formControlName="isDead" color="primary" (change)="isDeadEnables(i)">¿Ha fallecido?</mat-checkbox>
+
+              </div>
+              
+              <mat-form-field appearance="outline" *ngIf="!getFamilyForm(i).get('isDead')?.value">
+                <mat-label>Edad</mat-label>
+                <input matInput formControlName="age" required type="number">
+              </mat-form-field>
+
+              <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-form-field appearance="outline" *ngIf="getFamilyForm(i).get('isDead')?.value">
+                  <mat-label>Edad defunción</mat-label>
+                  <input matInput formControlName="deadDate" required type="number">
+                </mat-form-field>
+                <div fxFlex="10"></div>
+                <mat-checkbox formControlName="deadCause" color="primary" *ngIf="getFamilyForm(i).get('isDead')?.value">Fallecimiento debido al cáncer</mat-checkbox>
+              </div>
+              
+              
+              <h3>Datos clínicos</h3>
+              <div fxLayout="column">
+                <div fxLayout="row" fxLayoutAlign="start center">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Tipo de cáncer</mat-label>
+                    <select  matNativeControl  formControlName="cancerType" matInput (change)="enableOtherFamilyTypes(i)">
+                       <option value="" disabled>Indica el tipo</option>
+                       <option *ngFor="let gen of familiarCancerTypes" [ngValue]="gen">{{gen}}</option>
+                    </select>
+                  </mat-form-field>
+                  <div fxFlex="10"></div>
+                  <mat-form-field appearance="outline" fxFlex="40">
+                    <mat-label>Otros tipos</mat-label>
+                    <input matInput formControlName="otherCancerType" type="text">
+                  </mat-form-field>
+                </div>
+                
+
+                <span>¿Ha desarrollado metástasis?</span>
+                <mat-form-field appearance="outline">
+                  <mat-label>Respuesta</mat-label>
+                  <select  matNativeControl  formControlName="hasMetastasis" matInput>
+                     <option value="" disabled>Indica tu respuesta</option>
+                     <option *ngFor="let gen of familyAnswers" [ngValue]="gen">{{gen}}</option>
+                  </select>
+                </mat-form-field>
+
+                <span>¿Ha realizado algún tipo de tratamiento para su otro cáncer?</span>
+                <mat-form-field appearance="outline">
+                  <mat-label>Respuesta</mat-label>
+                  <select  matNativeControl  formControlName="hasTreatment" matInput (change)="enableTreatmentsFamily(i)">
+                     <option value="" disabled>Indica tu respuesta</option>
+                     <option *ngFor="let gen of familyAnswers" [ngValue]="gen">{{gen}}</option>
+                  </select>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                  <mat-label>Tratamientos</mat-label>
+                  <mat-select  formControlName="treatmentType" multiple (selectionChange)="enableOtherFamilyTreatmentTypes(i)">
+                     <mat-option *ngFor="let t of treatmentTypesList" [value]="t">{{t}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" >
+                  <mat-label>Otros tipos</mat-label>
+                  <input matInput formControlName="otherTreatment" type="text">
+                </mat-form-field>
+              </div>
+             
+            </div>
+          </div>
+          <div style="width: 100%; margin-top: 50px;" fxLayout="row" fxLayoutAlign="center center">
+            <button mat-raised-button mat-button matStepperNext (click)="this.next()" [disabled]="this.familyDetails.invalid" color="primary">Enviar Formulario</button>
          </div>
         </form>
       </div>
