@@ -31,9 +31,7 @@ import {MatTableModule} from '@angular/material/table'
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-
-
-
+import { ChartModule } from 'angular2-chartjs';
 
 
 
@@ -45,7 +43,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     HomeComponent,
     LungFormQuestionsComponent,
     LoginComponent,
-    ResearcherComponent
+    ResearcherComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -71,7 +70,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatTableModule,
     MatCheckboxModule,
     MatAutocompleteModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    ChartModule
   ],
   providers: [
     LungFormQuestionsService,

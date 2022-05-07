@@ -1,42 +1,113 @@
-<div div="table-div" >
+<div class="table-div" >
+    
     <h1>Área investigadores:</h1>
     <h3> En esta área se pueden consultar los datos de las encuestas realizadas por pacientes de cancer de pulmón.</h3>
-    <table>
-        <tr>
-            <th>
-                Id
-            </th>
-            <th>
-                Género
-            </th>
-            <th>
-                Edad
-            </th>
-            <th>
-                País
-            </th>
-            <th>
-                Código Postal
-            </th>
-            <th>
-                Residencias
-            </th>
-            <th>
-                Tumor principal
-            </th>
-        </tr>
-        <tr  *ngFor="let person of persons">
-            <td>{{person._id}}</td>
-            <td>{{person.sex}}</td>
-            <td>{{person.age}}</td>
-            <td>{{person.country}}</td>
-            <td>{{person.postalcode}}</td>
-            <td></td>
-            <td> 
-                <p>Diagnosticado en {{person.tumors[0].diagnoseYear}}</p>
-                <p>Tumor de {{person.tumors[0].type}}</p>
-                <p *ngIf="person.tumors[0].surgery"> Cirugía en {{person.tumors[0].surgery[0].year}} </p>
-            </td>
-        </tr>
-    </table>
+
+    <chart class="dashchart" [type]="typeLocalitzation" [data]="dataLocalitzation" 
+    [options]="optionsLocalitzation"></chart>
+    <chart class="dashchart" [type]="typeCancerType" [data]="dataTypes" 
+    [options]="optionsTypes"></chart>
+        
+        <ng-container >
+            <div style="overflow-x: auto;">
+                <!--Tabla con la información-->
+                <table style="box-shadow: none">
+                    <!--Primera fila con los títulos-->
+                    <thead>
+                        <th >
+                            <span class="header-name">
+                            Id
+                         <!--   <span class="header-arrows">
+                              <app-sort-arrows [sortByObject]="orderedBy" [attribute]="'INEP'"></app-sort-arrows>
+                            </span>-->
+                            </span>
+                        </th>
+
+                        <th >
+                            <span class="header-name">
+                              Género
+                             <!-- <span class="header-arrows">
+                                <app-sort-arrows [sortByObject]="orderedBy" [attribute]="'NAME'"></app-sort-arrows>
+                              </span>-->
+                            </span>
+                        </th>
+
+                        <th >
+                            <span class="header-name">
+                              <span style="margin-right: 14.5px;">
+                               Edad
+                              </span>
+                            </span>
+                           <!-- <span class="header-arrows">
+                                <app-sort-arrows [sortByObject]="orderedBy" [attribute]="'STATE'"></app-sort-arrows>
+                              </span>
+                            </span>-->
+                        </th>
+
+                        <th>País</th>
+                        <th>Residencias</th>
+
+                        <th >
+                            <span class="header-name">
+                              <span style="margin-right: 18.5px;">
+                               Tumor principal
+                              </span>
+                            </span>
+                          <!--  <span class="header-arrows">
+                                <app-sort-arrows [sortByObject]="orderedBy" [attribute]="'EXPIRATIONDATE'"></app-sort-arrows>
+                              </span>
+                            </span>-->
+                        </th>
+                        <th >
+                            <span class="header-name">
+                              <span style="margin-right: 18.5px;">
+                               Tumor Secundario
+                              </span>
+                            </span>
+                          <!--  <span class="header-arrows">
+                                <app-sort-arrows [sortByObject]="orderedBy" [attribute]="'EXPIRATIONDATE'"></app-sort-arrows>
+                              </span>
+                            </span>-->
+                        </th>
+
+                    </thead>
+                    <tbody>
+                        <!--Empiezan las filas dentro de la tabla-->
+                        <tr  *ngFor="let person of persons">
+                            <td ><b>{{person._id}}</b></td>
+                            <td ><b>{{person.sex}}</b></td>
+                            <td ><b>{{person.age}}</b></td>
+                            <td ><b>{{person.country}}</b></td>
+                
+                            <td >
+                                <div *ngFor=" let place of person.livingplaces">
+                                    <span *ngIf="place.yearOfEnd">{{place.yearOfStart}} -- {{place.yearOfEnd}}  </span>
+                                    <span *ngIf="!place.yearOfEnd">{{place.yearOfStart}} -- Presente  </span>
+                                    <span>{{place.postalCode}}  </span>
+                                    <span>{{place.city}}  </span>
+                                    <span>{{place.country}}  </span>
+                                </div>
+                            </td >
+                            <td > 
+                                <p>Diagnosticado en {{person.tumors[0].diagnoseYear}}</p>
+                                <p>Tumor de {{person.tumors[0].type}}</p>
+                                <p *ngIf="person.tumors[0].surgery"> Cirugía en {{person.tumors[0].surgery[0].year}} </p>
+                            </td>
+                            <td > 
+                                <div *ngIf="person.tumors[1]">
+                                    <p>Diagnosticado en {{person.tumors[0].diagnoseYear}}</p>
+                                    <p>Tumor de {{person.tumors[0].type}}</p>
+                                    <p *ngIf="person.tumors[0].surgery"> Cirugía en {{person.tumors[0].surgery[0].year}} </p>
+                                </div>  
+                                <div *ngIf="!person.tumors[1]">
+                                    <p> --- </p>
+                                </div>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </ng-container>
+   
 </div>
