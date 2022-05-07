@@ -2,3 +2,8 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.purple-snack {
+    background: rgb(186, 112, 255);
+    color: white;
+}

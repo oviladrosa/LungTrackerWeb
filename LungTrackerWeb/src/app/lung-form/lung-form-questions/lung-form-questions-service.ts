@@ -9,7 +9,7 @@ export class LungFormQuestionsService {
 
     }
 
-    findJobs(text: string): Promise<any> {
+    findJobs(text: string){
         let header = new HttpHeaders().set('Access-Control-Allow-Headers','Content-Type');
         header.set('Access-Control-Allow-Methods', 'GET');
         header.set('Access-Control-Allow-Origin', '*');
@@ -19,7 +19,12 @@ export class LungFormQuestionsService {
         // headers.append('Access-Control-Allow-Methods', 'GET');
         // headers.append('Access-Control-Allow-Origin', '*');
 
-        return this.httpService.get(`https://www.qualificalia.com/terms/cno/services.php?task=search&arg=${text}&output=json`, {headers: header}).toPromise();
+        return this.httpService.get(`https://young-hollows-40979.herokuapp.com/https://www.qualificalia.com/terms/cno/services.php?task=search&arg=${text}&output=json`, {headers: header});
+    }
+
+    communicateForm(data: any): Promise<any> {
+
+        return this.httpService.post('https://young-hollows-40979.herokuapp.com/https://webhook.site/e81ac6a4-eb0a-4174-8f9a-13589500a6d7',data).toPromise();
     }
 
 }

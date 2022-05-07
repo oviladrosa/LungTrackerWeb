@@ -1,8 +1,19 @@
+import { Diagnose, Job, Familiar } from './../../shared/models/FormRequest';
 import { Component, OnInit } from '@angular/core';
 import { FormControl,FormGroup,Validators,FormBuilder, FormArray } from '@angular/forms';
 import Geonames from 'geonames.js';
 import { Country, State, City }  from 'country-state-city';
 import { LungFormQuestionsService } from './lung-form-questions-service'
+import formRequest from 'src/app/shared/models/FormRequest';
+import { debounceTime, tap, switchMap, finalize, distinctUntilChanged, filter } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+
 
 console.log(State.getAllStates())
 
@@ -26,6 +37,15 @@ export class LungFormQuestionsComponent implements OnInit {
   family_step = false;
   step = 1;
   residenceCity: any;
+
+  filteredJobs: any;
+  isLoading = false;
+  errorMsg!: string;
+  minLengthTerm = 3;
+  selectedJob: any = "";
+
+  loadingSubmit = false;
+
 
   // geonames = Geonames({
   //   username: 'clinic_test',
@@ -114,7 +134,7 @@ export class LungFormQuestionsComponent implements OnInit {
   ]
 
   workingAnswers: any = [
-    'Si',
+    'Sí',
     'No',
     'NS/NC'
   ]
@@ -178,7 +198,11 @@ export class LungFormQuestionsComponent implements OnInit {
 
 
   constructor(private formBuilder: FormBuilder,
-              private questionService: LungFormQuestionsService) {
+              private questionService: LungFormQuestionsService,
+              private httpService: HttpClient,
+              private _snackBar: MatSnackBar,
+              private router: Router) {
+                
     this.demographicDetails = this.formBuilder.group({
       birthDate: ['', Validators.required],
       gender: ['', Validators.required],
@@ -231,7 +255,7 @@ export class LungFormQuestionsComponent implements OnInit {
     this.jobDetails = this.formBuilder.group({
       currentlyWorkingAnswer: ['', Validators.required],
       initialYearCurrentJob: ['', Validators.required],
-      currentJobDescription: ['', Validators.required],
+      currentJobDescription: new FormControl(),
       currentJobProtections: [false, null],
       otherJobs: new FormArray([])
     });
@@ -300,6 +324,40 @@ export class LungFormQuestionsComponent implements OnInit {
     this.jobItems = this.jobDetails.get('otherJobs') as FormArray;
     const newFormGroup = this.createJobItems();
     newFormGroup.enable();
+    newFormGroup.get('jobDescription')?.valueChanges
+      .pipe(
+        filter(res => {
+          return res !== null && res.length >= this.minLengthTerm
+        }),
+        // distinctUntilChanged(),
+        // debounceTime(500),
+        tap(() => {
+          this.errorMsg = "";
+          this.filteredJobs = [];
+          this.isLoading = true;
+        }),
+        switchMap(value => this.httpService.get(`https://young-hollows-40979.herokuapp.com/https://www.qualificalia.com/terms/cno/services.php?task=search&arg=${value}&output=json`)
+          .pipe(
+            finalize(() => {
+              this.isLoading = false
+            }),
+          )
+        )
+      )
+      .subscribe((data: any) => {
+        if (data['result'] == undefined) {
+          this.errorMsg = data['Error'];
+          this.filteredJobs = [];
+        } else {
+          this.errorMsg = "";
+          this.filteredJobs = [];
+          for (const item in data['result']) {
+            this.filteredJobs.push(data['result'][item]['string']);
+          }
+          
+        }
+        console.log(this.filteredJobs);
+      });
     this.jobItems.push(newFormGroup);
    }
 
@@ -329,7 +387,6 @@ export class LungFormQuestionsComponent implements OnInit {
     this.familyItems = this.familyDetails.get('familyDiagnoses') as FormArray;
     const leng = this.familyItems.length;
     this.familyItems.removeAt(leng-1);
-    console.log(this.familyDetails.get('familyDiagnoses') as FormArray);
    }
 
    get getOtherFamily () {
@@ -342,6 +399,10 @@ export class LungFormQuestionsComponent implements OnInit {
 
   getCancerForm (id: number) {
     return this.getOtherCancers['controls'][id] as FormGroup;
+  }
+
+  getJobForm (id: number) {
+    return this.getOtherJob['controls'][id] as FormGroup;
   }
 
   async ngOnInit() {
@@ -380,6 +441,45 @@ export class LungFormQuestionsComponent implements OnInit {
     this.expositionDetails.controls['averageCigarettes'].disable();
     this.expositionDetails.controls['extraOtherSusbtancesAnswer'].disable();
     this.expositionDetails.controls['extraDangerousSubstances'].disable();
+
+    this.jobDetails.controls['initialYearCurrentJob'].disable();
+    this.jobDetails.controls['currentJobDescription'].disable();
+    this.jobDetails.controls['currentJobProtections'].disable();
+
+    this.jobDetails.get('currentJobDescription')?.valueChanges
+      .pipe(
+        filter(res => {
+          return res !== null && res.length >= this.minLengthTerm
+        }),
+        // distinctUntilChanged(),
+        // debounceTime(500),
+        tap(() => {
+          this.errorMsg = "";
+          this.filteredJobs = [];
+          this.isLoading = true;
+        }),
+        switchMap(value => this.httpService.get(`https://young-hollows-40979.herokuapp.com/https://www.qualificalia.com/terms/cno/services.php?task=search&arg=${value}&output=json`)
+          .pipe(
+            finalize(() => {
+              this.isLoading = false
+            }),
+          )
+        )
+      )
+      .subscribe((data: any) => {
+        if (data['result'] == undefined) {
+          this.errorMsg = data['Error'];
+          this.filteredJobs = [];
+        } else {
+          this.errorMsg = "";
+          this.filteredJobs = [];
+          for (const item in data['result']) {
+            this.filteredJobs.push(data['result'][item]['string']);
+          }
+          
+        }
+        console.log(this.filteredJobs);
+      });
   }
 
   getDemographic() { this.demographicDetails.controls;}
@@ -507,7 +607,6 @@ export class LungFormQuestionsComponent implements OnInit {
       this.clinicDetails.controls['otherCancerType'].disable();
       this.clinicDetails.controls['otherCancerType'].setValue("");
     }
-    console.log(this.clinicDetails);
   }
 
   enableMutationType() {
@@ -579,7 +678,6 @@ export class LungFormQuestionsComponent implements OnInit {
   async getJobOptions() {
     const value = this.jobDetails.controls['currentJobDescription'].value;
     const response = await this.questionService.findJobs(value);
-    console.log(response);
   }
 
   enableOtherFamilyTypes(id: number) {
@@ -617,7 +715,6 @@ export class LungFormQuestionsComponent implements OnInit {
       fg.controls['otherTreatment'].disable();
       fg.controls['otherTreatment'].setValue("");
     }
-    console.log(type);
   }
 
   isDeadEnables(id: number){
@@ -715,5 +812,180 @@ export class LungFormQuestionsComponent implements OnInit {
       this.expositionDetails.controls['extraDangerousSubstances'].disable();
       this.expositionDetails.controls['extraDangerousSubstances'].setValue("");
     }
+  }
+
+  enableJobInfoFields() {
+    const answer = this.jobDetails.get('currentlyWorkingAnswer')?.value;
+    if (answer === 'Sí') {
+      this.jobDetails.controls['initialYearCurrentJob'].enable();
+      this.jobDetails.controls['currentJobDescription'].enable();
+      this.jobDetails.controls['currentJobProtections'].enable();
+    } else {
+      this.jobDetails.controls['initialYearCurrentJob'].disable();
+      this.jobDetails.controls['initialYearCurrentJob'].setValue('');
+      this.jobDetails.controls['currentJobDescription'].disable();
+      this.jobDetails.controls['currentJobDescription'].setValue('');
+      this.jobDetails.controls['currentJobProtections'].disable();
+    }
+  }
+
+  fillRequestData() {
+    const requestData = new formRequest();
+    // DEMOGRAPHIC DETAILS
+    requestData.demographicDetails.birthdate = this.demographicDetails.get('birthDate')?.value;
+    requestData.demographicDetails.sex = this.demographicDetails.get('gender')?.value;
+    requestData.demographicDetails.livingPlace.country = this.demographicDetails.get('residenceCountry')?.value;
+    requestData.demographicDetails.livingPlace.state = this.demographicDetails.get('residenceRegion')?.value;
+    requestData.demographicDetails.livingPlace.city = this.demographicDetails.get('residenceCity')?.value;
+    requestData.demographicDetails.livingPlace.postalCode = this.demographicDetails.get('residencePostCode')?.value;
+    requestData.demographicDetails.livingPlace.initialYear = this.demographicDetails.get('residenceInitialYears')?.value;
+
+    requestData.demographicDetails.bornPlace.country = this.demographicDetails.get('bornCountry')?.value;
+    requestData.demographicDetails.bornPlace.state = this.demographicDetails.get('bornRegion')?.value;
+    requestData.demographicDetails.bornPlace.city = this.demographicDetails.get('bornCity')?.value;
+    requestData.demographicDetails.bornPlace.postalCode = this.demographicDetails.get('bornPostCode')?.value;
+    requestData.demographicDetails.bornPlace.initialYear = this.demographicDetails.get('bornInitialYears')?.value;
+    requestData.demographicDetails.bornPlace.endYear = this.demographicDetails.get('bornEndYears')?.value;
+
+    // CLINIC DETAILS
+    requestData.clinicDetails.mainDiagnose.diagnoseYear = this.clinicDetails.get('yearDiagnose')?.value;
+    requestData.clinicDetails.mainDiagnose.cancerType = this.clinicDetails.get('cancerType')?.value == 'Otros' ? 
+    this.clinicDetails.get('otherCancerType')?.value : this.clinicDetails.get('cancerType')?.value;
+    requestData.clinicDetails.mainDiagnose.notListedCancerType = this.clinicDetails.get('cancerType')?.value == 'Otros' ? 
+      true : false;
+    requestData.clinicDetails.mainDiagnose.mutation = this.clinicDetails.get('mutationAnswer')?.value == 'Sí' ? true : false;
+    requestData.clinicDetails.mainDiagnose.mutationType = this.clinicDetails.get('mutationType')?.value == 'Otros' ? 
+    this.clinicDetails.get('otherMutationType')?.value : this.clinicDetails.get('mutationType')?.value;
+    requestData.clinicDetails.mainDiagnose.notListedMutationType = this.clinicDetails.get('mutationType')?.value == 'Otros' ? 
+      true : false;
+
+    requestData.clinicDetails.mainDiagnose.operatedCancer = this.clinicDetails.get('sugeryAnswer')?.value == 'Sí' ? true : false;
+    requestData.clinicDetails.mainDiagnose.operationYear = this.clinicDetails.get('sugeryAnswer')?.value == 'Sí' ? 
+      this.clinicDetails.get('surgeryYear')?.value : null;
+    requestData.clinicDetails.mainDiagnose.extraTreatment = this.clinicDetails.get('surgeryExtraTreatment')?.value;
+    requestData.clinicDetails.mainDiagnose.metastasis = this.clinicDetails.get('metastasisAnswer')?.value == 'Sí' ? true : false;
+    requestData.clinicDetails.mainDiagnose.metastasisYear = this.clinicDetails.get('metastasisAnswer')?.value == 'Sí' ?  this.clinicDetails.get('metastasisYear')?.value : null;
+    requestData.clinicDetails.mainDiagnose.metastasisTreatment = this.clinicDetails.get('metastasisAnswer')?.value == 'Sí' ?  this.clinicDetails.get('metastatisTreatment')?.value : null;
+    if (requestData.clinicDetails.mainDiagnose.metastasisTreatment == 'Otros') {
+      requestData.clinicDetails.mainDiagnose.metastasisTreatment = this.clinicDetails.get('otherMetastasisTreatment')?.value;
+      requestData.clinicDetails.mainDiagnose.notListedTreatment = true;
+    } else {
+      requestData.clinicDetails.mainDiagnose.notListedTreatment = false;
+    }
+    requestData.clinicDetails.mainDiagnose.noSurgeryTreatment = this.clinicDetails.get('noSurgeryTreatmentAnswer')?.value == 'No' ? null : this.clinicDetails.get('noSurgeryTreatmentAnswer')?.value;
+    if (requestData.clinicDetails.mainDiagnose.noSurgeryTreatment == 'Otros') {
+      requestData.clinicDetails.mainDiagnose.noSurgeryTreatment = this.clinicDetails.get('otherNonSurgeryTreatment')?.value;
+      requestData.clinicDetails.mainDiagnose.notListedNoSurgeryTreatment = true;
+    } else {
+      requestData.clinicDetails.mainDiagnose.notListedNoSurgeryTreatment = false;
+    }
+    requestData.clinicDetails.mainDiagnose.previousDiseases = this.clinicDetails.get('previousDiseases')?.value;
+    if (this.clinicDetails.get('otherPreviousDiseases')?.value != '') {
+      requestData.clinicDetails.mainDiagnose.previousDiseases.push(this.clinicDetails.get('otherPreviousDiseases')?.value);
+    }
+
+    this.getOtherCancers['controls'].forEach((value, index) => {
+      let diagnose = new Diagnose();
+      const fg = this.getCancerForm(index);
+      diagnose.cancerType = fg.get('type')?.value;
+      diagnose.diagnoseYear = fg.get('year')?.value;
+      diagnose.metastasis = fg.get('metastasis')?.value == 'Sí' ? true : false;
+      diagnose.metastasisYear = fg.get('metastasis')?.value == 'Sí' ? fg.get('metastasisYear')?.value : null;
+      diagnose.extraTreatment = fg.get('treatmentAnswer')?.value == 'Sí' ? fg.get('treatmentType')?.value : null;
+      requestData.clinicDetails.otherDiagnose.push(diagnose);
+    });
+
+    // EXPOSITION DETAILS
+
+    requestData.expositionDetails.smoker = this.expositionDetails.get('smokeAnswer')?.value == 'Sí' ? true : false;
+    requestData.expositionDetails.startAge = this.expositionDetails.get('smokeAnswer')?.value == 'Sí' ? this.expositionDetails.get('initialSmokeYear')?.value : null;
+    requestData.expositionDetails.endAge = this.expositionDetails.get('smokeAnswer')?.value == 'Sí' ? this.expositionDetails.get('endSmokeYear')?.value : null;
+    requestData.expositionDetails.avgCigarrettes = this.expositionDetails.get('smokeAnswer')?.value == 'Sí' ? this.expositionDetails.get('averageCigarettes')?.value : null;
+
+    requestData.expositionDetails.otherProducts = this.expositionDetails.get('otherSusbtancesAnswer')?.value;
+    if (this.expositionDetails.get('extraOtherSusbtancesAnswer')?.value != '') {
+      requestData.expositionDetails.otherProducts.push(this.expositionDetails.get('extraOtherSusbtancesAnswer')?.value);
+    }
+
+    requestData.expositionDetails.nearbyRoad = this.expositionDetails.get('residenceNearRoadAnswer')?.value == 'Sí' ?  true : false;
+
+    requestData.expositionDetails.expositions = this.expositionDetails.get('dangerousSubstances')?.value;
+    if (this.expositionDetails.get('extraDangerousSubstances')?.value != '') {
+      requestData.expositionDetails.expositions.push(this.expositionDetails.get('extraDangerousSubstances')?.value);
+    }
+
+    // JOB DETAILS
+
+    if (this.jobDetails.get('currentlyWorkingAnswer')?.value == 'Sí') {
+      const currentJob = new Job();
+      currentJob.currentJob = true;
+      currentJob.initialYear = this.jobDetails.get('initialYearCurrentJob')?.value;
+      currentJob.job = this.jobDetails.get('currentJobDescription')?.value;
+      currentJob.isProtected = this.jobDetails.get('currentJobProtections')?.value;
+      requestData.jobDetails.push(currentJob);
+    }
+
+    this.getOtherJob['controls'].forEach((value, index) => {
+      let job = new Job();
+      const fg = this.getJobForm(index);
+      job.currentJob = false;
+      job.initialYear = fg.get('initialYearJob')?.value;
+      job.endYear = fg.get('finalYearJob')?.value;
+      job.job = fg.get('jobDescription')?.value;
+      job.isProtected = fg.get('jobProtections')?.value;
+      requestData.jobDetails.push(job);
+    });
+
+
+    // FAMILY DETAILS 
+
+    this.getOtherFamily['controls'].forEach((value, index) => {
+      let familiar = new Familiar();
+      const fg = this.getFamilyForm(index);
+      familiar.relation = fg.get('relation')?.value;
+      familiar.survived = fg.get('isDead')?.value ? false : true;
+      if (familiar.survived) {
+        familiar.age = fg.get('age')?.value;
+      } else {
+        familiar.ageOfDeath = fg.get('deadDate')?.value;
+        familiar.cancerCause = fg.get('deadCause')?.value ? true: false;
+      }
+       familiar.diagnose.cancerType =  fg.get('cancerType')?.value;
+       if (familiar.diagnose.cancerType == 'Otros') {
+         familiar.diagnose.cancerType = fg.get('otherCancerType')?.value;
+       }
+
+       familiar.diagnose.metastasis = fg.get('hasMetastasis')?.value == 'Sí';
+
+       if (fg.get('hasTreatment')?.value == 'Sí') {
+         familiar.diagnose.extraTreatment = fg.get('treatmentType')?.value;
+         if (fg.get('otherTreatment')?.value != '') {
+          familiar.diagnose.extraTreatment.push(fg.get('otherTreatment')?.value)
+         }
+       }
+
+       requestData.familyDetails.push(familiar);
+    });
+    return requestData;
+ 
+  }
+
+  async submitForm() {
+    this.loadingSubmit = true;
+    try {
+      const requestData = this.fillRequestData();
+      console.log(requestData);
+      await this.questionService.communicateForm(requestData);
+      this.router.navigate(['/home', {successfullForm: true}]);
+    } catch (err) {
+      console.log(err);
+      this._snackBar.open('Error enviando el formulario', 'Cerrar', {
+        duration: 10000,
+        panelClass: ['purple-snack'],
+        horizontalPosition: 'right',
+        verticalPosition: 'bottom',
+      });
+    }
+    this.loadingSubmit = false;
   }
 }
