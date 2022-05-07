@@ -29,6 +29,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { ResearcherComponent } from './researcher/researcher.component';
 import {MatTableModule} from '@angular/material/table'
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { ChartModule } from 'angular2-chartjs';
+
 
 
 @NgModule({
@@ -39,7 +41,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     HomeComponent,
     LungFormQuestionsComponent,
     LoginComponent,
-    ResearcherComponent
+    ResearcherComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -63,7 +66,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatInputModule,
     MatSelectModule,
     MatTableModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    ChartModule
   ],
   providers: [
     LungFormQuestionsService,

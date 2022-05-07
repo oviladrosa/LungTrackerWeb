@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { CookieService } from "ngx-cookie-service";
 
 @Injectable({
@@ -29,7 +29,7 @@ export class UserService {
     //return this.http.get("http://localhost:3000/user");
   }
   getTableData() {
-    return this.http.get("http://localhost:3000/persons")
+    return this.http.get("http://localhost:3000/persons", {headers: new HttpHeaders().set('Authorization', this.getToken())});
   }
   getUser(){
     if(this.getToken()){
