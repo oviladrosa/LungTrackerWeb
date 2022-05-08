@@ -59,7 +59,7 @@ export class ResearcherComponent implements OnInit {
   optionsAgeRanges = {
     legend: {
       display: true,
-      position: 'bottom'
+      position: 'top'
     },
     responsive: true,
       title: {
@@ -77,12 +77,15 @@ export class ResearcherComponent implements OnInit {
         yAxes: [{
             display: true,
             gridLines: {
-                display:false
+                display:true
             },
             ticks : {
               beginAtZero : true
             }      
-        }]
+        }],
+        ticks: {
+          precision: 0
+        }
   }
   }
 

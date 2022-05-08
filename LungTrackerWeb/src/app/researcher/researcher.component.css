@@ -136,8 +136,7 @@ table {
 .inline-charts{
     display: flex;
     text-align: center;
-    padding: 5%;
-    margin-bottom: 4%;
+    padding: 4%;
 }
 
 tr:nth-child(odd) {
@@ -147,6 +146,10 @@ tr:nth-child(even) {
     background-color: #bcaadf;
 }
 .dashchart {
+    width: 50%;
+    height: 250px;
+}
+.dashchart2{
     width: 50%;
     height: 250px;
 }
