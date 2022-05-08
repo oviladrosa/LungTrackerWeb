@@ -1,9 +1,6 @@
-import { getLocaleDateFormat } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/UserService';
-import {MatTableModule} from '@angular/material/table'
-import{Person} from '../Person'
-import { Placeholder } from '@angular/compiler/src/i18n/i18n_ast';
+
 
 
 @Component({
@@ -41,28 +38,33 @@ export class ResearcherComponent implements OnInit {
   },
 }
 
-  typeCancerType = 'bar';
-  dataTypes = {
- 
-  labels: ["Tipo1", "Tipo2", "Tipo3", "Tipo4", "Tipo5"],
-  datasets: [
+  typeAgeRanges = 'bar';
+  dataAgeRanges = {
+    labels: ["Menor 18", "18 - 30", "31 - 50","51 - 70", "Mayor de 70"],
+    datasets: [
       {
-  
+        label: 'Mujeres',
         fill:'true',
-        backgroundColor: ['#ff0266','#81c784','#29b6f6','#8a3ab9', '#bc2a8d'],
-        data:[10,20,30,40,15]
+        backgroundColor: [' #F47174', '#F47174', '#F47174', '#F47174','#F47174'],
+        data:[]
+      },
+      {
+        label: 'Hombres',
+        fill:'true',
+        backgroundColor: ['#93CAED','#93CAED','#93CAED','#93CAED','#93CAED'],
+        data:[]
       }
     ]
   };
-  optionsTypes = {
-      responsive: true,
-      legend: {
-        display: false,
-        position: 'bottom'
-      },
+  optionsAgeRanges = {
+    legend: {
+      display: true,
+      position: 'bottom'
+    },
+    responsive: true,
       title: {
         display: true,
-        text: 'Tipos de tumor',       
+        text: 'Rangos de edad',       
       },
       scales: {
         xAxes: [
@@ -88,6 +90,35 @@ export class ResearcherComponent implements OnInit {
 
     this.getTableData();
     this.getLocalitzationChart();
+    this.getAgeRangesData();
+  }
+  getAgeRangesData() {
+    this.userService.getAgeRanges().subscribe((res:any)=>{
+      for(let range of res){
+        if(range["_id"]["grupo"] =="1b"){
+          this.dataAgeRanges.datasets[1].data.push(range["Total"])
+        }else if(range["_id"]["grupo"] =="1a"){
+          this.dataAgeRanges.datasets[0].data.push(range["Total"])
+        }else if(range["_id"]["grupo"] =="2a"){
+          this.dataAgeRanges.datasets[0].data.push(range["Total"])
+        }else if(range["_id"]["grupo"] =="2b"){
+          this.dataAgeRanges.datasets[1].data.push(range["Total"])
+        }else if(range["_id"]["grupo"] =="3a"){
+          this.dataAgeRanges.datasets[0].data.push(range["Total"])
+        }else if(range["_id"]["grupo"] =="3b"){
+          this.dataAgeRanges.datasets[1].data.push(range["Total"])
+        }else if(range["_id"]["grupo"] =="4a"){
+          this.dataAgeRanges.datasets[0].data.push(range["Total"])
+        }else if(range["_id"]["grupo"] =="4b"){
+          this.dataAgeRanges.datasets[1].data.push(range["Total"])
+        }else if(range["_id"]["grupo"] =="5a"){
+          this.dataAgeRanges.datasets[0].data.push(range["Total"])
+        }else if(range["_id"]["grupo"] =="5b"){
+          this.dataAgeRanges.datasets[1].data.push(range["Total"])
+        }
+      }
+      this.showGraphs[1]=true;
+    })
   }
   getTableData(){
     this.userService.getTableData().subscribe((res)=>{

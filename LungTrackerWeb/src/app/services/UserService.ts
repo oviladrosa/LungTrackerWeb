@@ -36,6 +36,10 @@ export class UserService {
   getLocalitzation() {
     return this.http.get("http://localhost:3000/livingPlaces?count=true", {headers: new HttpHeaders().set('Authorization', this.getToken())});
   }
+
+  getAgeRanges() {
+    return this.http.get("http://localhost:3000/persons/ageRanges", {headers: new HttpHeaders().set('Authorization', this.getToken())});
+  }
   getUser(){
     if(this.getToken()){
       return this.getToken();

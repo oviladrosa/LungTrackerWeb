@@ -5,15 +5,16 @@
     <div class="inline-charts">
         <chart *ngIf="showGraphs[0]" class="dashchart" [type]="typeLocalitzation" [data]="dataLocalitzation" 
         [options]="optionsLocalitzation"></chart>
+        <chart *ngIf="showGraphs[1]" class="dashchart" [type]="typeAgeRanges" [data]="dataAgeRanges" 
+        [options]="optionsAgeRanges"></chart>
+    </div>
+  <!--  <div class="inline-charts">
+        <chart class="dashchart" [type]="typeCancerType" [data]="dataTypes" 
+        [options]="optionsTypes"></chart>
         <chart class="dashchart" [type]="typeCancerType" [data]="dataTypes" 
         [options]="optionsTypes"></chart>
     </div>
-    <div class="inline-charts">
-        <chart class="dashchart" [type]="typeCancerType" [data]="dataTypes" 
-        [options]="optionsTypes"></chart>
-        <chart class="dashchart" [type]="typeCancerType" [data]="dataTypes" 
-        [options]="optionsTypes"></chart>
-    </div>
+    -->
     <h3> La siguiente tabla detalla todas las encuestas respondidas.</h3>
     <ng-container >
         <div style="overflow-x: auto;">
