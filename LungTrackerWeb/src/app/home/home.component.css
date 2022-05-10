@@ -84,6 +84,10 @@ span {
     line-height: 24px;
 }
 
+.card:hover {
+    background-color: gray;
+}
+
 .enviar {
     border-radius: 4px;
     background-color: rgb(0, 0, 0);
@@ -103,15 +107,16 @@ span {
 }
 
 .logo {
-    margin-right: 350px;
-    margin-bottom: 100px;
+    /* margin-right: 350px;
+    margin-bottom: 100px; */
 }
 
 .name-text {
-    font-size:30px;
-    font-weight: bold;
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size:50px;
+    font-weight: 400;
+    font-family: sans-serif;
     color:black;
+    margin-top: 50px;
 }
 
 .linia {
@@ -132,6 +137,35 @@ var {
     font-size: 10px;
     margin-top: 15px;
 }
+
+.user-photo {
+    border-radius: 50%;
+}
+
+@media (max-width: 959px) {
+    .principal-text {
+        text-align: center;
+    }
+}
+
+@media (max-width: 959px) {
+    .text-header {
+        margin: 0 !important;
+        width: 90%;
+    }
+}
+
+.content {
+    max-width: 100%;
+}
+
+
+@media (max-width: 600px) {
+    .list-object {
+        margin-top: 50px;
+    }
+}
+
 
 
 

@@ -1,20 +1,25 @@
 <div class="content" role="main" >
 
-  <div class="home"  fxLayout="row" fxLayoutAlign="space-between center">
-
-    <div class ="principal text"  fxLayoutGap="10px" fxLayout="column" fxLayoutAlign= "center start">
+  <div class="home"  fxLayout="row" fxLayout.lt-md="column" >
+    <div fxFlex="10" fxHide.lt-md="true"></div>
+    <div class = "logo" fxLayout="column" fxLayoutAlign= "center center" fxFlex="50" fxHide.gt-sm="true" style="margin-top: 60px">
+      <img
+      width="150"
+      alt="Lung Tracker Logo"
+      src="assets/images/lung_tracker_icon.png"  />
+      <br>
+      <span class="name-text mat-typography">Lung Tracker</span>
+    </div>
+    <div class ="principal-text"  fxLayoutGap="10px" fxLayout="column" fxLayoutAlign= "center start" fxLayoutAlign.lt-md="center center" fxFlex="40">
       <h1>Bienvenidos a 
-        <br>LungTracker 
-        <br>Web!</h1>
-      <p>Estas luchando contra el cáncer  
-          <br>de pulmón o ya lo has batido?
-          <br>Ayudanos en la recerca de  
-          <br>información mediante el siguiente 
-          <br>formulario:</p>
+        LungTracker 
+        Web!</h1>
+      <p class="text-header">Estas luchando contra el cáncer  de pulmón o ya lo has batido?
+          <br>Ayudanos en la recerca de  información mediante el siguiente formulario:</p>
 
-      <button mat-button class="card" (click)="lungForm()">Participa</button>
+      <button mat-raised-button class="card" (click)="lungForm()" >Participa</button>
 
-      <h2> Consulta las xarxas sociales 
+      <h2 class="text-header"> Consulta las xarxas sociales 
         <br>del equipo investigador!</h2>
 
       <div class="icons"   fxLayoutAlign="center center" >
@@ -30,18 +35,18 @@
 
   </div>
 
-  <div class = "logo" fxLayout="column" fxLayoutAlign= "center end">
+  <div class = "logo" fxLayout="column" fxLayoutAlign= "center center" fxFlex="50" fxHide.lt-md="true">
     <img
     width="150"
     alt="Lung Tracker Logo"
     src="assets/images/lung_tracker_icon.png"  />
     <br>
-    <span class="name-text">Lung Tracker</span>
+    <span class="name-text mat-typography">Lung Tracker</span>
   </div>
 </div>
 <div class = "about_us" fxLayoutGap="10px" fxLayout = "column" fxLayoutAlign = "start start">
   <h4>SOBRE NOSOTROS</h4>
-  <div class = "texto_us" fxLayout = "row" fxLayoutAlign = "start center">
+  <div class = "texto_us" fxLayout = "row" fxLayoutAlign = "start center" fxLayout.lt-md="column">
   <p>A pesar de que el cancer de pulmón se asocia al tabaquismo, la OMS identifica más de 120 causas 
     que provocan cáncer (carcionogenos)
   </p>
@@ -56,8 +61,8 @@
   <h4>NUESTRO OBJETIVO</h4>
   <p> Hacer partícipes a los pacientes de cáncer de pulmón en la investigación de esta enfermedad</p>
 
-  <div class = "iconos_obj" fxLayout="row" fxLayoutAlign="space-around center">
-    <div class="icon_1" fxFlex="33" fxLayout="column" fxLayoutAlign="space-between center">
+  <div class = "iconos_obj" fxLayout="row" fxLayoutAlign="space-around center" fxLayout.lt-sm="column">
+    <div class="icon_1 list-object" fxFlex="33" fxLayout="column" fxLayoutAlign="space-between center">
       <img
       width="120"
       alt="dades_logo"
@@ -67,7 +72,7 @@
       <p>Herramienta tecnológica para el equipo investigador de cáncer de pulmón mediante los datos proporcionados por los pacientes</p>
     </div>
 
-    <div class="icon_2" fxFlex="33" fxLayout="column" fxLayoutAlign="space-between center">
+    <div class="icon_2 list-object" fxFlex="33" fxLayout="column" fxLayoutAlign="space-between center">
       <img
       width ="100"
       alt="dades_logo"
@@ -76,7 +81,7 @@
       <p>Recoger datos de pacientes de càncer de pulmón para ayudar en la lucha.</p>
     </div>
 
-    <div class="icon_3" fxFlex="33" fxLayout="column" fxLayoutAlign="space-between center">
+    <div class="icon_3 list-object" fxFlex="33" fxLayout="column" fxLayoutAlign="space-between center">
       <img
       width="70"
       alt="dades_logo"
@@ -94,26 +99,30 @@
     <img
       width="150"
       alt="foto_oriol"
-      src="assets/images/oriolviladrosa.jpeg"  />
+      src="assets/images/oriolviladrosa.jpeg"
+      class="user-photo"  />
     <h6>Oriol Viladrosa</h6>
 
     <img
       width="150"
       alt="foto_dani"
-      src="assets/images/danielvega.jpeg"  />
+      src="assets/images/danielvega.jpeg" 
+      class="user-photo" />
       <h6>Daniel Vega</h6>
   </div>
   <div class="subequipo2" fxLayout="column" fxLayoutAlign="space-around center">
     <img
       width="150"
       alt="foto_marc"
-      src="assets/images/marcvizcaino.jpeg"  />
+      src="assets/images/marcvizcaino.jpeg"
+      class="user-photo"  />
     <h6>Marc Vizcaino</h6>
 
     <img
       width="150"
       alt="foto_roger"
-      src="assets/images/rogerhoms.jpeg"  />
+      src="assets/images/rogerhoms.jpeg"
+      class="user-photo"  />
       <h6>Roger Homs</h6>
   </div>
 
