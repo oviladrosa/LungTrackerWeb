@@ -43,7 +43,8 @@ import { ChartModule } from 'angular2-chartjs';
     HomeComponent,
     LungFormQuestionsComponent,
     LoginComponent,
-    ResearcherComponent
+    ResearcherComponent,
+    
   ],
   imports: [
     BrowserModule,
