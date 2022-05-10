@@ -23,11 +23,15 @@ import { MatStepperModule, MatStepper} from '@angular/material/stepper'
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {  MatInputModule } from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
+import { LungFormQuestionsService } from './lung-form/lung-form-questions/lung-form-questions-service';
 import { LoginComponent } from './login/login.component';
 import { CookieService } from 'ngx-cookie-service';
 import { ResearcherComponent } from './researcher/researcher.component';
 import {MatTableModule} from '@angular/material/table'
-
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { ChartModule } from 'angular2-chartjs';
 
 
 
@@ -39,7 +43,8 @@ import {MatTableModule} from '@angular/material/table'
     HomeComponent,
     LungFormQuestionsComponent,
     LoginComponent,
-    ResearcherComponent
+    ResearcherComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -62,10 +67,16 @@ import {MatTableModule} from '@angular/material/table'
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    MatTableModule
-    
+    MatTableModule,
+    MatCheckboxModule,
+    MatAutocompleteModule,
+    MatSnackBarModule,
+    ChartModule
   ],
-  providers: [CookieService],
+  providers: [
+    LungFormQuestionsService,
+    CookieService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

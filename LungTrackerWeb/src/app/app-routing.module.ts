@@ -5,13 +5,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { ResearcherComponent } from './researcher/researcher.component';
+import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'form', component: LungFormComponent },
   { path: 'form-questions', component: LungFormQuestionsComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'researcher', component: ResearcherComponent},
+  {path: 'researcher', component: ResearcherComponent,canActivate:[AuthGuard] },
   {  path: '**', redirectTo: 'home'},
 ];
 

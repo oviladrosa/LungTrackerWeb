@@ -23,8 +23,7 @@ export class LoginComponent implements OnInit {
       password: this.password
     }
     this.userService.login(user).subscribe((res: any)=>{
-      console.log(res)
-      this.userService.setToken(res.token);
+      this.userService.setToken(res.accessToken);
       this.router.navigateByUrl('/researcher');
     })
 
