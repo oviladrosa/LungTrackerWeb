@@ -24,7 +24,7 @@ export class LungFormQuestionsService {
 
     communicateForm(data: any): Promise<any> {
 
-        return this.httpService.post('https://young-hollows-40979.herokuapp.com/https://webhook.site/e81ac6a4-eb0a-4174-8f9a-13589500a6d7',data).toPromise();
+        return this.httpService.post('http://localhost:3000/upload',data).toPromise();
     }
 
 }

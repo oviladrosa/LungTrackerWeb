@@ -138,7 +138,7 @@ export class ResearcherComponent implements OnInit {
   }
   treatResponseForChart(res: any) {
     for(let i=0; i<res.length; i++){
-      this.dataLocalitzation.labels.push(res[i]["_id"])
+      this.dataLocalitzation.labels.push(res[i]["_id"]["name"])
       this.dataLocalitzation.datasets[0].data.push(res[i]["sum"])
       this.dataLocalitzation.datasets[0].backgroundColor.push("#"+Math.floor(Math.random()*16777215).toString(16))
     }

@@ -52,9 +52,10 @@
                         </span>-->
                     </th>
 
-                    <th>País</th>
+                   <!-- <th>País</th>-->
                     <th>Residencias</th>
                     <th>Exposición a tóxicos</th>
+                    <th>Vida laboral</th>
                     <th >
                         <span class="header-name">
                             <span style="margin-right: 18.5px;">
@@ -85,45 +86,51 @@
                         <td ><b>{{person._id}}</b></td>
                         <td ><b>{{person.sex}}</b></td>
                         <td ><b>{{person.age}}</b></td>
-                        <td ><b>{{person.country}}</b></td>
+                       <!-- <td ><b>{{person.country}}</b></td>-->
             
                         <td >
-                            <div *ngFor=" let place of person.livingplaces">
-                                <span *ngIf="place.yearOfEnd">{{place.yearOfStart}} -- {{place.yearOfEnd}}  </span>
-                                <span *ngIf="!place.yearOfEnd">{{place.yearOfStart}} -- Presente  </span>
+                            <div *ngFor=" let place of person.livingPlaces">
+                                <span *ngIf="place.yearOfEnd">({{place.yearOfStart}} -- {{place.yearOfEnd}})  </span>
+                                <span *ngIf="!place.yearOfEnd">({{place.yearOfStart}} -- Presente)  </span>
+                                <span>{{place.city.name}}  </span>
                                 <span>{{place.postalCode}}  </span>
-                                <span>{{place.city}}  </span>
-                                <span>{{place.country}}  </span>
+                                <span>({{place.country}})  </span>
                             </div>
                         </td >
                         <td>
-                            <span *ngIf="person.toxics.smoker && person.toxics.endAge==-1">
-                                Fumador desde los {{person.toxics.startAge}} años. Media de {{person.toxics.avgCigarrettes}}.
+                            <span *ngIf="person.expositionDetails[0].smoker && person.expositionDetails[0].endAge==-1">
+                                Fumador desde los {{person.expositionDetails[0].startAge}} años. Media de {{person.expositionDetails[0].avgCigarrettes}}.
                             </span>
-                            <span *ngIf="person.toxics.smoker && person.toxics.endAge!=-1">
-                                Exfumador desde los {{person.toxics.startAge}} años hasta los {{person.toxics.endAge}}  años. Media de {{person.toxics.avgCigarrettes}} cigarros.
+                            <span *ngIf="person.expositionDetails[0].smoker && person.expositionDetails[0].endAge!=-1">
+                                Exfumador desde los {{person.expositionDetails[0].startAge}} años hasta los {{person.expositionDetails[0].endAge}}  años. Media de {{person.expositionDetails[0].avgCigarrettes}} cigarros.
                             </span>
-                            <div *ngFor="let toxicPorduct of person.toxics.otherProducts">
+                            <div *ngFor="let toxicPorduct of person.expositionDetails[0].otherProducts">
                                 <span>{{toxicPorduct}}, </span>
                             </div>
-                            <span *ngIf="person.toxics.nearbyRoad ">
+                            <span *ngIf="person.expositionDetails[0].nearbyRoad ">
                                 Vive cerca de una carretera principal.
                             </span>
                         </td>
-                        <td > 
-                            <p>Diagnosticado en {{person.tumors[0].diagnoseYear}}</p>
-                            <p>Tumor de {{person.tumors[0].type}}</p>
-                            <p *ngIf="person.tumors[0].surgery"> Cirugía en {{person.tumors[0].surgery[0].year}} </p>
+                        <td>
+                            <p *ngFor="let job of person.jobDetails">
+                                Trabajando de {{job.job}}  ({{job.initialYear}} -- 
+                                    <span *ngIf="job.endYear==0">Presente</span>
+                                    <span *ngIf="job.endYear!=0">{{job.endYear}}</span>)
+                            </p>
                         </td>
                         <td > 
-                            <div *ngIf="person.tumors[1]">
-                                <p>Diagnosticado en {{person.tumors[0].diagnoseYear}}</p>
-                                <p>Tumor de {{person.tumors[0].type}}</p>
-                                <p *ngIf="person.tumors[0].surgery"> Cirugía en {{person.tumors[0].surgery[0].year}} </p>
+                            <p>Diagnosticado en {{person.mainDiagnose[0].diagnoseYear}}</p>
+                            <p>Tumor de {{person.mainDiagnose[0].type}}</p>
+                            <p *ngIf="person.mainDiagnose[0].metastasis">Metastasos desarrollada en {{person.mainDiagnose[0].metastasisYear}} y
+                                 tratado con tratamiento {{person.mainDiagnose[0].metastasisTreatment}}</p>
+                            <p *ngIf="person.mainDiagnose[0].operatedCancer"> Cirugía en {{person.mainDiagnose[0].operationYear}} </p>
+                        </td>
+                        <td > 
+                            <div *ngFor="let tumor of person.otherDiagnoses">
+                                <p>Diagnosticado en {{tumor.diagnoseYear}}</p>
+                                <p>Tumor de {{tumor.type}}</p>
+                                <p *ngIf="tumor.surgery"> Cirugía en {{person.tumors[0].surgery[0].year}} </p>
                             </div>  
-                            <div *ngIf="!person.tumors[1]">
-                                <p> --- </p>
-                            </div>
                         </td>
 
                     </tr>
