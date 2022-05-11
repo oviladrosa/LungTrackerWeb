@@ -30,6 +30,10 @@ export class AppComponent {
     this.userService.logOut();
     this.router.navigate(['/home']);
   }
+  goToMaps(){
+    this.router.navigate(['/maps']);
+    this.drawer.toggle()
+  }
 
   goToForm() {
     this.router.navigate(['/form']);
