@@ -51,10 +51,27 @@ h1, h2 {
     background-color: #9C6ADF;
 }
 
-.slide-toggles {
-    margin-left: 12%;
+@media (min-width: 960px) {
+    .slide-toggles {
+        margin-left: 20%;
+    }
 }
+
+@media (max-width: 960px) {
+    .slide-toggles {
+        margin-left: 10%;
+    }
+}
+
 
 .space-text {
     margin-left: 10px;
+}
+
+.half-circle {
+    background-color: #C9D3DD;
+    width: 100%;
+    height: 28px;
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
 }

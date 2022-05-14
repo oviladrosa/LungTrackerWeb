@@ -1,7 +1,14 @@
 <div style="width: 100%">
     <div style="width: 100%; height: 300px; background-color: #C9D3DD;" fxLayout="column" fxLayoutAlign="center center" >
         <h1 class="welcome-text">Bienvenido al formulario de LungTracker</h1>
-        <h2 class="light-text">Estás a punto de ayudar en la lucha contra el cáncer de pulmón!</h2>
+        <h2 class="light-text">¡Estás a punto de ayudar en la lucha contra el cáncer de pulmón!</h2>
+        <img
+            width="50px"
+            alt="Lung Tracker Logo"
+            src="assets/images/second_lung_form-trimmy.png"  />
+    </div>
+    <div class="half-circle">
+
     </div>
     <div fxLayout="column" style="width: 100%; margin-top: 50px; font-size: 16px;">
         <span style="margin-left: 10%;">Antes de empezar, nos gustaría que leyeras las siguientes afirmaciones y marques las casillas si estás de acuerdo:</span>
@@ -13,16 +20,16 @@
                 </div>
                 <div fxLayout="row" fxLayoutAlign="start center" class="slide-combo">
                     <mat-slide-toggle formControlName="secondQuestion"></mat-slide-toggle>
-                    <span class="space-text">Toda la informació aportada es verdadera e intentaré no aportar información falsa.</span>
+                    <span class="space-text">Toda la información aportada es verdadera e intentaré no aportar información falsa.</span>
                 </div>
                 <div fxLayout="row" fxLayoutAlign="start center" class="slide-combo">
                     <mat-slide-toggle formControlName="thirdQuestion"></mat-slide-toggle>
                     <span class="space-text">He sido/Soy paciente de cáncer de pulmón.</span>
                 </div>
             </div>
-            
+
         </form>
         <button mat-button style="width: 100px;" class="start-button" [disabled]="isDisabled()" (click)="startForm()">Empezar</button>
     </div>
-   
+
 </div>

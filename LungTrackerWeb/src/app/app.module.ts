@@ -32,6 +32,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { ChartModule } from 'angular2-chartjs';
+import { MapsComponent } from './maps/maps.component';
+import { HomeComponentService } from './home/home.component-service';
 
 
 
@@ -44,6 +46,7 @@ import { ChartModule } from 'angular2-chartjs';
     LungFormQuestionsComponent,
     LoginComponent,
     ResearcherComponent,
+    MapsComponent,
     
   ],
   imports: [
@@ -75,6 +78,7 @@ import { ChartModule } from 'angular2-chartjs';
   ],
   providers: [
     LungFormQuestionsService,
+    HomeComponentService,
     CookieService
   ],
   bootstrap: [AppComponent]

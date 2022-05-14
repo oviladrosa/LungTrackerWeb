@@ -33,6 +33,19 @@ export class UserService {
     return this.http.get("http://localhost:3000/persons", {headers: new HttpHeaders().set('Authorization', this.getToken())});
   }
 
+  downloadFile(data) {
+    const blob = new Blob([data], { type: 'text/json' });
+    const url= window.URL.createObjectURL(blob);
+    window.open(url);
+  }
+  getMutationTypes(){
+    return this.http.get("http://localhost:3000/tumors/mutationTypes", {headers: new HttpHeaders().set('Authorization', this.getToken())});
+  }
+
+  getExpositionsClassified(){
+    return this.http.get("http://localhost:3000/expositions/classified", {headers: new HttpHeaders().set('Authorization', this.getToken())});
+  }
+
   getLocalitzation() {
     return this.http.get("http://localhost:3000/livingPlaces?count=true", {headers: new HttpHeaders().set('Authorization', this.getToken())});
   }
