@@ -10,16 +10,18 @@
       <br>
       <span class="name-text mat-typography">Lung Tracker</span>
     </div>
-    <div class ="principal-text"  fxLayoutGap="10px" fxLayout="column" fxLayoutAlign= "center start" fxLayoutAlign.lt-md="center center" fxFlex="40">
-      <h1>Bienvenidos a 
+    <div class ="principal-text"   fxLayout="column" fxLayoutAlign= "center start" fxLayoutAlign.lt-md="center center" fxFlex="40">
+      <h1 class="welcome-text">Bienvenidos a 
         LungTracker 
         Web!</h1>
       <p class="text-header">Estas luchando contra el cáncer  de pulmón o ya lo has batido?
-          <br>Ayudanos en la recerca de  información mediante el siguiente formulario:</p>
+          <br>Ayudanos en la recopilación de información mediante el siguiente formulario:</p>
 
-      <button mat-raised-button class="card" (click)="lungForm()" >Participa</button>
+      <!-- <button mat-raised-button class="card" (click)="lungForm()" >Participa</button> -->
+      <a class="link dim br-pill ph3 pv2 dib white bg-black main-button" (click)="lungForm()">Participa</a>
 
-      <h2 class="text-header"> Consulta las xarxas sociales 
+
+      <h2 class="text-header"> Consulta las redes sociales 
         <br>del equipo investigador!</h2>
 
       <div class="icons"   fxLayoutAlign="center center" >
@@ -37,20 +39,29 @@
 
   <div class = "logo" fxLayout="column" fxLayoutAlign= "center center" fxFlex="50" fxHide.lt-md="true">
     <img
-    width="600px"
+    width="200px"
     alt="Lung Tracker Logo"
-    src="assets/images/second_lung_form.png"  />
+    src="assets/images/second_lung_form-trimmy.png" class="main-icon" />
     <br>
+    <div class="shadow">
+
+    </div>
     <!-- <span class="name-text mat-typography">Lung Tracker</span> -->
   </div>
 </div>
+<div class="half-circle">
+
+</div>
 <div class = "about_us" fxLayoutGap="10px" fxLayout = "column" fxLayoutAlign = "start start">
-  <h4>SOBRE NOSOTROS</h4>
-  <div class = "texto_us" fxLayout = "row" fxLayoutAlign = "start center" fxLayout.lt-md="column">
-  <p>A pesar de que el cancer de pulmón se asocia al tabaquismo, la OMS identifica más de 120 causas 
+  <div style="width: 100%" fxLayout="row" fxLayoutAlign="center center">
+    <h4>SOBRE NOSOTROS</h4>
+  </div>
+  
+  <div class = "texto_us" fxLayout = "row" fxLayoutAlign = "center center" fxLayout.lt-md="column">
+  <p fxFlex="40">A pesar de que el cancer de pulmón se asocia al tabaquismo, la OMS identifica más de 120 causas 
     que provocan cáncer (carcionogenos)
   </p>
-  <p>Mediante una recogida exhaustiva de datos e información obtenida previamente, se realizaran diferentes 
+  <p fxFlex="40">Mediante una recogida exhaustiva de datos e información obtenida previamente, se realizaran diferentes 
     estudios e analisis.
   </p>
 </div>
@@ -90,6 +101,31 @@
       <p>Ofrecer a los usuarios información personalizada sobre su situación.</p>
     </div>
 
+  </div>
+</div>
+<mat-divider></mat-divider>
+<div fxLayout="column" style="margin-bottom: 100px;">
+  <h4>INFORMACIÓN SOBRE EL SISTEMA</h4>
+  <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayout.lt-md="column" >
+    <div fxLayout="column" fxLayoutAlign.lt-md="center center">
+      <span class="info-text" style="width: 80%;">Han participado en la investigación del cáncer de pulmón:</span>
+     
+      <div fxLayout="row" fxLayoutAlign="center center" class="numbers-div">
+        <span class="info-text big-numbers padding-text">{{formsSubmitted}}</span>
+        <mat-icon class="big-numbers" style="color: #CDCDF5">person</mat-icon>
+      </div>
+    </div>
+    <div style="width: 100%; height: 100px" fxShow.lt-md="true" fxShow="false">
+
+    </div>
+    <div fxLayout="column" fxLayoutAlign.lt-md="center center">
+      <span class="info-text" >Los usuarios han valorado el sistema con un:</span>
+      <div fxLayout="row" fxLayoutAlign="center center"  class="numbers-div">
+        <span class="info-text big-numbers padding-text">{{avgSuggestMark}}</span>
+        <mat-icon class="big-numbers" style="color: #CDCDF5">star</mat-icon>
+      </div>
+      
+    </div>
   </div>
 </div>
 <mat-divider class="linia"></mat-divider>
@@ -135,15 +171,23 @@
 
 <div class="sugerencia">
   <h6>Tienes alguna sugerencia?</h6>
+  <form [formGroup]="suggestForm">
+
   <div class="textinputs" fxLayoutGap="10px" fxLayout="column" fxLayoutAlign="space-around center">
     <div class="inputs1" fxLayoutGap="10px" fxLayout="row" fxLayoutAlign="space-around center">
       <div class="name" fxLayoutGap="1px" fxLayout="column" fxLayoutAlign="space-around start">
         <h3>Nombre</h3>
-        <textarea id="nombre" placeholder="Tu nombre" rows="1" cols="25" ></textarea>
+        <mat-form-field appearance="outline" fxFlex.gt-sm="30">
+          <mat-label>Nombre</mat-label>
+          <textarea matInput id="nombre" placeholder="Tu nombre" rows="1" cols="25" formControlName="name" required></textarea>
+        </mat-form-field>
       </div>
       <div class="correo" fxLayoutGap="1px" fxLayout="column" fxLayoutAlign="space-around start">
         <h3>Correo electrónico</h3>
-        <textarea id="email" placeholder="Correo" rows="1" cols="25" ></textarea>
+        <mat-form-field appearance="outline" fxFlex.gt-sm="30">
+          <mat-label>Correo electrónico</mat-label>
+          <textarea matInput id="email" placeholder="Correo" rows="1" cols="25" formControlName="mail" required></textarea>
+        </mat-form-field>
        
       </div>
     </div>
@@ -151,40 +195,44 @@
     <div class ="valoracio" fxLayoutGap="10px" fxLayout="row" fxLayoutAlign="space-around start">
       <h3>Valora del 1 al 5 tu experiencia en la web</h3>
       <div class="rad1" fxLayout="column" fxLayoutAlign="center center">
-        <input type="radio" name="option" id="radio1"  />
+        <input type="radio" name="option" id="radio1" formControlName="option" value="1" />
         <label for="radio1">1</label><br />
       </div>
       <div class="rad1" fxLayout="column" fxLayoutAlign="center center">
-        <input type="radio" name="option" id="radio2"  />
+        <input type="radio" name="option" id="radio2" formControlName="option" value="2"/>
         <label for="radio2">2</label><br />
       </div>
       <div class="rad1" fxLayout="column" fxLayoutAlign="center center">
-        <input type="radio" name="option" id="radio3"  />
+        <input type="radio" name="option" id="radio3" formControlName="option" value="3"/>
         <label for="radio3">3</label><br />
       </div>
       <div class="rad1" fxLayout="column" fxLayoutAlign="center center">
-        <input type="radio" name="option" id="radio4"  />
+        <input type="radio" name="option" id="radio4" formControlName="option" value="4"/>
         <label for="radio4">4</label><br />
       </div>
       <div class="rad1" fxLayout="column" fxLayoutAlign="center center">
-        <input type="radio" name="option" id="radio5"  />
+        <input type="radio" name="option" id="radio5" formControlName="option" value="5"/>
         <label for="radio5">5</label><br />
       </div>
     </div>
     
-      <div class="inputs2" fxLayoutGap="1px" fxLayout="column" fxLayoutAlign="space-around start">
+      <div class="inputs2" fxLayoutGap="1px" fxLayout="column" fxLayoutAlign="space-around start" style="width: 300px;">
         <h3>Descripción</h3>
-        <textarea id="textdescription" rows="6" cols="51" style="font-size: 12px;"></textarea>
-
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <textarea matInput id="textdescription" placeholder="Descripción" style="font-size: 12px; height: 150px;" formControlName="description" required></textarea>
+        </mat-form-field>
         <div class="terminos" fxLayoutGap="10px" fxLayout="row" fxLayoutAlign="space-around start">
-          <input id="checkbox" type="checkbox">
+          <input id="checkbox" type="checkbox" formControlName="checkBox">
           <var>He leído y acepto los términos y condiciones</var>
         </div>
       </div>
-      <a class="enviar" target="_blank" rel="noopener" href="">
-        <span style="font-size:12px">Enviar</span>
-    </a>
+    <button mat-raised-button [disabled]="this.suggestForm.invalid || !this.suggestForm.get('checkBox').value" (click)="submitSuggest()"
+      class="suggest-button">
+      <div *ngIf="!loadingSuggestion">Enviar</div>
+      <mat-spinner *ngIf="loadingSuggestion" color="primary" [diameter]="30"> </mat-spinner>
+    </button>
   </div>
+  </form>
 </div>
 
 <mat-divider class="linia"></mat-divider>

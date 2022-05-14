@@ -33,6 +33,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { ChartModule } from 'angular2-chartjs';
 import { MapsComponent } from './maps/maps.component';
+import { HomeComponentService } from './home/home.component-service';
 
 
 
@@ -77,6 +78,7 @@ import { MapsComponent } from './maps/maps.component';
   ],
   providers: [
     LungFormQuestionsService,
+    HomeComponentService,
     CookieService
   ],
   bootstrap: [AppComponent]
