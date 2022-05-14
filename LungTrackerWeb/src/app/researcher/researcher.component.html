@@ -1,24 +1,24 @@
 <div class="table-div" >
-    
+
     <h1>Área investigadores:</h1>
-    <h3> En esta área se pueden consultar los resultados de las encuestas realizadas por pacientes de cancer de pulmón.</h3>
+    <h3> En esta área se pueden consultar los resultados de las encuestas realizadas por pacientes de cáncer de pulmón.</h3>
     <div class="inline-charts">
-        <chart *ngIf="showGraphs[1]" class="dashchart2" [type]="typeAgeRanges" [data]="dataAgeRanges" 
+        <chart *ngIf="showGraphs[1]" class="dashchart2" [type]="typeAgeRanges" [data]="dataAgeRanges"
         [options]="optionsAgeRanges"></chart>
-        <chart *ngIf="showGraphs[0]" class="dashchart" [type]="typeLocalitzation" [data]="dataLocalitzation" 
+        <chart *ngIf="showGraphs[0]" class="dashchart" [type]="typeLocalitzation" [data]="dataLocalitzation"
         [options]="optionsLocalitzation"></chart>
     </div>
     <div class="inline-charts">
-        <chart *ngIf="showGraphs[2]" class="dashchart" [type]="typeMutations" [data]="dataMutations" 
+        <chart *ngIf="showGraphs[2]" class="dashchart" [type]="typeMutations" [data]="dataMutations"
         [options]="optionsMutations"></chart>
-       <chart *ngIf="showGraphs[0]" class="dashchart" [type]="typeLocalitzation" [data]="dataLocalitzation" 
+       <chart *ngIf="showGraphs[0]" class="dashchart" [type]="typeLocalitzation" [data]="dataLocalitzation"
         [options]="optionsLocalitzation"></chart>
     </div>
-    
-    
+
+
     <h3> La siguiente tabla detalla todas las encuestas realizadas.</h3>
     <ng-container >
-        
+
         <div style="overflow-x: auto;">
             <!--Tabla con la información-->
             <table style="box-shadow: none">
@@ -89,7 +89,7 @@
                         <td ><b>{{person.sex}}</b></td>
                         <td ><b>{{person.age}}</b></td>
                        <!-- <td ><b>{{person.country}}</b></td>-->
-            
+
                         <td >
                             <div *ngFor=" let place of person.livingPlaces">
                                 <span *ngIf="place.yearOfEnd">({{place.yearOfStart}} -- {{place.yearOfEnd}})  </span>
@@ -115,24 +115,24 @@
                         </td>
                         <td>
                             <p *ngFor="let job of person.jobDetails">
-                                Trabajando de {{job.job}}  ({{job.initialYear}} -- 
+                                Trabajando de {{job.job}}  ({{job.initialYear}} --
                                     <span *ngIf="job.endYear==0">Presente</span>
                                     <span *ngIf="job.endYear!=0">{{job.endYear}}</span>)
                             </p>
                         </td>
-                        <td > 
+                        <td >
                             <p>Diagnosticado en {{person.mainDiagnose[0].diagnoseYear}}</p>
                             <p>Tumor de {{person.mainDiagnose[0].type}}</p>
                             <p *ngIf="person.mainDiagnose[0].metastasis">Metastasos desarrollada en {{person.mainDiagnose[0].metastasisYear}} y
                                  tratado con tratamiento {{person.mainDiagnose[0].metastasisTreatment}}</p>
                             <p *ngIf="person.mainDiagnose[0].operatedCancer"> Cirugía en {{person.mainDiagnose[0].operationYear}} </p>
                         </td>
-                        <td > 
+                        <td >
                             <div *ngFor="let tumor of person.otherDiagnoses">
                                 <p>Diagnosticado en {{tumor.diagnoseYear}}</p>
                                 <p>Tumor de {{tumor.type}}</p>
                                 <p *ngIf="tumor.surgery"> Cirugía en {{person.tumors[0].surgery[0].year}} </p>
-                            </div>  
+                            </div>
                         </td>
 
                     </tr>
@@ -140,5 +140,5 @@
             </table>
         </div>
     </ng-container>
-   
+
 </div>

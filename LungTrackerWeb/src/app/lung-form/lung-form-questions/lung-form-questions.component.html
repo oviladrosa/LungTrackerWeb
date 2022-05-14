@@ -24,9 +24,9 @@
                   <h2>Información personal</h2>
                   <div style="width: 100%;" fxLayout.gt-sm="row" fxLayout="column">
                     <mat-form-field appearance="outline" fxFlex.gt-sm="30">
-                        <mat-label>Data de naixement</mat-label>
+                        <mat-label>Fecha de nacimiento</mat-label>
                         <input matInput formControlName="birthDate" required type="date">
-                      
+
                       </mat-form-field>
                       <mat-form-field appearance="outline" fxFlex.gt-sm="30" fxFlexOffset.gt-sm="10">
                         <mat-label>Sexo</mat-label>
@@ -36,7 +36,7 @@
                         </select>
                       </mat-form-field>
                   </div>
-                  
+
                   <h2>Lugar de residencia</h2>
                   <div fxLayout="column" >
                     <div fxLayout="column" fxLayout.gt-sm="row">
@@ -46,7 +46,7 @@
                             <option value="" disabled>Indica el país</option>
                             <option *ngFor="let c of countries" [ngValue]="c">{{c.name}}</option>
                         </select>
-                      
+
                       </mat-form-field>
                       <div fxFlex="5" fxHide.lt-md="true"></div>
                       <mat-form-field appearance="outline" fxFlex.gt-sm="30" fxFlex="45">
@@ -55,17 +55,17 @@
                             <option value="" disabled>Indica la región</option>
                             <option *ngFor="let r of regions" [ngValue]="r">{{r.name}}</option>
                         </select>
-                      
+
                       </mat-form-field>
                       <div fxFlex="5" fxHide.lt-md="true"></div>
 
                       <mat-form-field appearance="outline" fxFlex.gt-sm="30" fxFlex="45">
                         <mat-label>Ciudad de residencia</mat-label>
                         <select  matNativeControl  formControlName="residenceCity" matInput>
-                            <option value="" disabled>Indica la ciutad</option>
+                            <option value="" disabled>Indica la ciudad</option>
                             <option *ngFor="let c of cities" [ngValue]="c">{{c.name}}</option>
                         </select>
-                      
+
                       </mat-form-field>
                     </div>
                     <div  fxLayout="column" fxLayout.gt-sm="row">
@@ -87,7 +87,7 @@
                       </mat-form-field>
                     </div>
                   </div>
-                  
+
 
                   <!-- Born Form Questions -->
                   <h2>Lugar de nacimiento</h2>
@@ -99,7 +99,7 @@
                             <option value="" disabled>Indica el país</option>
                             <option *ngFor="let c of bornCountries" [ngValue]="c">{{c.name}}</option>
                         </select>
-                      
+
                       </mat-form-field>
                       <div fxFlex="5" fxHide.lt-md="true"></div>
 
@@ -109,7 +109,7 @@
                             <option value="" disabled>Indica la región</option>
                             <option *ngFor="let r of bornRegions" [ngValue]="r">{{r.name}}</option>
                         </select>
-                      
+
                       </mat-form-field>
                       <div fxFlex="5" fxHide.lt-md="true"></div>
 
@@ -163,7 +163,7 @@
                         <option value="" disabled>Indica el tipo</option>
                         <option *ngFor="let t of cancerTypes" [ngValue]="t">{{t}}</option>
                       </select>
-                    
+
                     </mat-form-field>
                     <div fxFlex="5" fxHide.lt-md="true"></div>
 
@@ -172,7 +172,7 @@
                       <input matInput formControlName="otherCancerType" type="text">
                     </mat-form-field>
                   </div>
-                  
+
                   <h3>¿Sabe si se ha detectado alguna mutación en su tumor?</h3>
                   <div fxLayout="column" fxLayout.gt-sm="row">
                     <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="30">
@@ -245,7 +245,7 @@
                         </select>
                       </mat-form-field>
                     </div>
-                    
+
                     <mat-form-field appearance="outline" >
                       <mat-label>Otros tratamientos</mat-label>
                       <input matInput formControlName="otherMetastasisTreatment" type="text">
@@ -267,7 +267,7 @@
                       <input matInput formControlName="otherNonSurgeryTreatment" type="text">
                     </mat-form-field>
                   </div>
-                  
+
 
                   <h3>¿Le han diagnosticado alguna enfermedad pulmonar previa al cáncer de pulmón?</h3>
                   <div fxLayout="column">
@@ -281,7 +281,7 @@
                       <div fxFlex="45" fxHide.lt-md="true"></div>
 
                     </div>
-                    
+
                     <div fxLayout="row">
                       <mat-form-field appearance="outline" fxFlex.gt-sm="55" fxFlex="100">
                         <mat-label>Otros</mat-label>
@@ -291,7 +291,7 @@
                     </div>
 
                   </div>
-                  
+
 
                   <h2>Datos de otros tumores</h2>
                   <h3>Aparte del cáncer de pulmón, ¿se le ha diagnosticado otro tipo de cáncer?
@@ -304,14 +304,14 @@
                     </select>
                   </mat-form-field>
                   <div fxLayout="column">
-                    <span>Para cada tipo de càncer que haya experimentado añada una pestaña y rellene los datos relacionados.</span>
+                    <span>Para cada tipo de cáncer que haya experimentado añada una pestaña y rellene los datos relacionados.</span>
                     <div fxLayout="row" fxLayoutAlign="center center">
                       <button mat-button type="button" (click)="addCancerItem()" >Añadir</button>
                       <button mat-button type="button" (click)="deleteCancerItem()">Eliminar</button>
                     </div>
                   </div>
-                  
-                  
+
+
                   <div formArrayName="otherCancers"
                     *ngFor="let item of getOtherCancers['controls']; let i = index;"
                   class="cancerType">
@@ -327,13 +327,13 @@
                         </mat-form-field>
                         <div fxFlex="10"></div>
                         <mat-form-field appearance="outline">
-                          <mat-label>Año de diágnostico</mat-label>
+                          <mat-label>Año de diagnóstico</mat-label>
                           <input matInput formControlName="year" required type="number">
                         </mat-form-field>
                       </div>
                       <div fxLayout="row" fxLayout.lt-md="column">
                         <mat-form-field appearance="outline" >
-                          <mat-label>Ha desarrolado metastasis?</mat-label>
+                          <mat-label>Ha desarrollado metástasis?</mat-label>
                           <select  matNativeControl  formControlName="metastasis" matInput (change)="enableOtherCancerMetastasisYear(i)">
                             <option value="" disabled>Indica la respuesta</option>
                             <option *ngFor="let t of surgeryAnswers" [ngValue]="t">{{t}}</option>
@@ -341,13 +341,13 @@
                         </mat-form-field>
                         <div fxFlex="10"></div>
                         <mat-form-field appearance="outline">
-                          <mat-label>Año de la metastasis</mat-label>
+                          <mat-label>Año de la metástasis</mat-label>
                           <input matInput formControlName="metastasisYear" required type="number">
                         </mat-form-field>
                       </div>
                       <div fxLayout="row" fxLayout.lt-md="column">
                         <mat-form-field appearance="outline" >
-                          <mat-label>Ha realizado tratamiento?</mat-label>
+                          <mat-label>¿Ha realizado tratamiento?</mat-label>
                           <select  matNativeControl  formControlName="treatmentAnswer" matInput (change)="enableOtherCancerTreatments(i)">
                             <option value="" disabled>Indica la respuesta</option>
                             <option *ngFor="let t of surgeryAnswers" [ngValue]="t">{{t}}</option>
@@ -355,14 +355,14 @@
                         </mat-form-field>
                         <div fxFlex="10"></div>
                         <mat-form-field appearance="outline">
-                          <mat-label>Qué tipo de tratamiento?</mat-label>
+                          <mat-label>¿Qué tipo de tratamiento?</mat-label>
                           <select  matNativeControl  formControlName="treatmentType" matInput>
                             <option value="" disabled>Indica la respuesta</option>
                             <option *ngFor="let t of otherCancerTreatments" [ngValue]="t">{{t}}</option>
                           </select>
                         </mat-form-field>
                       </div>
-                    
+
                     </div>
                   </div>
 
@@ -404,7 +404,7 @@
                 </mat-form-field>
               </div>
 
-            
+
               <h3>¿Ha fumado otros productos?</h3>
               <div fxLayout="column">
                 <div fxLayout="row">
@@ -454,7 +454,7 @@
                   </mat-form-field>
                   <div fxFlex="45" fxHide.lt-md="true"></div>
                 </div>
-              
+
               </div>
               <div fxLayout="row" fxLayoutAlign="space-evenly center" style="margin-top: 50px;">
                 <button mat-raised-button matStepperPrevious (click)="this.previous()">Anterior</button>
@@ -478,15 +478,15 @@
                   <div fxFlex="5" fxHide.lt-md="true"></div>
                   <mat-form-field appearance="outline" fxFlex.gt-sm="40">
                     <mat-label>Puesto de trabajo</mat-label>
-                      <input 
-                      type="text" 
-                      placeholder="Entra el trabajo" 
+                      <input
+                      type="text"
+                      placeholder="Entra el trabajo"
                       formControlName="currentJobDescription"
                       matInput
                       [matAutocomplete]="auto">
                       <mat-autocomplete #auto="matAutocomplete" [panelWidth]="400">
-                          <mat-option 
-                              *ngFor="let option of filteredJobs" 
+                          <mat-option
+                              *ngFor="let option of filteredJobs"
                               [value]="option">
                             {{option}}
                         </mat-option>
@@ -502,9 +502,9 @@
                     <input matInput formControlName="initialYearCurrentJob" required type="number" >
                   </mat-form-field>
                   <div fxFlex="5" fxHide.lt-md="true"></div>
-    
+
                   <mat-checkbox formControlName="currentJobProtections" color="primary">¿Utilizaba medidas de protección (mascarillas, guantes…)?</mat-checkbox>
-                 
+
                 </div>
               <div fxLayout="column" style="margin-top: 50px;">
                   <span>¿Ha tenido trabajos previos? Para cada trabajo que haya tenido añada una pestaña y rellene los datos relacionados.</span>
@@ -513,35 +513,35 @@
                     <button mat-button type="button" (click)="deleteJobItem()">Eliminar</button>
                   </div>
                 </div>
-        
+
                 <div formArrayName="otherJobs"
                     *ngFor="let item of getOtherJob['controls']; let i = index;"
                    class="cancerType">
                     <div [formGroupName]="i" >
                       <h3>Trabajo {{i+1}}</h3>
                       <div fxLayout="column">
-    
+
                         <div fxLayout="row">
                           <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50">
                             <mat-label>Puesto de trabajo</mat-label>
-                            <input 
-                              type="text" 
-                              placeholder="Entra el trabajo" 
+                            <input
+                              type="text"
+                              placeholder="Entra el trabajo"
                               formControlName="jobDescription"
                               matInput
                               [matAutocomplete]="auto">
                               <mat-autocomplete #auto="matAutocomplete" [panelWidth]="400">
-                                  <mat-option 
-                                      *ngFor="let option of filteredJobs" 
+                                  <mat-option
+                                      *ngFor="let option of filteredJobs"
                                       [value]="option">
                                     {{option}}
                                 </mat-option>
                             </mat-autocomplete>
                           </mat-form-field>
                           <div fxFlex="50" fxHide.lt-md="true"></div>
-    
+
                         </div>
-                        
+
                         <div fxlayout="row">
                           <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50">
                             <mat-label>Año inicial</mat-label>
@@ -560,8 +560,8 @@
                     </div>
                   </div>
                 </div>
-        
-      
+
+
                <div fxLayout="row" fxLayoutAlign="space-evenly center" style="margin-top: 50px;">
                 <button mat-raised-button matStepperPrevious (click)="this.previous()">Anterior</button>
                 <button mat-raised-button matStepperNext (click)="this.next()" [disabled]="this.jobDetails.invalid">Siguiente</button>
@@ -580,9 +580,9 @@
                     <option value="" disabled>Respuesta</option>
                     <option *ngFor="let t of familyAnswers" [ngValue]="t">{{t}}</option>
                   </select>
-                
+
                 </mat-form-field>
-    
+
                 <div fxLayout="column" style="margin-top: 50px;">
                   <span>Para cada familiar diagnosticado que haya tenido añada una pestaña y rellene los datos relacionados.</span>
                   <div fxLayout="row" fxLayoutAlign="center center">
@@ -606,14 +606,14 @@
                       </mat-form-field>
                       <div fxFlex="10"></div>
                       <mat-checkbox formControlName="isDead" color="primary" (change)="isDeadEnables(i)">¿Ha fallecido?</mat-checkbox>
-    
+
                     </div>
-                    
+
                     <mat-form-field appearance="outline" *ngIf="!getFamilyForm(i).get('isDead')?.value">
                       <mat-label>Edad</mat-label>
                       <input matInput formControlName="age" required type="number">
                     </mat-form-field>
-    
+
                     <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign.gt-sm="start center">
                       <mat-form-field appearance="outline" *ngIf="getFamilyForm(i).get('isDead')?.value">
                         <mat-label>Edad defunción</mat-label>
@@ -622,8 +622,8 @@
                       <div fxFlex="10"></div>
                       <mat-checkbox style="margin-bottom: 20px" formControlName="deadCause" color="primary" *ngIf="getFamilyForm(i).get('isDead')?.value">Fallecimiento debido al cáncer</mat-checkbox>
                     </div>
-                    
-                    
+
+
                     <h3>Datos clínicos</h3>
                     <div fxLayout="column">
                       <div fxLayout="row" fxLayoutAlign="start center">
@@ -640,8 +640,8 @@
                           <input matInput formControlName="otherCancerType" type="text">
                         </mat-form-field>
                       </div>
-                      
-    
+
+
                       <span>¿Ha desarrollado metástasis?</span>
                       <div fxLayout="row">
                         <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="30">
@@ -653,8 +653,8 @@
                         </mat-form-field>
                         <div fxFlex="70" fxHide.lt-md="true"></div>
                       </div>
-                      
-    
+
+
                       <span>¿Ha realizado algún tipo de tratamiento para su otro cáncer?</span>
                       <div fxLayout="row">
                         <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="30">
@@ -666,7 +666,7 @@
                         </mat-form-field>
                         <div fxFlex="70" fxHide.lt-md="true"></div>
                       </div>
-    
+
                       <div fxLayout="column" fxLayout.gt-sm="row">
                         <mat-form-field appearance="fill" fxFlex="100" fxFlex.gt-sm="30">
                           <mat-label>Tratamientos</mat-label>
@@ -675,15 +675,15 @@
                           </mat-select>
                         </mat-form-field>
                         <div fxFlex="5" fxHide.lt-md="true"></div>
-    
+
                         <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="30">
                           <mat-label>Otros tipos</mat-label>
                           <input matInput formControlName="otherTreatment" type="text">
                         </mat-form-field>
                       </div>
-                  
+
                     </div>
-                  
+
                   </div>
                 </div>
                 <div style="width: 100%; margin-top: 50px;" fxLayout="row" fxLayoutAlign="center center">
@@ -698,6 +698,6 @@
 
 
    </mat-horizontal-stepper>
-   
+
  </div>
 </div>
