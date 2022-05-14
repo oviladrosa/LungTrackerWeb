@@ -88,13 +88,54 @@ export class ResearcherComponent implements OnInit {
         }
   }
   }
+  typeMutations = 'pie';
+  dataMutations = {
+    labels: [],
+    datasets: [
+      {
+        fill:'true',
+        backgroundColor: [],
+        data:[]
+      }
+    ]
+  };
+  optionsMutations = {
+    legend: {
+      display: true,
+      position: 'bottom'
+    },
+  responsive: true,
+  maintainAspectRatio: false,
+  title: {
+    display: true,
+    text: 'Mutaciones más comunes',       
+  },
+}
+
 
   ngOnInit(): void {
 
     this.getTableData();
     this.getLocalitzationChart();
     this.getAgeRangesData();
+    this.getMutationTypes();
   }
+
+  getMutationTypes(){
+    this.userService.getMutationTypes().subscribe((res:any)=>{
+      for(let i=0; i<res.length; i++){
+        if(res[i]["_id"]["mutation"]==""){
+          this.dataMutations.labels.push("NS/NC");
+        }else{
+          this.dataMutations.labels.push(res[i]["_id"]["mutation"])
+        }
+        this.dataMutations.datasets[0].data.push(res[i]["Total"])
+        this.dataMutations.datasets[0].backgroundColor.push("#"+Math.floor(Math.random()*16777215).toString(16))
+      }
+      this.showGraphs[2]=true;
+    })
+  }
+  
   getAgeRangesData() {
     this.userService.getAgeRanges().subscribe((res:any)=>{
       for(let range of res){
