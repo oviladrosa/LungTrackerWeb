@@ -9,10 +9,10 @@
         [options]="optionsLocalitzation"></chart>
     </div>
     <div class="inline-charts">
+       <chart *ngIf="showGraphs[3]" class="dashchart" [type]="typeExpositions" [data]="dataExpositions"
+        [options]="optionsExpositions"></chart>
         <chart *ngIf="showGraphs[2]" class="dashchart" [type]="typeMutations" [data]="dataMutations"
         [options]="optionsMutations"></chart>
-       <chart *ngIf="showGraphs[0]" class="dashchart" [type]="typeLocalitzation" [data]="dataLocalitzation"
-        [options]="optionsLocalitzation"></chart>
     </div>
 
 
