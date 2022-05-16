@@ -12,7 +12,7 @@ export class UserService {
 
 
   login(user: any): any{
-    return this.http.post("http://localhost:3000/auth", user);
+    return this.http.post("https://young-hollows-40979.herokuapp.com/https://apiclinic.herokuapp.com/auth", user);
   }
   setToken(token: string) {
     this.cookies.set("token", token);
@@ -30,7 +30,7 @@ export class UserService {
     //return this.http.get("http://localhost:3000/user");
   }
   getTableData() {
-    return this.http.get("http://localhost:3000/persons", {headers: new HttpHeaders().set('Authorization', this.getToken())});
+    return this.http.get("https://young-hollows-40979.herokuapp.com/https://apiclinic.herokuapp.com/persons", {headers: new HttpHeaders().set('Authorization', this.getToken())});
   }
 
   downloadFile(data) {
@@ -39,19 +39,20 @@ export class UserService {
     window.open(url);
   }
   getMutationTypes(){
-    return this.http.get("http://localhost:3000/tumors/mutationTypes", {headers: new HttpHeaders().set('Authorization', this.getToken())});
+
+    return this.http.get("https://young-hollows-40979.herokuapp.com/https://apiclinic.herokuapp.com/tumors/mutationTypes", {headers: new HttpHeaders().set('Authorization', this.getToken())});
   }
 
   getExpositionsClassified(){
-    return this.http.get("http://localhost:3000/expositions/classified", {headers: new HttpHeaders().set('Authorization', this.getToken())});
+    return this.http.get("https://young-hollows-40979.herokuapp.com/https://apiclinic.herokuapp.com/expositions/classified", {headers: new HttpHeaders().set('Authorization', this.getToken())});
   }
 
   getLocalitzation() {
-    return this.http.get("http://localhost:3000/livingPlaces?count=true", {headers: new HttpHeaders().set('Authorization', this.getToken())});
+    return this.http.get("https://young-hollows-40979.herokuapp.com/https://apiclinic.herokuapp.com/livingPlaces?count=true", {headers: new HttpHeaders().set('Authorization', this.getToken())});
   }
 
   getAgeRanges() {
-    return this.http.get("http://localhost:3000/persons/ageRanges", {headers: new HttpHeaders().set('Authorization', this.getToken())});
+    return this.http.get("https://young-hollows-40979.herokuapp.com/https://apiclinic.herokuapp.com/persons/ageRanges", {headers: new HttpHeaders().set('Authorization', this.getToken())});
   }
   getUser(){
     if(this.getToken()){
