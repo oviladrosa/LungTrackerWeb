@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { UserService } from '../services/UserService';
 
 
@@ -10,9 +11,9 @@ import { UserService } from '../services/UserService';
 })
 export class ResearcherComponent implements OnInit {
 
-  constructor(public userService : UserService) { }
+  constructor(public userService : UserService, private sanitizer: DomSanitizer) { }
   persons :any=[];
-  mainResidence :any=[];
+  downloadJsonHref;
   showGraphs = [false,false,false,false];
   typeLocalitzation = 'pie';
   dataLocalitzation = {
@@ -256,6 +257,8 @@ optionsExpositions = {
     }
     this.showGraphs[0]=true;
   }
+
+
 
 
 }
