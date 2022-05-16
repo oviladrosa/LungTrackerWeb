@@ -80,8 +80,14 @@ export class ResearcherComponent implements OnInit {
                 display:true
             },
             ticks : {
-              beginAtZero : true
-            }      
+              beginAtZero : true,
+              userCallback: function(label, index, labels) {
+                // when the floored value is the same as the value we have a whole number
+                if (Math.floor(label) === label) {
+                    return label;
+                }
+              } 
+            },   
         }],
         ticks: {
           precision: 0
@@ -112,6 +118,59 @@ export class ResearcherComponent implements OnInit {
   },
 }
 
+typeExpositions = 'bar';
+dataExpositions = {
+  labels: [],
+  datasets: [
+    {
+      label: 'Exposiciones',
+      fill:'true',
+      backgroundColor: [],
+      data:[]
+    }
+  ]
+};
+optionsExpositions = {
+  legend: {
+    display: true,
+    position: 'top'
+  },
+  responsive: true,
+    title: {
+      display: true,
+      text: 'Exposiciones a cancerigenos más comunes',       
+    },
+    scales: {
+      xAxes: [
+        { 
+          display: true,
+          gridLines: {
+              display:false
+          }
+              }],
+      yAxes: [{
+          display: true,
+          gridLines: {
+              display:true
+          },
+          ticks : {
+            beginAtZero : true,
+            userCallback: function(label, index, labels) {
+              // when the floored value is the same as the value we have a whole number
+              if (Math.floor(label) === label) {
+                  return label;
+              }
+            } 
+          },
+          
+             
+      }],
+      ticks: {
+        precision: 0
+      }
+}
+}
+
 
   ngOnInit(): void {
 
@@ -119,6 +178,7 @@ export class ResearcherComponent implements OnInit {
     this.getLocalitzationChart();
     this.getAgeRangesData();
     this.getMutationTypes();
+    this.getExpositions();
   }
 
   getMutationTypes(){
@@ -168,6 +228,17 @@ export class ResearcherComponent implements OnInit {
     this.userService.getTableData().subscribe((res)=>{
       this.persons=res;
      
+    });
+  }
+
+  getExpositions(){
+    this.userService.getExpositionsClassified().subscribe((res:any)=>{
+      for(let i=0; i<res.length; i++){
+        this.dataExpositions.labels.push(res[i]["_id"]["expositions"])
+        this.dataExpositions.datasets[0].data.push(res[i]["Total"])
+        this.dataExpositions.datasets[0].backgroundColor.push("#a8c7a3")
+      }
+      this.showGraphs[3]=true;
     });
   }
 
