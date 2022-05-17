@@ -202,7 +202,7 @@ export class LungFormQuestionsComponent implements OnInit {
               private httpService: HttpClient,
               private _snackBar: MatSnackBar,
               private router: Router) {
-                
+
     this.demographicDetails = this.formBuilder.group({
       birthDate: ['', Validators.required],
       gender: ['', Validators.required],
@@ -250,7 +250,7 @@ export class LungFormQuestionsComponent implements OnInit {
       extraOtherSusbtancesAnswer: ['', Validators.required],
       residenceNearRoadAnswer: ['', Validators.required],
       dangerousSubstances: ['', Validators.required], // multiplechoice
-      extraDangerousSubstances: ['', Validators.required] 
+      extraDangerousSubstances: ['', Validators.required]
     });
     this.jobDetails = this.formBuilder.group({
       currentlyWorkingAnswer: ['', Validators.required],
@@ -354,7 +354,7 @@ export class LungFormQuestionsComponent implements OnInit {
           for (const item in data['result']) {
             this.filteredJobs.push(data['result'][item]['string']);
           }
-          
+
         }
         console.log(this.filteredJobs);
       });
@@ -418,7 +418,7 @@ export class LungFormQuestionsComponent implements OnInit {
       // this.countries = [];
       // for (const c of resCountries) {
       //   this.countries.push(c);
-      // } 
+      // }
       // this.countries.sort();
       this.countries = Country.getAllCountries();
       this.bornCountries = Country.getAllCountries();
@@ -476,7 +476,7 @@ export class LungFormQuestionsComponent implements OnInit {
           for (const item in data['result']) {
             this.filteredJobs.push(data['result'][item]['string']);
           }
-          
+
         }
         console.log(this.filteredJobs);
       });
@@ -732,7 +732,7 @@ export class LungFormQuestionsComponent implements OnInit {
   }
 
   enableOtherPreviousDisease() {
-    
+
     const type = this.clinicDetails.get('previousDiseases')?.value;
     let other = false;
     for (const value of type) {
@@ -749,7 +749,7 @@ export class LungFormQuestionsComponent implements OnInit {
   enableOtherCancerMetastasisYear(id: number) {
     const fg = this.getCancerForm(id);
     const type = fg.get('metastasis')?.value;
-    
+
     if (type === 'Sí') {
       fg.controls['metastasisYear'].enable();
     } else {
@@ -761,7 +761,7 @@ export class LungFormQuestionsComponent implements OnInit {
   enableOtherCancerTreatments(id: number) {
     const fg = this.getCancerForm(id);
     const type = fg.get('treatmentAnswer')?.value;
-    
+
     if (type === 'Sí') {
       fg.controls['treatmentType'].enable();
     } else {
@@ -849,18 +849,18 @@ export class LungFormQuestionsComponent implements OnInit {
 
     // CLINIC DETAILS
     requestData.clinicDetails.mainDiagnose.diagnoseYear = this.clinicDetails.get('yearDiagnose')?.value;
-    requestData.clinicDetails.mainDiagnose.cancerType = this.clinicDetails.get('cancerType')?.value == 'Otros' ? 
+    requestData.clinicDetails.mainDiagnose.cancerType = this.clinicDetails.get('cancerType')?.value == 'Otros' ?
     this.clinicDetails.get('otherCancerType')?.value : this.clinicDetails.get('cancerType')?.value;
-    requestData.clinicDetails.mainDiagnose.notListedCancerType = this.clinicDetails.get('cancerType')?.value == 'Otros' ? 
+    requestData.clinicDetails.mainDiagnose.notListedCancerType = this.clinicDetails.get('cancerType')?.value == 'Otros' ?
       true : false;
     requestData.clinicDetails.mainDiagnose.mutation = this.clinicDetails.get('mutationAnswer')?.value == 'Sí' ? true : false;
-    requestData.clinicDetails.mainDiagnose.mutationType = this.clinicDetails.get('mutationType')?.value == 'Otros' ? 
+    requestData.clinicDetails.mainDiagnose.mutationType = this.clinicDetails.get('mutationType')?.value == 'Otros' ?
     this.clinicDetails.get('otherMutationType')?.value : this.clinicDetails.get('mutationType')?.value;
-    requestData.clinicDetails.mainDiagnose.notListedMutationType = this.clinicDetails.get('mutationType')?.value == 'Otros' ? 
+    requestData.clinicDetails.mainDiagnose.notListedMutationType = this.clinicDetails.get('mutationType')?.value == 'Otros' ?
       true : false;
 
     requestData.clinicDetails.mainDiagnose.operatedCancer = this.clinicDetails.get('sugeryAnswer')?.value == 'Sí' ? true : false;
-    requestData.clinicDetails.mainDiagnose.operationYear = this.clinicDetails.get('sugeryAnswer')?.value == 'Sí' ? 
+    requestData.clinicDetails.mainDiagnose.operationYear = this.clinicDetails.get('sugeryAnswer')?.value == 'Sí' ?
       this.clinicDetails.get('surgeryYear')?.value : null;
     requestData.clinicDetails.mainDiagnose.extraTreatment = this.clinicDetails.get('surgeryExtraTreatment')?.value;
     requestData.clinicDetails.mainDiagnose.metastasis = this.clinicDetails.get('metastasisAnswer')?.value == 'Sí' ? true : false;
@@ -937,7 +937,7 @@ export class LungFormQuestionsComponent implements OnInit {
     });
 
 
-    // FAMILY DETAILS 
+    // FAMILY DETAILS
 
     this.getOtherFamily['controls'].forEach((value, index) => {
       let familiar = new Familiar();
@@ -967,7 +967,7 @@ export class LungFormQuestionsComponent implements OnInit {
        requestData.familyDetails.push(familiar);
     });
     return requestData;
- 
+
   }
 
   async submitForm() {
@@ -976,7 +976,18 @@ export class LungFormQuestionsComponent implements OnInit {
       const requestData = this.fillRequestData();
       console.log(requestData);
       await this.questionService.communicateForm(requestData);
-      this.router.navigate(['/home', {successfullForm: true}]);
+      console.log(requestData.demographicDetails.livingPlace.city['latitude']);
+      console.log(requestData.demographicDetails.livingPlace.city['longitude']);
+      console.log(requestData.demographicDetails.livingPlace.country['name']);
+      await this.router.navigate(['/contaminants'],
+        {
+                queryParams:
+                  {
+                    latitude: requestData.demographicDetails.livingPlace.city['latitude'],
+                    longitude: requestData.demographicDetails.livingPlace.city['longitude'],
+                    country: requestData.demographicDetails.livingPlace.country['name']
+                  }
+              });
     } catch (err) {
       console.log(err);
       this._snackBar.open('Error enviando el formulario', 'Cerrar', {
