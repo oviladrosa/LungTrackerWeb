@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { UserService } from '../services/UserService';
+import * as fileSaver from 'file-saver';
 
 
 
@@ -249,6 +250,15 @@ optionsExpositions = {
 
     })
   }
+  exportPersonsToJSON(){
+    this.downloadFile( this.persons)
+  }
+  private downloadFile(persons) {
+    const blob = new Blob([JSON.stringify(persons, null, 2)], {type: 'application/json'});
+    fileSaver.saveAs(blob, 'resultados.json');
+
+  }
+
   treatResponseForChart(res: any) {
     for(let i=0; i<res.length; i++){
       this.dataLocalitzation.labels.push(res[i]["_id"]["name"])

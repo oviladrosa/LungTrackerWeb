@@ -138,6 +138,13 @@ table {
     text-align: center;
     padding: 4%;
 }
+.inline-charts-bottom{
+    display: flex;
+    text-align: center;
+    padding: 4%;
+    margin-bottom: 3%;
+}
+
 
 tr:nth-child(odd) {
     background-color: #e2e2e2;
