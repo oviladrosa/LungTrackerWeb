@@ -34,6 +34,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { ChartModule } from 'angular2-chartjs';
 import { MapsComponent } from './maps/maps.component';
 import { HomeComponentService } from './home/home.component-service';
+import { PatientContaminantsStationsComponent } from './patient-contaminants-stations/patient-contaminants-stations.component';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 
 
@@ -47,7 +49,7 @@ import { HomeComponentService } from './home/home.component-service';
     LoginComponent,
     ResearcherComponent,
     MapsComponent,
-    
+    PatientContaminantsStationsComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +76,8 @@ import { HomeComponentService } from './home/home.component-service';
     MatCheckboxModule,
     MatAutocompleteModule,
     MatSnackBarModule,
-    ChartModule
+    ChartModule,
+    MatExpansionModule
   ],
   providers: [
     LungFormQuestionsService,
