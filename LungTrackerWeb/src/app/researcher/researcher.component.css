@@ -13,12 +13,7 @@ td {
 
 }
 
-table {
-    width: 100%;    /* row spacing / margin */
-    border-spacing: 0 8px !important;
-    text-align: center;
-    margin-bottom: 400px;
-} 
+
 .container {
     display: flex;
     justify-content: left;
@@ -126,18 +121,24 @@ thead {
 table {
     border-collapse: collapse;
     border-radius: 8px;
+    border-spacing: 0 8px !important;
     overflow: hidden;
     width: 100%;
     text-align: center;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-   
-   
 }
 .inline-charts{
     display: flex;
     text-align: center;
     padding: 4%;
 }
+.inline-charts-bottom{
+    display: flex;
+    text-align: center;
+    padding: 4%;
+    margin-bottom: 3%;
+}
+
 
 tr:nth-child(odd) {
     background-color: #e2e2e2;

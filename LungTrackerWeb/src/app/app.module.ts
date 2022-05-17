@@ -36,6 +36,7 @@ import { MapsComponent } from './maps/maps.component';
 import { HomeComponentService } from './home/home.component-service';
 import { PatientContaminantsStationsComponent } from './patient-contaminants-stations/patient-contaminants-stations.component';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 
@@ -49,7 +50,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
     LoginComponent,
     ResearcherComponent,
     MapsComponent,
-    PatientContaminantsStationsComponent
+
   ],
   imports: [
     BrowserModule,
@@ -77,7 +78,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatAutocompleteModule,
     MatSnackBarModule,
     ChartModule,
-    MatExpansionModule
+    MatExpansionModule,
+    NgxPaginationModule
   ],
   providers: [
     LungFormQuestionsService,

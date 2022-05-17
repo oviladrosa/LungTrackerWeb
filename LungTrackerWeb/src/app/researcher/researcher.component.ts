@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { UserService } from '../services/UserService';
-
+import * as fileSaver from 'file-saver';
 
 
 @Component({
@@ -10,9 +9,11 @@ import { UserService } from '../services/UserService';
   styleUrls: ['./researcher.component.css']
 })
 export class ResearcherComponent implements OnInit {
-
-  constructor(public userService : UserService, private sanitizer: DomSanitizer) { }
+  p: number = 1;
+  count: number = 5;
+  constructor(public userService : UserService) { }
   persons :any=[];
+ 
   downloadJsonHref;
   showGraphs = [false,false,false,false];
   typeLocalitzation = 'pie';
@@ -249,6 +250,15 @@ optionsExpositions = {
 
     })
   }
+  exportPersonsToJSON(){
+    this.downloadFile( this.persons)
+  }
+  private downloadFile(persons) {
+    const blob = new Blob([JSON.stringify(persons, null, 2)], {type: 'application/json'});
+    fileSaver.saveAs(blob, 'resultados.json');
+
+  }
+
   treatResponseForChart(res: any) {
     for(let i=0; i<res.length; i++){
       this.dataLocalitzation.labels.push(res[i]["_id"]["name"])
