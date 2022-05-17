@@ -76,13 +76,13 @@
                       <div fxFlex="5" fxHide.lt-md="true"></div>
 
                       <mat-form-field appearance="outline" fxFlex.gt-sm="30" fxFlex="45">
-                        <mat-label>Año inicial</mat-label>
+                        <mat-label>Año inicial de residencia</mat-label>
                         <input matInput formControlName="residenceInitialYears" required type="number">
                       </mat-form-field>
                       <div fxFlex="5" fxHide.lt-md="true"></div>
 
                       <mat-form-field appearance="outline" fxFlex.gt-sm="30" fxFlex="45">
-                        <mat-label>Año final</mat-label>
+                        <mat-label>Año final de residencia</mat-label>
                         <input matInput formControlName="residenceEndYears" required type="number">
                       </mat-form-field>
                     </div>
@@ -90,7 +90,7 @@
 
 
                   <!-- Born Form Questions -->
-                  <h2>Lugar de nacimiento</h2>
+                  <h2>Lugar de nacimiento o primera residencia importante</h2>
                   <div fxLayout="column" >
                     <div fxLayout="column" fxLayout.gt-sm="row">
                       <mat-form-field appearance="outline" fxFlex.gt-sm="30" fxFlex="45">
@@ -129,13 +129,13 @@
                         <div fxFlex="5" fxHide.lt-md="true"></div>
 
                         <mat-form-field appearance="outline" fxFlex.gt-sm="30" fxFlex="45">
-                          <mat-label>Año inicial</mat-label>
+                          <mat-label>Año inicial de residencia</mat-label>
                           <input matInput formControlName="bornInitialYears" required type="number">
                         </mat-form-field>
                         <div fxFlex="5" fxHide.lt-md="true"></div>
 
                         <mat-form-field appearance="outline" fxFlex.gt-sm="30" fxFlex="45">
-                          <mat-label>Año final</mat-label>
+                          <mat-label>Año final de residencia</mat-label>
                           <input matInput formControlName="bornEndYears" required type="number">
                         </mat-form-field>
                     </div>
@@ -333,7 +333,7 @@
                       </div>
                       <div fxLayout="row" fxLayout.lt-md="column">
                         <mat-form-field appearance="outline" >
-                          <mat-label>Ha desarrollado metástasis?</mat-label>
+                          <mat-label>¿Ha desarrollado metástasis?</mat-label>
                           <select  matNativeControl  formControlName="metastasis" matInput (change)="enableOtherCancerMetastasisYear(i)">
                             <option value="" disabled>Indica la respuesta</option>
                             <option *ngFor="let t of surgeryAnswers" [ngValue]="t">{{t}}</option>
@@ -573,7 +573,7 @@
             <div class="questions-div">
               <form [formGroup]="familyDetails">
                 <h2>Familiares</h2>
-                <h3>¿Se ha diagnosticado algún miembro de su familia (no política) de cáncer?</h3>
+                <h3>¿Se ha diagnosticado a algún miembro de su familia (no política) de cáncer?</h3>
                 <mat-form-field appearance="outline">
                   <mat-label>Respuesta</mat-label>
                   <select  matNativeControl  formControlName="anyFamilyDiagnoseAnswer" matInput >
@@ -616,7 +616,7 @@
 
                     <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign.gt-sm="start center">
                       <mat-form-field appearance="outline" *ngIf="getFamilyForm(i).get('isDead')?.value">
-                        <mat-label>Edad defunción</mat-label>
+                        <mat-label>Edad de defunción</mat-label>
                         <input matInput formControlName="deadDate" required type="number">
                       </mat-form-field>
                       <div fxFlex="10"></div>
