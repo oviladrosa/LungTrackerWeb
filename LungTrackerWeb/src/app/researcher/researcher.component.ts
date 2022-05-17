@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { UserService } from '../services/UserService';
 import * as fileSaver from 'file-saver';
-
 
 
 @Component({
@@ -11,9 +9,11 @@ import * as fileSaver from 'file-saver';
   styleUrls: ['./researcher.component.css']
 })
 export class ResearcherComponent implements OnInit {
-
-  constructor(public userService : UserService, private sanitizer: DomSanitizer) { }
+  p: number = 1;
+  count: number = 5;
+  constructor(public userService : UserService) { }
   persons :any=[];
+ 
   downloadJsonHref;
   showGraphs = [false,false,false,false];
   typeLocalitzation = 'pie';

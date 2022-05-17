@@ -4,7 +4,7 @@
     <h3> En esta área se pueden consultar los resultados de las encuestas realizadas por pacientes de cáncer de pulmón.</h3>
     <button type="button" mat-raised-button color="primary" class="export-button" title="Export all my snippets"
           (click)="exportPersonsToJSON()">
-        Exportar resultados <i class="icon-download"></i>
+       Exportar resultados 
     </button>
     <div class="inline-charts">
         <chart *ngIf="showGraphs[1]" class="dashchart2" [type]="typeAgeRanges" [data]="dataAgeRanges"
@@ -88,7 +88,7 @@
                 </thead>
                 <tbody>
                     <!--Empiezan las filas dentro de la tabla-->
-                    <tr  *ngFor="let person of persons">
+                    <tr  *ngFor="let person of persons | paginate: { itemsPerPage: count, currentPage: p }">
                         <td ><b>{{person._id}}</b></td>
                         <td ><b>{{person.sex}}</b></td>
                         <td ><b>{{person.age}}</b></td>
@@ -142,6 +142,9 @@
                     </tr>
                 </tbody>
             </table>
+            <div style="text-align:right">
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+              </div>
         </div>
     </ng-container>
 

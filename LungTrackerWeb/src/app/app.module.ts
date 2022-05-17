@@ -34,6 +34,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { ChartModule } from 'angular2-chartjs';
 import { MapsComponent } from './maps/maps.component';
 import { HomeComponentService } from './home/home.component-service';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 
@@ -74,7 +75,8 @@ import { HomeComponentService } from './home/home.component-service';
     MatCheckboxModule,
     MatAutocompleteModule,
     MatSnackBarModule,
-    ChartModule
+    ChartModule,
+    NgxPaginationModule
   ],
   providers: [
     LungFormQuestionsService,
