@@ -37,6 +37,7 @@ import { HomeComponentService } from './home/home.component-service';
 import { PatientContaminantsStationsComponent } from './patient-contaminants-stations/patient-contaminants-stations.component';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { NgxPaginationModule } from 'ngx-pagination';
+import {PatientsContaminantsStationsService} from './patient-contaminants-stations/patients-contaminants-stations.service';
 
 
 
@@ -50,7 +51,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     LoginComponent,
     ResearcherComponent,
     MapsComponent,
-
+    PatientContaminantsStationsComponent
   ],
   imports: [
     BrowserModule,
