@@ -185,7 +185,7 @@ th:last-child {
 .space-between {
     display: flex;
     justify-content: space-around;
-    
+
 }
 button {
     margin: 3px;
@@ -221,6 +221,20 @@ button {
     animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
 
+.row-parent{
+  display: flex;
+  flex-direction: row;
+}
+
+.left-graphics{
+  width: 50%;
+  justify-content: center;
+}
+
+.right-graphics{
+  width: 50%;
+  justify-content: center;
+}
 
 @-webkit-keyframes fadein {
     from {
@@ -309,7 +323,7 @@ button {
         margin-top: -40px;
     }
   }
-  
+
   .form-element{
     display:inline-block;
     margin: 1% 1% 1% 0%;
@@ -317,11 +331,11 @@ button {
     line-height: 20px;
     font-size: 15px;
   }
- 
 
-  
-  
-  
-  
-  
+
+
+
+
+
+
 

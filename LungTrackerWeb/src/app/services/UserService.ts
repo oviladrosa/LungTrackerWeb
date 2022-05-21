@@ -6,8 +6,8 @@ import { CookieService } from "ngx-cookie-service";
   providedIn: "root"
 })
 export class UserService {
-  
- 
+
+
   constructor(private http: HttpClient, private cookies: CookieService) {}
 
 
@@ -54,6 +54,11 @@ export class UserService {
   getAgeRanges() {
     return this.http.get("https://young-hollows-40979.herokuapp.com/https://apiclinic.herokuapp.com/persons/ageRanges", {headers: new HttpHeaders().set('Authorization', this.getToken())});
   }
+
+  getLocations() {
+    return this.http.get("https://young-hollows-40979.herokuapp.com/https://apiclinic.herokuapp.com/persons/locations", {headers: new HttpHeaders().set('Authorization', this.getToken())});
+  }
+
   getUser(){
     if(this.getToken()){
       return this.getToken();
