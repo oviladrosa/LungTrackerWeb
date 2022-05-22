@@ -244,11 +244,16 @@
 
                       <mat-form-field appearance="outline" fxFlex.gt-sm="30">
                         <mat-label>Tratamiento</mat-label>
-                        <select  matNativeControl  formControlName="metastatisTreatment" matInput (change)="enableOtherMetastasis()">
-                            <option value="" disabled>Indica el tratamiento</option>
-                            <option *ngFor="let t of metastasisOptions" [ngValue]="t">{{t}}</option>
-                        </select>
+                        <mat-select multiple formControlName="metastatisTreatment" (selectionChange)="enableOtherMetastasis()">
+                            <mat-option *ngFor="let t of metastasisOptions" [value]="t">{{t}}</mat-option>
+                        </mat-select>
                       </mat-form-field>
+                    </div>
+
+                    <div fxLayout="column">
+                      <div fxLayout="column" fxLayout.gt-sm="row">
+                        <mat-checkbox formControlName="isClinicalTrial">El tratamiento ha sido un ensayo clínico.</mat-checkbox>
+                      </div>
                     </div>
 
                     <mat-form-field appearance="outline" >

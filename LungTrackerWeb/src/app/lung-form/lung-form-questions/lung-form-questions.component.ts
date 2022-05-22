@@ -228,11 +228,12 @@ export class LungFormQuestionsComponent implements OnInit {
       sugeryAnswer: ['', Validators.required],
       surgeryYear: ['', Validators.required],
       surgeryExtraTreatment: ['', Validators.required],
-      otherSurgeryExtraTreatment: ['', Validators.required],
+      otherSurgeryExtraTreatment: ['', null],
       metastasisAnswer: ['', Validators.required],
       metastasisYear: ['', Validators.required],
       metastatisTreatment: ['', Validators.required],
       otherMetastasisTreatment: ['', null],
+      isClinicalTrial: ['', null],
       noSurgeryTreatmentAnswer: ['', Validators.required],
       otherNonSurgeryTreatment: ['', null],
       additionalDiagnoseAnswer: ['', Validators.required],
@@ -430,6 +431,7 @@ export class LungFormQuestionsComponent implements OnInit {
     this.clinicDetails.controls['metastasisYear'].disable();
     this.clinicDetails.controls['metastatisTreatment'].disable();
     this.clinicDetails.controls['otherMetastasisTreatment'].disable();
+    this.clinicDetails.controls['isClinicalTrial'].disable();
     this.clinicDetails.controls['otherNonSurgeryTreatment'].disable();
     this.clinicDetails.controls['otherPreviousDiseases'].disable();
 
@@ -644,21 +646,25 @@ export class LungFormQuestionsComponent implements OnInit {
     if (answer === 'Sí') {
       this.clinicDetails.controls['metastasisYear'].enable();
       this.clinicDetails.controls['metastatisTreatment'].enable();
+      this.clinicDetails.controls['isClinicalTrial'].enable();
     } else {
       this.clinicDetails.controls['metastasisYear'].setValue("");
       this.clinicDetails.controls['metastasisYear'].disable();
       this.clinicDetails.controls['metastatisTreatment'].setValue("");
       this.clinicDetails.controls['metastatisTreatment'].disable();
+      this.clinicDetails.controls['isClinicalTrial'].setValue(false);
+      this.clinicDetails.controls['isClinicalTrial'].disable();
     }
   }
 
   enableOtherMetastasis() {
     const type = this.clinicDetails.get('metastatisTreatment')?.value;
-    if (type === 'Otros') {
+    console.log(type);
+    if (type.includes('Otros')) {
       this.clinicDetails.controls['otherMetastasisTreatment'].enable();
     } else {
       this.clinicDetails.controls['otherMetastasisTreatment'].disable();
-      this.clinicDetails.controls['otherMetastasisTreatment'].setValue("");
+      this.clinicDetails.controls['otherMetastasisTreatment'].setValue('');
     }
   }
 
@@ -874,18 +880,23 @@ export class LungFormQuestionsComponent implements OnInit {
     requestData.clinicDetails.mainDiagnose.operatedCancer = this.clinicDetails.get('sugeryAnswer')?.value == 'Sí' ? true : false;
     requestData.clinicDetails.mainDiagnose.operationYear = this.clinicDetails.get('sugeryAnswer')?.value == 'Sí' ?
       this.clinicDetails.get('surgeryYear')?.value : null;
+    // Creo que esto va a fallar
     requestData.clinicDetails.mainDiagnose.extraTreatment = this.clinicDetails.get('surgeryExtraTreatment')?.value;
     if (this.clinicDetails.get('otherSurgeryExtraTreatment')?.value != '') {
       requestData.clinicDetails.mainDiagnose.extraTreatment.push(this.clinicDetails.get('otherSurgeryExtraTreatment')?.value);
     }
+    // Acaba aqui el posible fallo
     requestData.clinicDetails.mainDiagnose.metastasis = this.clinicDetails.get('metastasisAnswer')?.value == 'Sí' ? true : false;
     requestData.clinicDetails.mainDiagnose.metastasisYear = this.clinicDetails.get('metastasisAnswer')?.value == 'Sí' ?  this.clinicDetails.get('metastasisYear')?.value : null;
-    requestData.clinicDetails.mainDiagnose.metastasisTreatment = this.clinicDetails.get('metastasisAnswer')?.value == 'Sí' ?  this.clinicDetails.get('metastatisTreatment')?.value : null;
-    if (requestData.clinicDetails.mainDiagnose.metastasisTreatment == 'Otros') {
-      requestData.clinicDetails.mainDiagnose.metastasisTreatment = this.clinicDetails.get('otherMetastasisTreatment')?.value;
-      requestData.clinicDetails.mainDiagnose.notListedTreatment = true;
-    } else {
-      requestData.clinicDetails.mainDiagnose.notListedTreatment = false;
+    if (this.clinicDetails.get('metastasisAnswer').value === 'Sí'){
+      requestData.clinicDetails.mainDiagnose.metastasisTreatment.push(this.clinicDetails.get('metastatisTreatment')?.value);
+      if (requestData.clinicDetails.mainDiagnose.metastasisTreatment.includes('Otros')) {
+        requestData.clinicDetails.mainDiagnose.metastasisTreatment.push(this.clinicDetails.get('otherMetastasisTreatment')?.value);
+        requestData.clinicDetails.mainDiagnose.notListedTreatment = true;
+      } else {
+        requestData.clinicDetails.mainDiagnose.notListedTreatment = false;
+      }
+      requestData.clinicDetails.mainDiagnose.isClinicalTrial = this.clinicDetails.get('isClinicalTrial')?.value;
     }
     requestData.clinicDetails.mainDiagnose.noSurgeryTreatment = this.clinicDetails.get('noSurgeryTreatmentAnswer')?.value == 'No' ? null : this.clinicDetails.get('noSurgeryTreatmentAnswer')?.value;
     if (requestData.clinicDetails.mainDiagnose.noSurgeryTreatment == 'Otros') {

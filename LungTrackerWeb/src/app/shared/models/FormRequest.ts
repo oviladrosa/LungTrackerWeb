@@ -34,7 +34,8 @@ export default class formRequest {
                 extraTreatment: [],
                 metastasis: false,
                 metastasisYear: 0,
-                metastasisTreatment: '',
+                metastasisTreatment: [],
+                isClinicalTrial: false,
                 notListedTreatment: false,
                 noSurgeryTreatment: '',
                 notListedNoSurgeryTreatment: false,
@@ -91,7 +92,8 @@ export default class formRequest {
             extraTreatment: Array<string>;
             metastasis: boolean;
             metastasisYear: number;
-            metastasisTreatment: string;
+            metastasisTreatment: Array<string>;
+            isClinicalTrial: boolean,
             notListedTreatment: boolean;
             noSurgeryTreatment: string;
             notListedNoSurgeryTreatment: boolean;
