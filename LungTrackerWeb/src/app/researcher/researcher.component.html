@@ -30,15 +30,6 @@
                 <thead>
                     <th >
                         <span class="header-name">
-                        Id
-                        <!--   <span class="header-arrows">
-                            <app-sort-arrows [sortByObject]="orderedBy" [attribute]="'INEP'"></app-sort-arrows>
-                        </span>-->
-                        </span>
-                    </th>
-
-                    <th >
-                        <span class="header-name">
                             Género
                             <!-- <span class="header-arrows">
                             <app-sort-arrows [sortByObject]="orderedBy" [attribute]="'NAME'"></app-sort-arrows>
@@ -85,14 +76,13 @@
                         </span>-->
                     </th>
 
+
                 </thead>
                 <tbody>
                     <!--Empiezan las filas dentro de la tabla-->
                     <tr  *ngFor="let person of persons | paginate: { itemsPerPage: count, currentPage: p }">
-                        <td ><b>{{person._id}}</b></td>
                         <td ><b>{{person.sex}}</b></td>
                         <td ><b>{{person.age}}</b></td>
-                       <!-- <td ><b>{{person.country}}</b></td>-->
 
                         <td >
                             <div *ngFor=" let place of person.livingPlaces">
@@ -138,6 +128,7 @@
                                 <p *ngIf="tumor.surgery"> Cirugía en {{person.tumors[0].surgery[0].year}} </p>
                             </div>
                         </td>
+
 
                     </tr>
                 </tbody>
