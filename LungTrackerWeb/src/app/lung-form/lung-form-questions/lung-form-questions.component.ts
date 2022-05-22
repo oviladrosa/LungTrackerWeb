@@ -72,19 +72,17 @@ export class LungFormQuestionsComponent implements OnInit {
   metastasisOptions: any = ['Quimioterapia',
     'Inmunoterapia',
     'Combinación de quimio+Inmuno',
-    'Tratamiento dirigido (pastillas)',
-    'Ensayo clínico',
+    'Tratamiento dirigido',
     'Ninguno',
     'Otros',
     ];
   otherMetastasisTreatments: any = ['Quimioterapia',
     'Inmunoterapia',
     'Combinación de quimio+Inmuno',
-    'Tratamiento dirigido (pastillas)',
-    'Ensayo clínico',
+    'Tratamiento dirigido',
     'Otros',
     'No'
-    ]
+    ];
   otherCancerTypes: any = [
     'Otro cáncer de pulmón',
     'Mama',
@@ -230,6 +228,7 @@ export class LungFormQuestionsComponent implements OnInit {
       sugeryAnswer: ['', Validators.required],
       surgeryYear: ['', Validators.required],
       surgeryExtraTreatment: ['', Validators.required],
+      otherSurgeryExtraTreatment: ['', Validators.required],
       metastasisAnswer: ['', Validators.required],
       metastasisYear: ['', Validators.required],
       metastatisTreatment: ['', Validators.required],
@@ -294,10 +293,7 @@ export class LungFormQuestionsComponent implements OnInit {
       deadDate: ['', Validators.required],
       cancerType: ['', Validators.required],
       otherCancerType: ['', Validators.required],
-      hasMetastasis: ['', Validators.required],
-      hasTreatment: ['', Validators.required],
-      treatmentType: ['', Validators.required],
-      otherTreatment: ['', Validators.required],
+      hasMetastasis: ['', Validators.required]
     });
    }
 
@@ -430,6 +426,7 @@ export class LungFormQuestionsComponent implements OnInit {
     this.clinicDetails.controls['otherMutationType'].disable();
     this.clinicDetails.controls['surgeryYear'].disable();
     this.clinicDetails.controls['surgeryExtraTreatment'].disable();
+    this.clinicDetails.controls['otherSurgeryExtraTreatment'].disable();
     this.clinicDetails.controls['metastasisYear'].disable();
     this.clinicDetails.controls['metastatisTreatment'].disable();
     this.clinicDetails.controls['otherMetastasisTreatment'].disable();
@@ -746,6 +743,21 @@ export class LungFormQuestionsComponent implements OnInit {
     }
   }
 
+  enableOtherComplementaryTreatments() {
+
+    const type = this.clinicDetails.get('surgeryExtraTreatment')?.value;
+    let other = false;
+    for (const value of type) {
+      if (value === 'Otros') other = true;
+    }
+    if (other) {
+      this.clinicDetails.controls['otherSurgeryExtraTreatment'].enable();
+    } else {
+      this.clinicDetails.controls['otherSurgeryExtraTreatment'].disable();
+      this.clinicDetails.controls['otherSurgeryExtraTreatment'].setValue("");
+    }
+  }
+
   enableOtherCancerMetastasisYear(id: number) {
     const fg = this.getCancerForm(id);
     const type = fg.get('metastasis')?.value;
@@ -863,6 +875,9 @@ export class LungFormQuestionsComponent implements OnInit {
     requestData.clinicDetails.mainDiagnose.operationYear = this.clinicDetails.get('sugeryAnswer')?.value == 'Sí' ?
       this.clinicDetails.get('surgeryYear')?.value : null;
     requestData.clinicDetails.mainDiagnose.extraTreatment = this.clinicDetails.get('surgeryExtraTreatment')?.value;
+    if (this.clinicDetails.get('otherSurgeryExtraTreatment')?.value != '') {
+      requestData.clinicDetails.mainDiagnose.extraTreatment.push(this.clinicDetails.get('otherSurgeryExtraTreatment')?.value);
+    }
     requestData.clinicDetails.mainDiagnose.metastasis = this.clinicDetails.get('metastasisAnswer')?.value == 'Sí' ? true : false;
     requestData.clinicDetails.mainDiagnose.metastasisYear = this.clinicDetails.get('metastasisAnswer')?.value == 'Sí' ?  this.clinicDetails.get('metastasisYear')?.value : null;
     requestData.clinicDetails.mainDiagnose.metastasisTreatment = this.clinicDetails.get('metastasisAnswer')?.value == 'Sí' ?  this.clinicDetails.get('metastatisTreatment')?.value : null;

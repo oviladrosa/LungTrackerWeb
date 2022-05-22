@@ -10,7 +10,7 @@ export default class formRequest {
                 city: '',
                 initialYear: 0
             },
-            bornPlace:{
+            bornPlace: {
                 postalCode: '',
                 country: '',
                 state: '',
@@ -31,7 +31,7 @@ export default class formRequest {
                 notListedMutationType: false,
                 operatedCancer: false,
                 operationYear: 0,
-                extraTreatment: '',
+                extraTreatment: [],
                 metastasis: false,
                 metastasisYear: 0,
                 metastasisTreatment: '',
@@ -41,7 +41,7 @@ export default class formRequest {
                 previousDiseases: []
             },
             otherDiagnose: []
-        }
+        };
 
         this.expositionDetails = {
             smoker: false,
@@ -88,7 +88,7 @@ export default class formRequest {
             notListedMutationType: boolean;
             operatedCancer: boolean;
             operationYear: number;
-            extraTreatment: string;
+            extraTreatment: Array<string>;
             metastasis: boolean;
             metastasisYear: number;
             metastasisTreatment: string;
@@ -110,9 +110,9 @@ export default class formRequest {
         expositions: Array<string>;
     };
 
-    jobDetails!: Array<Job>
+    jobDetails!: Array<Job>;
 
-    familyDetails!: Array<Familiar>
+    familyDetails!: Array<Familiar>;
 }
 
 export class Diagnose {
