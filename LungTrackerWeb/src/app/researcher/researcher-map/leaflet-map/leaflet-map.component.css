@@ -1,5 +1,5 @@
 .map-container {
-  position: relative;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
@@ -13,8 +13,25 @@
 }
 
 #map {
-  position: absolute;
-  top: 0;
-  bottom: 0;
+  height: 100%;
+}
+
+.map-container2 {
+  border: 2px solid black;
+  height: 100%;
+  width: 100%;
+  overflow: hidden; /*remove this line to see that it is overlapping */
+}
+
+.map-frame2 {
+  margin-left: 25%;
+  margin-top: 25%;
+  border: 2px solid black;
+  height: 100%;
+  width: 100%; /*changed the width from 50% to 100% so it is overlaping */
+}
+
+#map2{
+  height: 100%;
   width: 100%;
 }
