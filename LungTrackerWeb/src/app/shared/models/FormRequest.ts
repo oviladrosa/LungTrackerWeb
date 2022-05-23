@@ -10,7 +10,7 @@ export default class formRequest {
                 city: '',
                 initialYear: 0
             },
-            bornPlace:{
+            bornPlace: {
                 postalCode: '',
                 country: '',
                 state: '',
@@ -25,23 +25,27 @@ export default class formRequest {
             mainDiagnose: {
                 diagnoseYear: 0,
                 cancerType: '',
+                nonmicrocyticSubtype: '',
                 notListedCancerType: false,
                 mutation: false,
                 mutationType: '',
                 notListedMutationType: false,
                 operatedCancer: false,
                 operationYear: 0,
-                extraTreatment: '',
+                extraTreatment: [],
+                hasReceivedComplementaryRadiotherapy: false,
+                complementaryRadiotherapyTarget: [],
                 metastasis: false,
                 metastasisYear: 0,
-                metastasisTreatment: '',
+                metastasisTreatment: [],
+                isClinicalTrial: false,
                 notListedTreatment: false,
                 noSurgeryTreatment: '',
                 notListedNoSurgeryTreatment: false,
                 previousDiseases: []
             },
             otherDiagnose: []
-        }
+        };
 
         this.expositionDetails = {
             smoker: false,
@@ -82,16 +86,20 @@ export default class formRequest {
         mainDiagnose: {
             diagnoseYear: number;
             cancerType: string;
+            nonmicrocyticSubtype: string;
             notListedCancerType: boolean;
             mutation: boolean;
             mutationType: string;
             notListedMutationType: boolean;
             operatedCancer: boolean;
             operationYear: number;
-            extraTreatment: string;
+            extraTreatment: Array<string>;
+            hasReceivedComplementaryRadiotherapy: boolean;
+            complementaryRadiotherapyTarget: Array<string>;
             metastasis: boolean;
             metastasisYear: number;
-            metastasisTreatment: string;
+            metastasisTreatment: Array<string>;
+            isClinicalTrial: boolean,
             notListedTreatment: boolean;
             noSurgeryTreatment: string;
             notListedNoSurgeryTreatment: boolean;
@@ -110,9 +118,9 @@ export default class formRequest {
         expositions: Array<string>;
     };
 
-    jobDetails!: Array<Job>
+    jobDetails!: Array<Job>;
 
-    familyDetails!: Array<Familiar>
+    familyDetails!: Array<Familiar>;
 }
 
 export class Diagnose {
