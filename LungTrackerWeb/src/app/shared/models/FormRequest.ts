@@ -32,6 +32,8 @@ export default class formRequest {
                 operatedCancer: false,
                 operationYear: 0,
                 extraTreatment: [],
+                hasReceivedComplementaryRadiotherapy: false,
+                complementaryRadiotherapyTarget: [],
                 metastasis: false,
                 metastasisYear: 0,
                 metastasisTreatment: [],
@@ -90,6 +92,8 @@ export default class formRequest {
             operatedCancer: boolean;
             operationYear: number;
             extraTreatment: Array<string>;
+            hasReceivedComplementaryRadiotherapy: boolean;
+            complementaryRadiotherapyTarget: Array<string>;
             metastasis: boolean;
             metastasisYear: number;
             metastasisTreatment: Array<string>;

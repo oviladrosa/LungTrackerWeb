@@ -13,6 +13,7 @@ import {
   MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import {MatCheckboxChange} from '@angular/material/checkbox';
 
 
 console.log(State.getAllStates())
@@ -68,7 +69,7 @@ export class LungFormQuestionsComponent implements OnInit {
   'Otros',
   ];
   surgeryAnswers: any = ['Sí', 'No', 'NS/NC'];
-  surgeryExtraTreatments: any = ['Quimio', 'Radio', 'Otros', 'No'];
+  surgeryExtraTreatments: any = ['Quimio', 'Otros', 'No'];
   metastasisOptions: any = ['Quimioterapia',
     'Inmunoterapia',
     'Combinación de quimio+Inmuno',
@@ -178,10 +179,17 @@ export class LungFormQuestionsComponent implements OnInit {
 
   treatmentTypesList: any = [
     'Cirugía',
-'Quimioterapia',
-'Radioterapia',
-'Otros (texto)'
-  ]
+    'Quimioterapia',
+    'Radioterapia',
+    'Otros (texto)'
+  ];
+  radiotherapyTargetsList: any = [
+    'Cerebro',
+    'Pulmón',
+    'Hueso',
+    'Otros'
+  ];
+
   countries: any;
   regions: any;
   cities: any;
@@ -229,6 +237,9 @@ export class LungFormQuestionsComponent implements OnInit {
       surgeryYear: ['', Validators.required],
       surgeryExtraTreatment: ['', Validators.required],
       otherSurgeryExtraTreatment: ['', null],
+      isRadiotherapy: ['', Validators.required],
+      radiotherapyTarget: ['', Validators.required],
+      otherRadiotherapyTarget: ['', null],
       metastasisAnswer: ['', Validators.required],
       metastasisYear: ['', Validators.required],
       metastatisTreatment: ['', Validators.required],
@@ -428,6 +439,9 @@ export class LungFormQuestionsComponent implements OnInit {
     this.clinicDetails.controls['surgeryYear'].disable();
     this.clinicDetails.controls['surgeryExtraTreatment'].disable();
     this.clinicDetails.controls['otherSurgeryExtraTreatment'].disable();
+    this.clinicDetails.controls['isRadiotherapy'].disable();
+    this.clinicDetails.controls['radiotherapyTarget'].disable();
+    this.clinicDetails.controls['otherRadiotherapyTarget'].disable();
     this.clinicDetails.controls['metastasisYear'].disable();
     this.clinicDetails.controls['metastatisTreatment'].disable();
     this.clinicDetails.controls['otherMetastasisTreatment'].disable();
@@ -633,11 +647,18 @@ export class LungFormQuestionsComponent implements OnInit {
     if (answer === 'Sí') {
       this.clinicDetails.controls['surgeryYear'].enable();
       this.clinicDetails.controls['surgeryExtraTreatment'].enable();
+      this.clinicDetails.controls['isRadiotherapy'].enable();
     } else {
       this.clinicDetails.controls['surgeryYear'].setValue("");
       this.clinicDetails.controls['surgeryYear'].disable();
       this.clinicDetails.controls['surgeryExtraTreatment'].setValue("");
       this.clinicDetails.controls['surgeryExtraTreatment'].disable();
+      this.clinicDetails.controls['isRadiotherapy'].setValue(false);
+      this.clinicDetails.controls['isRadiotherapy'].disable();
+      this.clinicDetails.controls['radiotherapyTarget'].setValue('');
+      this.clinicDetails.controls['radiotherapyTarget'].disable();
+      this.clinicDetails.controls['otherRadiotherapyTarget'].setValue('');
+      this.clinicDetails.controls['otherRadiotherapyTarget'].disable();
     }
   }
 
@@ -764,6 +785,28 @@ export class LungFormQuestionsComponent implements OnInit {
     }
   }
 
+  enableRadiotherapyTarget(event: MatCheckboxChange): void {
+    if (event.checked) {
+      this.clinicDetails.controls['radiotherapyTarget'].enable();
+    } else {
+      this.clinicDetails.controls['radiotherapyTarget'].disable();
+      this.clinicDetails.controls['radiotherapyTarget'].setValue('');
+      this.clinicDetails.controls['otherRadiotherapyTarget'].disable();
+      this.clinicDetails.controls['otherRadiotherapyTarget'].setValue('');
+    }
+  }
+
+  enableOtherRadiotherapyTarget(): void {
+    const type = this.clinicDetails.get('radiotherapyTarget')?.value;
+    console.log(type);
+    if (type.includes('Otros')) {
+      this.clinicDetails.controls['otherRadiotherapyTarget'].enable();
+    } else {
+      this.clinicDetails.controls['otherRadiotherapyTarget'].disable();
+      this.clinicDetails.controls['otherRadiotherapyTarget'].setValue('');
+    }
+  }
+
   enableOtherCancerMetastasisYear(id: number) {
     const fg = this.getCancerForm(id);
     const type = fg.get('metastasis')?.value;
@@ -886,6 +929,13 @@ export class LungFormQuestionsComponent implements OnInit {
       requestData.clinicDetails.mainDiagnose.extraTreatment.push(this.clinicDetails.get('otherSurgeryExtraTreatment')?.value);
     }
     // Acaba aqui el posible fallo
+    requestData.clinicDetails.mainDiagnose.hasReceivedComplementaryRadiotherapy = this.clinicDetails.get('isRadiotherapy')?.value;
+    if (this.clinicDetails.get('isRadiotherapy')?.value){
+      requestData.clinicDetails.mainDiagnose.complementaryRadiotherapyTarget.push(this.clinicDetails.get('radiotherapyTarget')?.value);
+      if (this.clinicDetails.get('radiotherapyTarget')?.value.contains('Otros')){
+        requestData.clinicDetails.mainDiagnose.complementaryRadiotherapyTarget.push(this.clinicDetails.get('otherRadiotherapyTarget')?.value);
+      }
+    }
     requestData.clinicDetails.mainDiagnose.metastasis = this.clinicDetails.get('metastasisAnswer')?.value == 'Sí' ? true : false;
     requestData.clinicDetails.mainDiagnose.metastasisYear = this.clinicDetails.get('metastasisAnswer')?.value == 'Sí' ?  this.clinicDetails.get('metastasisYear')?.value : null;
     if (this.clinicDetails.get('metastasisAnswer').value === 'Sí'){

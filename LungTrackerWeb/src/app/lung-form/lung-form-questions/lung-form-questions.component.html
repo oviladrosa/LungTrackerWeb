@@ -224,6 +224,21 @@
                       <input matInput formControlName="otherSurgeryExtraTreatment" type="text">
                     </mat-form-field>
                   </div>
+                  <div fxLayout="column">
+                    <div fxLayout="column" fxLayout.gt-sm="row">
+                      <mat-checkbox formControlName="isRadiotherapy" (change)="enableRadiotherapyTarget($event)">Ha recibido radioterapia complementaria.</mat-checkbox>
+                    </div>
+                    <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="30">
+                      <mat-label>Localización del tratamiento con radioterapia</mat-label>
+                      <mat-select multiple formControlName="radiotherapyTarget" (selectionChange)="enableOtherRadiotherapyTarget()">
+                        <mat-option *ngFor="let t of radiotherapyTargetsList" [value]="t">{{t}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                      <mat-label>Otros</mat-label>
+                      <input matInput formControlName="otherRadiotherapyTarget" type="text">
+                    </mat-form-field>
+                  </div>
                   <h3>¿Su tumor ha desarrollado metástasis?</h3>
                   <div fxLayout="column">
                     <div fxLayout="column" fxLayout.gt-sm="row">
