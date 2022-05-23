@@ -393,8 +393,6 @@ export class LungFormQuestionsComponent implements OnInit {
     const newFormGroup = this.createFamilyItems();
     newFormGroup.enable();
     newFormGroup.controls['otherCancerType'].disable();
-    newFormGroup.controls['otherTreatment'].disable();
-    newFormGroup.controls['treatmentType'].disable();
     newFormGroup.controls['deadDate'].disable();
     newFormGroup.controls['deadCause'].disable();
     this.familyItems.push(newFormGroup);
