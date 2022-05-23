@@ -163,13 +163,30 @@
                         <option value="" disabled>Indica el tipo</option>
                         <option *ngFor="let t of cancerTypes" [ngValue]="t">{{t}}</option>
                       </select>
-
                     </mat-form-field>
+
                     <div fxFlex="5" fxHide.lt-md="true"></div>
 
                     <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="30">
                       <mat-label>Otros</mat-label>
                       <input matInput formControlName="otherCancerType" type="text">
+                    </mat-form-field>
+                  </div>
+
+                  <div fxLayout="column" fxLayout.gt-sm="row">
+                    <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="30">
+                      <mat-label>Subtipo de Cáncer (Célula no pequeña)</mat-label>
+                      <select  matNativeControl  formControlName="nonmicrocyticType" matInput (change)="enableOtherNonMicrocyticCancerField()">
+                        <option value="" disabled>Indica el subtipo</option>
+                        <option *ngFor="let t of nonMicrocyticCancerSubtypes" [ngValue]="t">{{t}}</option>
+                      </select>
+                    </mat-form-field>
+
+                    <div fxFlex="5" fxHide.lt-md="true"></div>
+
+                    <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="30">
+                      <mat-label>Otros</mat-label>
+                      <input matInput formControlName="otherNonMicrocyticCancerType" type="text">
                     </mat-form-field>
                   </div>
 

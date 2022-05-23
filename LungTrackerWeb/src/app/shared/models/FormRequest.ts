@@ -25,6 +25,7 @@ export default class formRequest {
             mainDiagnose: {
                 diagnoseYear: 0,
                 cancerType: '',
+                nonmicrocyticSubtype: '',
                 notListedCancerType: false,
                 mutation: false,
                 mutationType: '',
@@ -85,6 +86,7 @@ export default class formRequest {
         mainDiagnose: {
             diagnoseYear: number;
             cancerType: string;
+            nonmicrocyticSubtype: string;
             notListedCancerType: boolean;
             mutation: boolean;
             mutationType: string;

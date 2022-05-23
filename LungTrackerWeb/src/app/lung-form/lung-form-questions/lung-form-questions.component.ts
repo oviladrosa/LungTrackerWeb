@@ -56,6 +56,13 @@ export class LungFormQuestionsComponent implements OnInit {
 
   generos: any = ['Hombre', 'Mujer', 'No Binario']
   cancerTypes: any = ['Cáncer microcítico (de célula pequeña)', 'No Microcítico (de célula no pequeña)', 'Otros', 'NS / NC']
+  nonMicrocyticCancerSubtypes: any = [
+    'Adenocarcinoma',
+    'Epidermoide/Escamoso',
+    'Células grandes',
+    'Subtipo no especificado',
+    'Otros'
+  ];
   mutationAnswer: any = ['No se ha detectado mutación','Sí','NS/NC'];
   mutationTypes: any = ['EGFR',
   'KRAS',
@@ -230,6 +237,8 @@ export class LungFormQuestionsComponent implements OnInit {
       yearDiagnose: ['', Validators.required],
       cancerType: ['', Validators.required],
       otherCancerType: ['', null],
+      nonmicrocyticType: ['', Validators.required],
+      otherNonMicrocyticCancerType: ['', Validators.required],
       mutationAnswer: ['', Validators.required],
       mutationType: ['', Validators.required],
       otherMutationType: ['', null],
@@ -434,6 +443,8 @@ export class LungFormQuestionsComponent implements OnInit {
       console.error(err);
     }
     this.clinicDetails.controls['otherCancerType'].disable();
+    this.clinicDetails.controls['nonmicrocyticType'].disable();
+    this.clinicDetails.controls['otherNonMicrocyticCancerType'].disable();
     this.clinicDetails.controls['mutationType'].disable();
     this.clinicDetails.controls['otherMutationType'].disable();
     this.clinicDetails.controls['surgeryYear'].disable();
@@ -619,6 +630,25 @@ export class LungFormQuestionsComponent implements OnInit {
     } else {
       this.clinicDetails.controls['otherCancerType'].disable();
       this.clinicDetails.controls['otherCancerType'].setValue("");
+    }
+    if (type === 'No Microcítico (de célula no pequeña)') {
+      this.clinicDetails.controls['nonmicrocyticType'].enable();
+    }
+    else{
+      this.clinicDetails.controls['nonmicrocyticType'].setValue('');
+      this.clinicDetails.controls['nonmicrocyticType'].disable();
+      this.clinicDetails.controls['otherNonMicrocyticCancerType'].disable();
+      this.clinicDetails.controls['otherNonMicrocyticCancerType'].setValue('');
+    }
+  }
+
+  enableOtherNonMicrocyticCancerField() {
+    const type = this.clinicDetails.get('nonmicrocyticType')?.value;
+    if (type === 'Otros') {
+      this.clinicDetails.controls['otherNonMicrocyticCancerType'].enable();
+    } else {
+      this.clinicDetails.controls['otherNonMicrocyticCancerType'].disable();
+      this.clinicDetails.controls['otherNonMicrocyticCancerType'].setValue('');
     }
   }
 
@@ -914,6 +944,13 @@ export class LungFormQuestionsComponent implements OnInit {
     this.clinicDetails.get('otherCancerType')?.value : this.clinicDetails.get('cancerType')?.value;
     requestData.clinicDetails.mainDiagnose.notListedCancerType = this.clinicDetails.get('cancerType')?.value == 'Otros' ?
       true : false;
+    if (this.clinicDetails.get('cancerType')?.value === 'No Microcítico (de célula no pequeña)'){
+      if (this.clinicDetails.get('nonmicrocyticType')?.value === 'Otros'){
+        requestData.clinicDetails.mainDiagnose.nonmicrocyticSubtype = this.clinicDetails.get('nonmicrocyticType')?.value;
+      } else {
+        requestData.clinicDetails.mainDiagnose.nonmicrocyticSubtype = this.clinicDetails.get('otherNonMicrocyticCancerType')?.value;
+      }
+    }
     requestData.clinicDetails.mainDiagnose.mutation = this.clinicDetails.get('mutationAnswer')?.value == 'Sí' ? true : false;
     requestData.clinicDetails.mainDiagnose.mutationType = this.clinicDetails.get('mutationType')?.value == 'Otros' ?
     this.clinicDetails.get('otherMutationType')?.value : this.clinicDetails.get('mutationType')?.value;
