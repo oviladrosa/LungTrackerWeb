@@ -1,156 +1,188 @@
 <div style="width: 100%">
   <div style="width: 100%; height: 300px; background-color: #C9D3DD;" fxLayout="column" fxLayoutAlign="center center" >
     <h1 class="welcome-text">¡Muchas gracias por colaborar en nuestra investigación para luchar contra el cáncer de pulmón!</h1>
-    <h2 class="light-text">Aquí te mostramos la información de las estaciones de contaminación más cercanas a tu residencia actual.</h2>
+    <h2 class="light-text">Aquí te mostramos la información de las estaciones de contaminación más cercanas a tus residencias.</h2>
   </div>
   <div class="half-circle">
 
   </div>
-  <div fxLayout="column" fxLayoutAlign.gt-sm="start center" class="flex-content">
-    <mat-accordion class="example-headers-align">
-      <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
-        <mat-expansion-panel-header [ngStyle]="{'background' : color[nivel.indexOf(pollutionStations.arsenic.Nivel)] }">
-          <mat-panel-title>
-            <b>Arsénico</b>
-          </mat-panel-title>
-          <mat-panel-description>
-            Peligro: {{pollutionStations.arsenic.Nivel}}
-            <mat-icon>arrow_drop_down</mat-icon>
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <div class="mat-expansion-content">
-          <p>Província: {{pollutionStations.arsenic.NOM_PROVINCIA}}</p>
-          <p>Municipio: {{pollutionStations.arsenic.NOM_MUNICIPI}}</p>
-          <p>Zona: {{pollutionStations.arsenic.NOM_ZONA}}</p>
-          <p>Valor: {{pollutionStations.arsenic.VALOR}}</p>
+  <div *ngIf="!loading; else elseBlock" >
+    <div fxLayout="column" fxLayout.gt-sm="start center" class="flex-content">
+      <div fxLayout="row">
+        <h2>Datos de tu {{residence}}</h2>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px">
+      <div fxFlex="50%" fxLayoutAlign="center start">
+        <div fxLayout="row">
+          <button type="button" mat-raised-button color="primary" class="residence-button" title="Pick your first Residence"
+                  (click)="changePollutionStations(0)">
+            Primera Residencia
+          </button>
         </div>
-      </mat-expansion-panel>
-
-      <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
-        <mat-expansion-panel-header [ngStyle]="{'background' : color[nivel.indexOf(pollutionStations.benzopyrene.Nivel)] }">
-          <mat-panel-title>
-            <b>Benzopirenos</b>
-          </mat-panel-title>
-          <mat-panel-description>
-            Peligro: {{pollutionStations.benzopyrene.Nivel}}
-            <mat-icon>arrow_drop_down</mat-icon>
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <div class="mat-expansion-content">
-          <p>Província: {{pollutionStations.benzopyrene.NOM_PROVINCIA}}</p>
-          <p>Municipio: {{pollutionStations.benzopyrene.NOM_MUNICIPI}}</p>
-          <p>Zona: {{pollutionStations.benzopyrene.NOM_ZONA}}</p>
-          <p>Valor: {{pollutionStations.benzopyrene.VALOR}}</p>
+        <div fxLayout="row">
+          <button type="button" mat-raised-button color="primary" class="residence-button" title="Pick your current Residence"
+                  (click)="changePollutionStations(1)">
+            Residencia Actual
+          </button>
         </div>
-      </mat-expansion-panel>
+      </div>
+      <div  fxFlex="40%">
+          <mat-accordion class="example-headers-align">
+            <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+              <mat-expansion-panel-header [ngStyle]="{'background' : color[nivel.indexOf(pollutionStations.arsenic.Nivel)] }">
+                <mat-panel-title>
+                  <b>Arsénico</b>
+                </mat-panel-title>
+                <mat-panel-description>
+                  Riesgo: {{pollutionStations.arsenic.Nivel}}
+                  <mat-icon>arrow_drop_down</mat-icon>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="mat-expansion-content">
+                <p>Província: {{pollutionStations.arsenic.NOM_PROVINCIA}}</p>
+                <p>Municipio: {{pollutionStations.arsenic.NOM_MUNICIPI}}</p>
+                <p>Zona: {{pollutionStations.arsenic.NOM_ZONA}}</p>
+                <p>Valor: {{pollutionStations.arsenic.VALOR}}</p>
+              </div>
+            </mat-expansion-panel>
 
-      <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
-        <mat-expansion-panel-header [ngStyle]="{'background' : color[nivel.indexOf(pollutionStations.cadmium.Nivel)] }">
-          <mat-panel-title>
-            <b>Cadmio</b>
-          </mat-panel-title>
-          <mat-panel-description>
-            Peligro: {{pollutionStations.cadmium.Nivel}}
-            <mat-icon>arrow_drop_down</mat-icon>
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <div class="mat-expansion-content">
-          <p>Província: {{pollutionStations.cadmium.NOM_PROVINCIA}}</p>
-          <p>Municipio: {{pollutionStations.cadmium.NOM_MUNICIPI}}</p>
-          <p>Zona: {{pollutionStations.cadmium.NOM_ZONA}}</p>
-          <p>Valor: {{pollutionStations.cadmium.VALOR}}</p>
-        </div>
-      </mat-expansion-panel>
+            <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+              <mat-expansion-panel-header [ngStyle]="{'background' : color[nivel.indexOf(pollutionStations.benzopyrene.Nivel)] }">
+                <mat-panel-title>
+                  <b>Benzopirenos</b>
+                </mat-panel-title>
+                <mat-panel-description>
+                  Riesgo: {{pollutionStations.benzopyrene.Nivel}}
+                  <mat-icon>arrow_drop_down</mat-icon>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="mat-expansion-content">
+                <p>Província: {{pollutionStations.benzopyrene.NOM_PROVINCIA}}</p>
+                <p>Municipio: {{pollutionStations.benzopyrene.NOM_MUNICIPI}}</p>
+                <p>Zona: {{pollutionStations.benzopyrene.NOM_ZONA}}</p>
+                <p>Valor: {{pollutionStations.benzopyrene.VALOR}}</p>
+              </div>
+            </mat-expansion-panel>
 
-      <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" hideToggle>
-        <mat-expansion-panel-header [ngStyle]="{'background' : color[nivel.indexOf(pollutionStations.lead.Nivel)] }">
-          <mat-panel-title>
-            <b>Plomo</b>
-          </mat-panel-title>
-          <mat-panel-description>
-            Peligro: {{pollutionStations.lead.Nivel}}
-            <mat-icon>arrow_drop_down</mat-icon>
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <div class="mat-expansion-content">
-          <p>Província: {{pollutionStations.lead.NOM_PROVINCIA}}</p>
-          <p>Municipio: {{pollutionStations.lead.NOM_MUNICIPI}}</p>
-          <p>Zona: {{pollutionStations.lead.NOM_ZONA}}</p>
-          <p>Valor: {{pollutionStations.lead.VALOR}}</p>
-        </div>
-      </mat-expansion-panel>
+            <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+              <mat-expansion-panel-header [ngStyle]="{'background' : color[nivel.indexOf(pollutionStations.cadmium.Nivel)] }">
+                <mat-panel-title>
+                  <b>Cadmio</b>
+                </mat-panel-title>
+                <mat-panel-description>
+                  Riesgo: {{pollutionStations.cadmium.Nivel}}
+                  <mat-icon>arrow_drop_down</mat-icon>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="mat-expansion-content">
+                <p>Província: {{pollutionStations.cadmium.NOM_PROVINCIA}}</p>
+                <p>Municipio: {{pollutionStations.cadmium.NOM_MUNICIPI}}</p>
+                <p>Zona: {{pollutionStations.cadmium.NOM_ZONA}}</p>
+                <p>Valor: {{pollutionStations.cadmium.VALOR}}</p>
+              </div>
+            </mat-expansion-panel>
 
-      <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" hideToggle>
-        <mat-expansion-panel-header [ngStyle]="{'background' : color[nivel.indexOf(pollutionStations.nickel.Nivel)] }">
-          <mat-panel-title>
-            <b>Níquel</b>
-          </mat-panel-title>
-          <mat-panel-description>
-            Peligro: {{pollutionStations.nickel.Nivel}}
-            <mat-icon>arrow_drop_down</mat-icon>
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <div class="mat-expansion-content">
-          <p>Província: {{pollutionStations.nickel.NOM_PROVINCIA}}</p>
-          <p>Municipio: {{pollutionStations.nickel.NOM_MUNICIPI}}</p>
-          <p>Zona: {{pollutionStations.nickel.NOM_ZONA}}</p>
-          <p>Valor: {{pollutionStations.nickel.VALOR}}</p>
-        </div>
-      </mat-expansion-panel>
+            <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" hideToggle>
+              <mat-expansion-panel-header [ngStyle]="{'background' : color[nivel.indexOf(pollutionStations.lead.Nivel)] }">
+                <mat-panel-title>
+                  <b>Plomo</b>
+                </mat-panel-title>
+                <mat-panel-description>
+                  Riesgo: {{pollutionStations.lead.Nivel}}
+                  <mat-icon>arrow_drop_down</mat-icon>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="mat-expansion-content">
+                <p>Província: {{pollutionStations.lead.NOM_PROVINCIA}}</p>
+                <p>Municipio: {{pollutionStations.lead.NOM_MUNICIPI}}</p>
+                <p>Zona: {{pollutionStations.lead.NOM_ZONA}}</p>
+                <p>Valor: {{pollutionStations.lead.VALOR}}</p>
+              </div>
+            </mat-expansion-panel>
 
-      <mat-expansion-panel [expanded]="step === 5" (opened)="setStep(5)" hideToggle>
-        <mat-expansion-panel-header [ngStyle]="{'background' : colorRad[pollutionStations.radon.Nivell]}">
-          <mat-panel-title>
-            <b>Radón</b>
-          </mat-panel-title>
-          <mat-panel-description>
-            Peligro: {{nivelRad[pollutionStations.radon.Nivell]}}
-            <mat-icon>arrow_drop_down</mat-icon>
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <div class="mat-expansion-content">
-          <p>Província: {{pollutionStations.radon.NOM_PROVINCIA}}</p>
-          <p>Municipio: {{pollutionStations.radon.NOM_MUNICIPI}}</p>
-          <p>Nivel: {{pollutionStations.radon.Nivell}}</p>
-        </div>
-      </mat-expansion-panel>
+            <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" hideToggle>
+              <mat-expansion-panel-header [ngStyle]="{'background' : color[nivel.indexOf(pollutionStations.nickel.Nivel)] }">
+                <mat-panel-title>
+                  <b>Níquel</b>
+                </mat-panel-title>
+                <mat-panel-description>
+                  Riesgo: {{pollutionStations.nickel.Nivel}}
+                  <mat-icon>arrow_drop_down</mat-icon>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="mat-expansion-content">
+                <p>Província: {{pollutionStations.nickel.NOM_PROVINCIA}}</p>
+                <p>Municipio: {{pollutionStations.nickel.NOM_MUNICIPI}}</p>
+                <p>Zona: {{pollutionStations.nickel.NOM_ZONA}}</p>
+                <p>Valor: {{pollutionStations.nickel.VALOR}}</p>
+              </div>
+            </mat-expansion-panel>
 
-      <mat-expansion-panel [expanded]="step === 6" (opened)="setStep(6)" hideToggle>
-        <mat-expansion-panel-header [ngStyle]="{'background' : color[nivel.indexOf(pollutionStations.pm2_5.Nivel)] }">
-          <mat-panel-title>
-            <b>PM2.5</b>
-          </mat-panel-title>
-          <mat-panel-description>
-            Peligro: {{pollutionStations.pm2_5.Nivel}}
-            <mat-icon>arrow_drop_down</mat-icon>
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <div class="mat-expansion-content">
-          <p>Província: {{pollutionStations.pm2_5.NOM_PROVINCIA}}</p>
-          <p>Municipio: {{pollutionStations.pm2_5.NOM_MUNICIPI}}</p>
-          <p>Zona: {{pollutionStations.pm2_5.NOM_ZONA}}</p>
-          <p>Valor: {{pollutionStations.pm2_5.VALOR}}</p>
-        </div>
-      </mat-expansion-panel>
+            <mat-expansion-panel [expanded]="step === 5" (opened)="setStep(5)" hideToggle>
+              <mat-expansion-panel-header [ngStyle]="{'background' : colorRad[pollutionStations.radon.Nivell]}">
+                <mat-panel-title>
+                  <b>Radón</b>
+                </mat-panel-title>
+                <mat-panel-description>
+                  Riesgo: {{nivelRad[pollutionStations.radon.Nivell]}}
+                  <mat-icon>arrow_drop_down</mat-icon>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="mat-expansion-content">
+                <p>Província: {{pollutionStations.radon.NOM_PROVINCIA}}</p>
+                <p>Municipio: {{pollutionStations.radon.NOM_MUNICIPI}}</p>
+                <p>Nivel: {{pollutionStations.radon.Nivell}}</p>
+              </div>
+            </mat-expansion-panel>
 
-      <mat-expansion-panel [expanded]="step === 7" (opened)="setStep(7)" hideToggle>
-        <mat-expansion-panel-header [ngStyle]="{'background' : color[nivel.indexOf(pollutionStations.pm10.Nivel)] }">
-          <mat-panel-title>
-            <b>PM10</b>
-          </mat-panel-title>
-          <mat-panel-description>
-            Peligro: {{pollutionStations.pm10.Nivel}}
-            <mat-icon>arrow_drop_down</mat-icon>
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <div class="mat-expansion-content">
-          <p>Província: {{pollutionStations.pm10.NOM_PROVINCIA}}</p>
-          <p>Municipio: {{pollutionStations.pm10.NOM_MUNICIPI}}</p>
-          <p>Zona: {{pollutionStations.pm10.NOM_ZONA}}</p>
-          <p>Valor: {{pollutionStations.pm10.VALOR}}</p>
-        </div>
-      </mat-expansion-panel>
+            <mat-expansion-panel [expanded]="step === 6" (opened)="setStep(6)" hideToggle>
+              <mat-expansion-panel-header [ngStyle]="{'background' : color[nivel.indexOf(pollutionStations.pm2_5.Nivel)] }">
+                <mat-panel-title>
+                  <b>PM2.5</b>
+                </mat-panel-title>
+                <mat-panel-description>
+                  Riesgo: {{pollutionStations.pm2_5.Nivel}}
+                  <mat-icon>arrow_drop_down</mat-icon>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="mat-expansion-content">
+                <p>Província: {{pollutionStations.pm2_5.NOM_PROVINCIA}}</p>
+                <p>Municipio: {{pollutionStations.pm2_5.NOM_MUNICIPI}}</p>
+                <p>Zona: {{pollutionStations.pm2_5.NOM_ZONA}}</p>
+                <p>Valor: {{pollutionStations.pm2_5.VALOR}}</p>
+              </div>
+            </mat-expansion-panel>
 
-    </mat-accordion>
+            <mat-expansion-panel [expanded]="step === 7" (opened)="setStep(7)" hideToggle>
+              <mat-expansion-panel-header [ngStyle]="{'background' : color[nivel.indexOf(pollutionStations.pm10.Nivel)] }">
+                <mat-panel-title>
+                  <b>PM10</b>
+                </mat-panel-title>
+                <mat-panel-description>
+                  Riesgo: {{pollutionStations.pm10.Nivel}}
+                  <mat-icon>arrow_drop_down</mat-icon>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="mat-expansion-content">
+                <p>Província: {{pollutionStations.pm10.NOM_PROVINCIA}}</p>
+                <p>Municipio: {{pollutionStations.pm10.NOM_MUNICIPI}}</p>
+                <p>Zona: {{pollutionStations.pm10.NOM_ZONA}}</p>
+                <p>Valor: {{pollutionStations.pm10.VALOR}}</p>
+              </div>
+            </mat-expansion-panel>
+
+          </mat-accordion>
+      </div>
+    </div>
   </div>
+
+
+  <ng-template #elseBlock>
+    <div fxLayout="column" fxLayoutAlign.gt-sm="start center" class="flex-content">
+      <mat-spinner [color]="loadingColor"></mat-spinner>
+      <span class="loading-span"><b>Estamos cargando la información...</b></span>
+    </div>
+  </ng-template>
+  <br>
 </div>

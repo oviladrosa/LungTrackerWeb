@@ -1087,18 +1087,18 @@ export class LungFormQuestionsComponent implements OnInit {
       const requestData = this.fillRequestData();
       console.log(requestData);
       await this.questionService.communicateForm(requestData);
-      console.log(requestData.demographicDetails.livingPlace.city['latitude']);
-      console.log(requestData.demographicDetails.livingPlace.city['longitude']);
-      console.log(requestData.demographicDetails.livingPlace.country['name']);
       await this.router.navigate(['/contaminants'],
         {
                 queryParams:
                   {
                     latitude: requestData.demographicDetails.livingPlace.city['latitude'],
                     longitude: requestData.demographicDetails.livingPlace.city['longitude'],
-                    country: requestData.demographicDetails.livingPlace.country['name']
+                    country: requestData.demographicDetails.livingPlace.country['name'],
+                    latitude2: requestData.demographicDetails.bornPlace.city['latitude'],
+                    longitude2: requestData.demographicDetails.bornPlace.city['longitude'],
+                    country2: requestData.demographicDetails.bornPlace.country['name']
                   }
-              });
+                });
     } catch (err) {
       console.log(err);
       this._snackBar.open('Error enviando el formulario', 'Cerrar', {
