@@ -37,7 +37,11 @@ import { HomeComponentService } from './home/home.component-service';
 import { PatientContaminantsStationsComponent } from './patient-contaminants-stations/patient-contaminants-stations.component';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { NgxPaginationModule } from 'ngx-pagination';
-import {PatientsContaminantsStationsService} from './patient-contaminants-stations/patients-contaminants-stations.service';
+import { LeafletModule } from "@asymmetrik/ngx-leaflet";
+import { LeafletMapComponent } from './researcher/researcher-map/leaflet-map/leaflet-map.component';
+import { MarkerService } from './researcher/researcher-map/leaflet-map/marker.service';
+import { PopupService } from './researcher/researcher-map/leaflet-map/popup.service';
+import { ResearcherMapComponent } from './researcher/researcher-map/researcher-map.component';
 
 
 
@@ -51,7 +55,9 @@ import {PatientsContaminantsStationsService} from './patient-contaminants-statio
     LoginComponent,
     ResearcherComponent,
     MapsComponent,
-    PatientContaminantsStationsComponent
+    PatientContaminantsStationsComponent,
+    LeafletMapComponent,
+    ResearcherMapComponent
   ],
   imports: [
     BrowserModule,
@@ -80,12 +86,15 @@ import {PatientsContaminantsStationsService} from './patient-contaminants-statio
     MatSnackBarModule,
     ChartModule,
     MatExpansionModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    LeafletModule
   ],
   providers: [
     LungFormQuestionsService,
     HomeComponentService,
-    CookieService
+    CookieService,
+    MarkerService,
+    PopupService
   ],
   bootstrap: [AppComponent]
 })

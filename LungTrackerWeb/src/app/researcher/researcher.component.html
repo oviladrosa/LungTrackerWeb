@@ -1,25 +1,30 @@
 <div class="table-div" >
 
-    <h1>Área investigadores:</h1>
+    <h1>Área investigadores</h1>
     <h3> En esta área se pueden consultar los resultados de las encuestas realizadas por pacientes de cáncer de pulmón.</h3>
     <button type="button" mat-raised-button color="primary" class="export-button" title="Export all my snippets"
           (click)="exportPersonsToJSON()">
-       Exportar resultados 
+       Exportar resultados
     </button>
+   <!-- <button type="button" mat-raised-button color="primary" class="export-button" title="Export all my snippets"
+          (click)="navigateToMaps()">
+      Acceder a mapas
+    </button>-->
+    <app-leaflet-map></app-leaflet-map>
     <div class="inline-charts">
-        <chart *ngIf="showGraphs[1]" class="dashchart2" [type]="typeAgeRanges" [data]="dataAgeRanges"
-        [options]="optionsAgeRanges"></chart>
-        <chart *ngIf="showGraphs[0]" class="dashchart" [type]="typeLocalitzation" [data]="dataLocalitzation"
-        [options]="optionsLocalitzation"></chart>
+        <chart *ngIf="showGraphs[1]" class="dashchart2" [type]="typeSmokers" [data]="dataSmokers"
+        [options]="optionsSmokers"></chart>
+        <chart *ngIf="showGraphs[3]" class="dashchart" [type]="typeExpositions" [data]="dataExpositions"
+        [options]="optionsExpositions"></chart>
     </div>
     <div class="inline-charts-bottom">
-       <chart *ngIf="showGraphs[3]" class="dashchart" [type]="typeExpositions" [data]="dataExpositions"
-        [options]="optionsExpositions"></chart>
+        <chart *ngIf="showGraphs[1]" class="dashchart2" [type]="typeAgeRanges" [data]="dataAgeRanges"
+        [options]="optionsAgeRanges"></chart>
         <chart *ngIf="showGraphs[2]" class="dashchart" [type]="typeMutations" [data]="dataMutations"
         [options]="optionsMutations"></chart>
     </div>
- 
-    
+<br>
+
     <h3> La siguiente tabla detalla todas las encuestas realizadas.</h3>
     <ng-container >
 
@@ -28,15 +33,6 @@
             <table style="box-shadow: none">
                 <!--Primera fila con los títulos-->
                 <thead>
-                    <th >
-                        <span class="header-name">
-                        Id
-                        <!--   <span class="header-arrows">
-                            <app-sort-arrows [sortByObject]="orderedBy" [attribute]="'INEP'"></app-sort-arrows>
-                        </span>-->
-                        </span>
-                    </th>
-
                     <th >
                         <span class="header-name">
                             Género
@@ -85,14 +81,13 @@
                         </span>-->
                     </th>
 
+
                 </thead>
                 <tbody>
                     <!--Empiezan las filas dentro de la tabla-->
                     <tr  *ngFor="let person of persons | paginate: { itemsPerPage: count, currentPage: p }">
-                        <td ><b>{{person._id}}</b></td>
                         <td ><b>{{person.sex}}</b></td>
                         <td ><b>{{person.age}}</b></td>
-                       <!-- <td ><b>{{person.country}}</b></td>-->
 
                         <td >
                             <div *ngFor=" let place of person.livingPlaces">
@@ -138,6 +133,7 @@
                                 <p *ngIf="tumor.surgery"> Cirugía en {{person.tumors[0].surgery[0].year}} </p>
                             </div>
                         </td>
+
 
                     </tr>
                 </tbody>
