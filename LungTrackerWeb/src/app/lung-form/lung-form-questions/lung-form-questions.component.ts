@@ -393,8 +393,6 @@ export class LungFormQuestionsComponent implements OnInit {
     const newFormGroup = this.createFamilyItems();
     newFormGroup.enable();
     newFormGroup.controls['otherCancerType'].disable();
-    newFormGroup.controls['otherTreatment'].disable();
-    newFormGroup.controls['treatmentType'].disable();
     newFormGroup.controls['deadDate'].disable();
     newFormGroup.controls['deadCause'].disable();
     this.familyItems.push(newFormGroup);
@@ -945,7 +943,7 @@ export class LungFormQuestionsComponent implements OnInit {
     requestData.clinicDetails.mainDiagnose.notListedCancerType = this.clinicDetails.get('cancerType')?.value == 'Otros' ?
       true : false;
     if (this.clinicDetails.get('cancerType')?.value === 'No Microcítico (de célula no pequeña)'){
-      if (this.clinicDetails.get('nonmicrocyticType')?.value === 'Otros'){
+      if (this.clinicDetails.get('nonmicrocyticType')?.value !== 'Otros'){
         requestData.clinicDetails.mainDiagnose.nonmicrocyticSubtype = this.clinicDetails.get('nonmicrocyticType')?.value;
       } else {
         requestData.clinicDetails.mainDiagnose.nonmicrocyticSubtype = this.clinicDetails.get('otherNonMicrocyticCancerType')?.value;
@@ -969,7 +967,7 @@ export class LungFormQuestionsComponent implements OnInit {
     requestData.clinicDetails.mainDiagnose.hasReceivedComplementaryRadiotherapy = this.clinicDetails.get('isRadiotherapy')?.value;
     if (this.clinicDetails.get('isRadiotherapy')?.value){
       requestData.clinicDetails.mainDiagnose.complementaryRadiotherapyTarget.push(this.clinicDetails.get('radiotherapyTarget')?.value);
-      if (this.clinicDetails.get('radiotherapyTarget')?.value.contains('Otros')){
+      if (this.clinicDetails.get('radiotherapyTarget')?.value.includes('Otros')){
         requestData.clinicDetails.mainDiagnose.complementaryRadiotherapyTarget.push(this.clinicDetails.get('otherRadiotherapyTarget')?.value);
       }
     }
