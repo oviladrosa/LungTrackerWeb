@@ -8,6 +8,7 @@ import { CookieService } from "ngx-cookie-service";
 export class UserService {
 
 
+
   constructor(private http: HttpClient, private cookies: CookieService) {}
 
 
@@ -45,6 +46,10 @@ export class UserService {
 
   getExpositionsClassified(){
     return this.http.get("https://young-hollows-40979.herokuapp.com/https://apiclinic.herokuapp.com/expositions/classified", {headers: new HttpHeaders().set('Authorization', this.getToken())});
+  }
+  getSmokerData(){
+    return this.http.get("https://young-hollows-40979.herokuapp.com/https://apiclinic.herokuapp.com/expositions/smokerStats", {headers: new HttpHeaders().set('Authorization', this.getToken())});
+
   }
 
   getLocalitzation() {

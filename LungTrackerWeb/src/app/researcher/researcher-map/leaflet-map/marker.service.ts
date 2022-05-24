@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as L from 'leaflet';
 import { UserService } from '../../../services/UserService';
 import { PopupService } from './popup.service';
@@ -42,6 +42,11 @@ export class MarkerService {
     });
   }
 
+   getRadonData(){
+    return this.http.get("https://young-hollows-40979.herokuapp.com/https://apiclinic.herokuapp.com/contaminants/allDataRadon", {headers: new HttpHeaders().set('Authorization', this.userService.getToken())});
+
+  }
+
   makeCityCircles(map: L.Map): void {
     this.userService.getLocations().subscribe((res: any) => {
       for (const person of res) {
@@ -78,7 +83,7 @@ export class MarkerService {
           const circle = L.circleMarker([lat, lon], {
             radius: MarkerService.scaledRadius(dictPlace.value, maxVal)
           });
-          circle.bindPopup(this.popupService.makeCapitalPopup(dictPlace));
+          circle.bindPopup(this.popupService.makeCapitalPopup(dictPlace),{closeButton: false});
           circle.addTo(map);
         }
       }

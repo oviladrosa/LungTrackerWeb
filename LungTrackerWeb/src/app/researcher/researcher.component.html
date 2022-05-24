@@ -6,24 +6,24 @@
           (click)="exportPersonsToJSON()">
        Exportar resultados
     </button>
-    <button type="button" mat-raised-button color="primary" class="export-button" title="Export all my snippets"
+   <!-- <button type="button" mat-raised-button color="primary" class="export-button" title="Export all my snippets"
           (click)="navigateToMaps()">
       Acceder a mapas
-    </button>
-
+    </button>-->
+    <app-leaflet-map></app-leaflet-map>
     <div class="inline-charts">
-        <chart *ngIf="showGraphs[1]" class="dashchart2" [type]="typeAgeRanges" [data]="dataAgeRanges"
-        [options]="optionsAgeRanges"></chart>
-        <chart *ngIf="showGraphs[0]" class="dashchart" [type]="typeLocalitzation" [data]="dataLocalitzation"
-        [options]="optionsLocalitzation"></chart>
+        <chart *ngIf="showGraphs[1]" class="dashchart2" [type]="typeSmokers" [data]="dataSmokers"
+        [options]="optionsSmokers"></chart>
+        <chart *ngIf="showGraphs[3]" class="dashchart" [type]="typeExpositions" [data]="dataExpositions"
+        [options]="optionsExpositions"></chart>
     </div>
     <div class="inline-charts-bottom">
-       <chart *ngIf="showGraphs[3]" class="dashchart" [type]="typeExpositions" [data]="dataExpositions"
-        [options]="optionsExpositions"></chart>
+        <chart *ngIf="showGraphs[1]" class="dashchart2" [type]="typeAgeRanges" [data]="dataAgeRanges"
+        [options]="optionsAgeRanges"></chart>
         <chart *ngIf="showGraphs[2]" class="dashchart" [type]="typeMutations" [data]="dataMutations"
         [options]="optionsMutations"></chart>
     </div>
-
+<br>
 
     <h3> La siguiente tabla detalla todas las encuestas realizadas.</h3>
     <ng-container >
