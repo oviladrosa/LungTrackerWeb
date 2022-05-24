@@ -14,6 +14,14 @@
   background-color: #C9D3DD;
 }
 
+.residence-button{
+  margin: 10px;
+}
+
+.loading-span{
+  margin-top: 50px;
+}
+
 .example-headers-align .mat-expansion-panel-header-title,
 .example-headers-align .mat-expansion-panel-header-description {
   flex-basis: 0;
