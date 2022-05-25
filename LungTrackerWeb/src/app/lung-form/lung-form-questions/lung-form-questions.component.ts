@@ -151,6 +151,12 @@ export class LungFormQuestionsComponent implements OnInit {
     'NS/NC'
   ]
 
+  familyNumberAnswers: any = [
+    '1',
+    '2',
+    '3 o más'
+  ]
+
   familyRealtions: any = [
     "Padre",
     'Madre',
@@ -281,6 +287,7 @@ export class LungFormQuestionsComponent implements OnInit {
     });
     this.familyDetails = this.formBuilder.group({
       anyFamilyDiagnoseAnswer: ['', Validators.required],
+      anyFamilyNumberAnswer:['', Validators.required],
       familyDiagnoses: new FormArray([])
     });
    }
@@ -398,6 +405,23 @@ export class LungFormQuestionsComponent implements OnInit {
     this.familyItems.push(newFormGroup);
    }
 
+   addFamilyMembers() {
+     this.deleteFamilyMembers();
+     const answer = this.familyDetails.get('anyFamilyNumberAnswer')?.value;
+     let x = answer[0];
+     for (let i = 0; i < x; i++) {
+       this.addFamilyItem()
+     }
+   }
+
+   deleteFamilyMembers() {
+    this.familyItems = this.familyDetails.get('familyDiagnoses') as FormArray;
+    while (this.familyItems.length !== 0) {
+      this.familyItems.removeAt(0);
+    }
+   }
+   
+
    deleteFamilyItem() {
     this.familyItems = this.familyDetails.get('familyDiagnoses') as FormArray;
     const leng = this.familyItems.length;
@@ -467,6 +491,8 @@ export class LungFormQuestionsComponent implements OnInit {
     this.jobDetails.controls['initialYearCurrentJob'].disable();
     this.jobDetails.controls['currentJobDescription'].disable();
     this.jobDetails.controls['currentJobProtections'].disable();
+
+    this.familyDetails.controls['anyFamilyNumberAnswer'].disable();
 
     this.jobDetails.get('currentJobDescription')?.valueChanges
       .pipe(
@@ -706,6 +732,7 @@ export class LungFormQuestionsComponent implements OnInit {
     }
   }
 
+
   enableOtherMetastasis() {
     const type = this.clinicDetails.get('metastatisTreatment')?.value;
     console.log(type);
@@ -915,6 +942,16 @@ export class LungFormQuestionsComponent implements OnInit {
       this.jobDetails.controls['currentJobDescription'].disable();
       this.jobDetails.controls['currentJobDescription'].setValue('');
       this.jobDetails.controls['currentJobProtections'].disable();
+    }
+  }
+
+  enableFamilyNumber() {
+    const answer = this.familyDetails.get('anyFamilyDiagnoseAnswer')?.value;
+    if (answer === 'Sí') {
+      this.familyDetails.controls['anyFamilyNumberAnswer'].enable();
+    } else {
+      this.familyDetails.controls['anyFamilyNumberAnswer'].setValue(0);
+      this.familyDetails.controls['anyFamilyNumberAnswer'].disable();
     }
   }
 

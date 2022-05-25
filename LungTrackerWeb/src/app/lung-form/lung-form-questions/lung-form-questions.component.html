@@ -7,6 +7,7 @@
       <span class="form-item" [class.light-text]="this.step==3">03. Exposición a tóxicos contaminantes</span>
       <span class="form-item" [class.light-text]="this.step==4">04. Historial laboral</span>
       <span class="form-item" [class.light-text]="this.step==5">05. Historial familiar</span>
+      
     </div>
 
  </div>
@@ -16,7 +17,6 @@
       <p class="nsnc-informer">Para cualquier respuesta que desconozcas encontrarás la opción <i>NS/NC</i>.</p>
     </div>
     <mat-horizontal-stepper  #stepper>
-
 
         <mat-step [stepControl]="demographicDetails" [editable]="true">
             <div class="questions-div">
@@ -618,19 +618,25 @@
                 <h3>¿Se ha diagnosticado a algún miembro de su familia (no política) de cáncer?</h3>
                 <mat-form-field appearance="outline">
                   <mat-label>Respuesta</mat-label>
-                  <select  matNativeControl  formControlName="anyFamilyDiagnoseAnswer" matInput >
+                  <select  matNativeControl  formControlName="anyFamilyDiagnoseAnswer" matInput (change) ="enableFamilyNumber()">
                     <option value="" disabled>Respuesta</option>
                     <option *ngFor="let t of familyAnswers" [ngValue]="t">{{t}}</option>
                   </select>
-
+    
                 </mat-form-field>
-
+    
+                <h3>¿Cuántos miembros?</h3>
+                <mat-form-field appearance="outline">
+                  <mat-label>Respuesta</mat-label>
+                  <select  matNativeControl  formControlName="anyFamilyNumberAnswer" matInput (change) = "addFamilyMembers()" >
+                    <option value="" disabled>Respuesta</option>
+                    <option *ngFor="let t of familyNumberAnswers" [ngValue]="t">{{t}}</option>
+                  </select>
+    
+                </mat-form-field>
+    
                 <div fxLayout="column" style="margin-top: 50px;">
-                  <span>Para cada familiar diagnosticado que haya tenido añada una pestaña y rellene los datos relacionados.</span>
-                  <div fxLayout="row" fxLayoutAlign="center center">
-                    <button mat-button type="button" (click)="addFamilyItem()" >Añadir</button>
-                    <button mat-button type="button" (click)="deleteFamilyItem()">Eliminar</button>
-                  </div>
+                  <span>Para cada familiar diagnosticado que haya tenido rellene los datos relacionados.</span>
                 </div>
                 <div formArrayName="familyDiagnoses"
                   *ngFor="let item of getOtherFamily['controls']; let i = index;"
@@ -648,14 +654,14 @@
                       </mat-form-field>
                       <div fxFlex="10"></div>
                       <mat-checkbox formControlName="isDead" color="primary" (change)="isDeadEnables(i)">¿Ha fallecido?</mat-checkbox>
-
+    
                     </div>
-
+    
                     <mat-form-field appearance="outline" *ngIf="!getFamilyForm(i).get('isDead')?.value">
                       <mat-label>Edad</mat-label>
                       <input matInput formControlName="age" required type="number">
                     </mat-form-field>
-
+    
                     <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign.gt-sm="start center">
                       <mat-form-field appearance="outline" *ngIf="getFamilyForm(i).get('isDead')?.value">
                         <mat-label>Edad de defunción</mat-label>
@@ -664,8 +670,8 @@
                       <div fxFlex="10"></div>
                       <mat-checkbox style="margin-bottom: 20px" formControlName="deadCause" color="primary" *ngIf="getFamilyForm(i).get('isDead')?.value">Fallecimiento debido al cáncer</mat-checkbox>
                     </div>
-
-
+    
+    
                     <h3>Datos clínicos</h3>
                     <div fxLayout="column">
                       <div fxLayout="row" fxLayoutAlign="start center">
@@ -682,8 +688,8 @@
                           <input matInput formControlName="otherCancerType" type="text">
                         </mat-form-field>
                       </div>
-
-
+    
+    
                       <span>¿Ha desarrollado metástasis?</span>
                       <div fxLayout="row">
                         <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="30">
@@ -696,9 +702,10 @@
                         <div fxFlex="70" fxHide.lt-md="true"></div>
                       </div>
                     </div>
-
+    
                   </div>
                 </div>
+                
                 <div style="width: 100%; margin-top: 50px;" fxLayout="row" fxLayoutAlign="center center">
                   <button mat-raised-button mat-button (click)="this.submitForm()" [disabled]="this.familyDetails.invalid || loadingSubmit" color="primary">
                     <span *ngIf="!loadingSubmit">Enviar Formulario</span>
@@ -707,6 +714,8 @@
               </form>
             </div>
           </mat-step>
+
+
 
 
 
