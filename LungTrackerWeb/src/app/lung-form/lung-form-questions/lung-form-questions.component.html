@@ -18,6 +18,7 @@
     </div>
     <mat-horizontal-stepper  #stepper>
 
+
         <mat-step [stepControl]="demographicDetails" [editable]="true">
             <div class="questions-div">
               <form [formGroup]="demographicDetails">
@@ -146,275 +147,275 @@
                 </form>
             </div>
         </mat-step>
-          <mat-step  [stepControl]="clinicDetails" [editable]="true">
-            <div class="questions-div">
-              <form [formGroup]="clinicDetails">
-                  <h2>Diagnóstico</h2>
-                  <div fxLayout="column" fxLayout.gt-sm="row">
-                    <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="30">
-                      <mat-label>Año diágnostico</mat-label>
-                      <input matInput formControlName="yearDiagnose" required type="number">
-                    </mat-form-field>
-                    <div fxFlex="5" fxHide.lt-md="true"></div>
+        <mat-step  [stepControl]="clinicDetails" [editable]="true">
+          <div class="questions-div">
+            <form [formGroup]="clinicDetails">
+                <h2>Diagnóstico</h2>
+                <div fxLayout="column" fxLayout.gt-sm="row">
+                  <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="30">
+                    <mat-label>Año diágnostico</mat-label>
+                    <input matInput formControlName="yearDiagnose" required type="number">
+                  </mat-form-field>
+                  <div fxFlex="5" fxHide.lt-md="true"></div>
 
-                    <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="30">
-                      <mat-label>Tipo de cáncer</mat-label>
-                      <select  matNativeControl  formControlName="cancerType" matInput (change)="enableOtherCancerField()">
+                  <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="30">
+                    <mat-label>Tipo de cáncer</mat-label>
+                    <select  matNativeControl  formControlName="cancerType" matInput (change)="enableOtherCancerField()">
+                      <option value="" disabled>Indica el tipo</option>
+                      <option *ngFor="let t of cancerTypes" [ngValue]="t">{{t}}</option>
+                    </select>
+                  </mat-form-field>
+
+                  <div fxFlex="5" fxHide.lt-md="true"></div>
+
+                  <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="30">
+                    <mat-label>Otros</mat-label>
+                    <input matInput formControlName="otherCancerType" type="text">
+                  </mat-form-field>
+                </div>
+
+                <div fxLayout="column" fxLayout.gt-sm="row">
+                  <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="30">
+                    <mat-label>Subtipo de Cáncer (Célula no pequeña)</mat-label>
+                    <select  matNativeControl  formControlName="nonmicrocyticType" matInput (change)="enableOtherNonMicrocyticCancerField()">
+                      <option value="" disabled>Indica el subtipo</option>
+                      <option *ngFor="let t of nonMicrocyticCancerSubtypes" [ngValue]="t">{{t}}</option>
+                    </select>
+                  </mat-form-field>
+
+                  <div fxFlex="5" fxHide.lt-md="true"></div>
+
+                  <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="30">
+                    <mat-label>Otros</mat-label>
+                    <input matInput formControlName="otherNonMicrocyticCancerType" type="text">
+                  </mat-form-field>
+                </div>
+
+                <h3>¿Sabe si se ha detectado alguna mutación en su tumor?</h3>
+                <div fxLayout="column" fxLayout.gt-sm="row">
+                  <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="30">
+                    <mat-label>Respuesta</mat-label>
+                    <select  matNativeControl  formControlName="mutationAnswer" matInput (change)="enableMutationType()">
+                        <option value="" disabled>Indica la respuesta</option>
+                        <option *ngFor="let t of mutationAnswer" [ngValue]="t">{{t}}</option>
+                    </select>
+                  </mat-form-field>
+                  <div fxFlex="5" fxHide.lt-md="true"></div>
+                  <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="30">
+                    <mat-label>Tipo de mutación</mat-label>
+                    <select  matNativeControl  formControlName="mutationType" matInput (change)="enableOtherMutationType()">
                         <option value="" disabled>Indica el tipo</option>
-                        <option *ngFor="let t of cancerTypes" [ngValue]="t">{{t}}</option>
-                      </select>
-                    </mat-form-field>
-
-                    <div fxFlex="5" fxHide.lt-md="true"></div>
-
-                    <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="30">
-                      <mat-label>Otros</mat-label>
-                      <input matInput formControlName="otherCancerType" type="text">
-                    </mat-form-field>
-                  </div>
-
-                  <div fxLayout="column" fxLayout.gt-sm="row">
-                    <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="30">
-                      <mat-label>Subtipo de Cáncer (Célula no pequeña)</mat-label>
-                      <select  matNativeControl  formControlName="nonmicrocyticType" matInput (change)="enableOtherNonMicrocyticCancerField()">
-                        <option value="" disabled>Indica el subtipo</option>
-                        <option *ngFor="let t of nonMicrocyticCancerSubtypes" [ngValue]="t">{{t}}</option>
-                      </select>
-                    </mat-form-field>
-
-                    <div fxFlex="5" fxHide.lt-md="true"></div>
-
-                    <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="30">
-                      <mat-label>Otros</mat-label>
-                      <input matInput formControlName="otherNonMicrocyticCancerType" type="text">
-                    </mat-form-field>
-                  </div>
-
-                  <h3>¿Sabe si se ha detectado alguna mutación en su tumor?</h3>
+                        <option *ngFor="let t of mutationTypes" [ngValue]="t">{{t}}</option>
+                    </select>
+                  </mat-form-field>
+                  <div fxFlex="5" fxHide.lt-md="true"></div>
+                  <mat-form-field appearance="outline"fxFlex="100" fxFlex.gt-sm="30" >
+                    <mat-label>Otros</mat-label>
+                    <input matInput formControlName="otherMutationType" type="text">
+                  </mat-form-field>
+                </div>
+                <h3>¿Se ha operado su tumor de pulmón?</h3>
+                <div fxLayout="column">
                   <div fxLayout="column" fxLayout.gt-sm="row">
                     <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="30">
                       <mat-label>Respuesta</mat-label>
-                      <select  matNativeControl  formControlName="mutationAnswer" matInput (change)="enableMutationType()">
-                          <option value="" disabled>Indica la respuesta</option>
-                          <option *ngFor="let t of mutationAnswer" [ngValue]="t">{{t}}</option>
+                      <select  matNativeControl  formControlName="sugeryAnswer" matInput (change)="enableSurgeryYear()">
+                        <option value="" disabled>Indica la respuesta</option>
+                        <option *ngFor="let t of surgeryAnswers" [ngValue]="t">{{t}}</option>
                       </select>
                     </mat-form-field>
                     <div fxFlex="5" fxHide.lt-md="true"></div>
                     <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="30">
-                      <mat-label>Tipo de mutación</mat-label>
-                      <select  matNativeControl  formControlName="mutationType" matInput (change)="enableOtherMutationType()">
-                          <option value="" disabled>Indica el tipo</option>
-                          <option *ngFor="let t of mutationTypes" [ngValue]="t">{{t}}</option>
+                      <mat-label>Año de la operación</mat-label>
+                      <input matInput formControlName="surgeryYear" required type="number">
+                    </mat-form-field>
+                    <div fxFlex="5" fxHide.lt-md="true"></div>
+                    <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="30">
+                      <mat-label>Tratamiento complementario</mat-label>
+                      <mat-select multiple formControlName="surgeryExtraTreatment" (selectionChange)="enableOtherComplementaryTreatments()">
+                        <mat-option *ngFor="let t of surgeryExtraTreatments" [value]="t">{{t}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Otros</mat-label>
+                    <input matInput formControlName="otherSurgeryExtraTreatment" type="text">
+                  </mat-form-field>
+                </div>
+                <div fxLayout="column">
+                  <div fxLayout="column" fxLayout.gt-sm="row">
+                    <mat-checkbox formControlName="isRadiotherapy" (change)="enableRadiotherapyTarget($event)">Ha recibido radioterapia complementaria.</mat-checkbox>
+                  </div>
+                  <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="30">
+                    <mat-label>Localización del tratamiento con radioterapia</mat-label>
+                    <mat-select multiple formControlName="radiotherapyTarget" (selectionChange)="enableOtherRadiotherapyTarget()">
+                      <mat-option *ngFor="let t of radiotherapyTargetsList" [value]="t">{{t}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Otros</mat-label>
+                    <input matInput formControlName="otherRadiotherapyTarget" type="text">
+                  </mat-form-field>
+                </div>
+                <h3>¿Su tumor ha desarrollado metástasis?</h3>
+                <div fxLayout="column">
+                  <div fxLayout="column" fxLayout.gt-sm="row">
+                    <mat-form-field appearance="outline" fxFlex.gt-sm="30">
+                      <mat-label>Respuesta</mat-label>
+                      <select  matNativeControl  formControlName="metastasisAnswer" matInput (change)="enableMetastasisTypes()">
+                          <option value="" disabled>Indica la respuesta</option>
+                          <option *ngFor="let t of surgeryAnswers" [ngValue]="t">{{t}}</option>
                       </select>
                     </mat-form-field>
                     <div fxFlex="5" fxHide.lt-md="true"></div>
-                    <mat-form-field appearance="outline"fxFlex="100" fxFlex.gt-sm="30" >
-                      <mat-label>Otros</mat-label>
-                      <input matInput formControlName="otherMutationType" type="text">
+
+                    <mat-form-field appearance="outline" fxFlex.gt-sm="30">
+                      <mat-label>Año de la metástasis</mat-label>
+                      <input matInput formControlName="metastasisYear" required type="number">
+                    </mat-form-field>
+                    <div fxFlex="5" fxHide.lt-md="true"></div>
+
+                    <mat-form-field appearance="outline" fxFlex.gt-sm="30">
+                      <mat-label>Tratamiento</mat-label>
+                      <mat-select multiple formControlName="metastatisTreatment" (selectionChange)="enableOtherMetastasis()">
+                          <mat-option *ngFor="let t of metastasisOptions" [value]="t">{{t}}</mat-option>
+                      </mat-select>
                     </mat-form-field>
                   </div>
-                  <h3>¿Se ha operado su tumor de pulmón?</h3>
+
                   <div fxLayout="column">
                     <div fxLayout="column" fxLayout.gt-sm="row">
-                      <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="30">
-                        <mat-label>Respuesta</mat-label>
-                        <select  matNativeControl  formControlName="sugeryAnswer" matInput (change)="enableSurgeryYear()">
+                      <mat-checkbox formControlName="isClinicalTrial">El tratamiento ha sido un ensayo clínico.</mat-checkbox>
+                    </div>
+                  </div>
+
+                  <mat-form-field appearance="outline" >
+                    <mat-label>Otros tratamientos</mat-label>
+                    <input matInput formControlName="otherMetastasisTreatment" type="text">
+                  </mat-form-field>
+                </div>
+                <h3>(No operado - No metástasis) ¿Ha realizado algún tratamiento (no cirugía)?</h3>
+                <div fxLayout="column" fxLayout.gt-sm="row">
+                  <mat-form-field appearance="outline" fxFlex.gt-sm="40">
+                    <mat-label>Respuesta</mat-label>
+                    <select  matNativeControl  formControlName="noSurgeryTreatmentAnswer" matInput (change)="enableOtherMetastasisTreatments()">
+                      <option value="" disabled>Indica la respuesta</option>
+                      <option *ngFor="let t of otherMetastasisTreatments" [ngValue]="t">{{t}}</option>
+                    </select>
+                  </mat-form-field>
+                  <div fxFlex="5" fxHide.lt-md="true"></div>
+
+                  <mat-form-field appearance="outline" fxFlex.gt-sm="55">
+                    <mat-label>Otros tratamientos</mat-label>
+                    <input matInput formControlName="otherNonSurgeryTreatment" type="text">
+                  </mat-form-field>
+                </div>
+
+
+                <h3>¿Le han diagnosticado alguna enfermedad pulmonar previa al cáncer de pulmón?</h3>
+                <div fxLayout="column">
+                  <div fxLayout="row">
+                    <mat-form-field appearance="fill" fxFlex.gt-sm="55" fxFlex="100">
+                      <mat-label>Enfermedades previas</mat-label>
+                      <mat-select  formControlName="previousDiseases" multiple (selectionChange)="enableOtherPreviousDisease()">
+                        <mat-option *ngFor="let t of previousDiseasesOptions" [value]="t">{{t}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <div fxFlex="45" fxHide.lt-md="true"></div>
+
+                  </div>
+
+                  <div fxLayout="row">
+                    <mat-form-field appearance="outline" fxFlex.gt-sm="55" fxFlex="100">
+                      <mat-label>Otros</mat-label>
+                      <input matInput formControlName="otherPreviousDiseases" type="text">
+                    </mat-form-field>
+                    <div fxFlex="45" fxHide.lt-md="true"></div>
+                  </div>
+
+                </div>
+
+
+                <h2>Datos de otros tumores</h2>
+                <h3>Aparte del cáncer de pulmón, ¿se le ha diagnosticado otro tipo de cáncer?
+                </h3>
+                <mat-form-field appearance="outline" >
+                  <mat-label>Respuesta</mat-label>
+                  <select  matNativeControl  formControlName="additionalDiagnoseAnswer" matInput>
+                    <option value="" disabled>Indica la respuesta</option>
+                    <option *ngFor="let t of surgeryAnswers" [ngValue]="t">{{t}}</option>
+                  </select>
+                </mat-form-field>
+                <div fxLayout="column">
+                  <span>Para cada tipo de cáncer que haya experimentado añada una pestaña y rellene los datos relacionados.</span>
+                  <div fxLayout="row" fxLayoutAlign="center center">
+                    <button mat-button type="button" (click)="addCancerItem()" >Añadir</button>
+                    <button mat-button type="button" (click)="deleteCancerItem()">Eliminar</button>
+                  </div>
+                </div>
+
+
+                <div formArrayName="otherCancers"
+                  *ngFor="let item of getOtherCancers['controls']; let i = index;"
+                class="cancerType">
+                  <div [formGroupName]="i" >
+                    <h3>Tipo de cáncer - {{i+1}}</h3>
+                    <div fxLayout="row" fxLayout.lt-md="column">
+                      <mat-form-field appearance="outline" >
+                        <mat-label>Tipo de cáncer</mat-label>
+                        <select  matNativeControl  formControlName="type" matInput >
+                          <option value="" disabled>Indica el tipo</option>
+                          <option *ngFor="let o of otherCancerTypes" [ngValue]="o">{{o}}</option>
+                        </select>
+                      </mat-form-field>
+                      <div fxFlex="10"></div>
+                      <mat-form-field appearance="outline">
+                        <mat-label>Año de diagnóstico</mat-label>
+                        <input matInput formControlName="year" required type="number">
+                      </mat-form-field>
+                    </div>
+                    <div fxLayout="row" fxLayout.lt-md="column">
+                      <mat-form-field appearance="outline" >
+                        <mat-label>¿Ha desarrollado metástasis?</mat-label>
+                        <select  matNativeControl  formControlName="metastasis" matInput (change)="enableOtherCancerMetastasisYear(i)">
                           <option value="" disabled>Indica la respuesta</option>
                           <option *ngFor="let t of surgeryAnswers" [ngValue]="t">{{t}}</option>
                         </select>
                       </mat-form-field>
-                      <div fxFlex="5" fxHide.lt-md="true"></div>
-                      <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="30">
-                        <mat-label>Año de la operación</mat-label>
-                        <input matInput formControlName="surgeryYear" required type="number">
-                      </mat-form-field>
-                      <div fxFlex="5" fxHide.lt-md="true"></div>
-                      <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="30">
-                        <mat-label>Tratamiento complementario</mat-label>
-                        <mat-select multiple formControlName="surgeryExtraTreatment" (selectionChange)="enableOtherComplementaryTreatments()">
-                          <mat-option *ngFor="let t of surgeryExtraTreatments" [value]="t">{{t}}</mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                    </div>
-                    <mat-form-field appearance="outline">
-                      <mat-label>Otros</mat-label>
-                      <input matInput formControlName="otherSurgeryExtraTreatment" type="text">
-                    </mat-form-field>
-                  </div>
-                  <div fxLayout="column">
-                    <div fxLayout="column" fxLayout.gt-sm="row">
-                      <mat-checkbox formControlName="isRadiotherapy" (change)="enableRadiotherapyTarget($event)">Ha recibido radioterapia complementaria.</mat-checkbox>
-                    </div>
-                    <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="30">
-                      <mat-label>Localización del tratamiento con radioterapia</mat-label>
-                      <mat-select multiple formControlName="radiotherapyTarget" (selectionChange)="enableOtherRadiotherapyTarget()">
-                        <mat-option *ngFor="let t of radiotherapyTargetsList" [value]="t">{{t}}</mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                    <mat-form-field appearance="outline">
-                      <mat-label>Otros</mat-label>
-                      <input matInput formControlName="otherRadiotherapyTarget" type="text">
-                    </mat-form-field>
-                  </div>
-                  <h3>¿Su tumor ha desarrollado metástasis?</h3>
-                  <div fxLayout="column">
-                    <div fxLayout="column" fxLayout.gt-sm="row">
-                      <mat-form-field appearance="outline" fxFlex.gt-sm="30">
-                        <mat-label>Respuesta</mat-label>
-                        <select  matNativeControl  formControlName="metastasisAnswer" matInput (change)="enableMetastasisTypes()">
-                            <option value="" disabled>Indica la respuesta</option>
-                            <option *ngFor="let t of surgeryAnswers" [ngValue]="t">{{t}}</option>
-                        </select>
-                      </mat-form-field>
-                      <div fxFlex="5" fxHide.lt-md="true"></div>
-
-                      <mat-form-field appearance="outline" fxFlex.gt-sm="30">
+                      <div fxFlex="10"></div>
+                      <mat-form-field appearance="outline">
                         <mat-label>Año de la metástasis</mat-label>
                         <input matInput formControlName="metastasisYear" required type="number">
                       </mat-form-field>
-                      <div fxFlex="5" fxHide.lt-md="true"></div>
-
-                      <mat-form-field appearance="outline" fxFlex.gt-sm="30">
-                        <mat-label>Tratamiento</mat-label>
-                        <mat-select multiple formControlName="metastatisTreatment" (selectionChange)="enableOtherMetastasis()">
-                            <mat-option *ngFor="let t of metastasisOptions" [value]="t">{{t}}</mat-option>
-                        </mat-select>
+                    </div>
+                    <div fxLayout="row" fxLayout.lt-md="column">
+                      <mat-form-field appearance="outline" >
+                        <mat-label>¿Ha realizado tratamiento?</mat-label>
+                        <select  matNativeControl  formControlName="treatmentAnswer" matInput (change)="enableOtherCancerTreatments(i)">
+                          <option value="" disabled>Indica la respuesta</option>
+                          <option *ngFor="let t of surgeryAnswers" [ngValue]="t">{{t}}</option>
+                        </select>
+                      </mat-form-field>
+                      <div fxFlex="10"></div>
+                      <mat-form-field appearance="outline">
+                        <mat-label>¿Qué tipo de tratamiento?</mat-label>
+                        <select  matNativeControl  formControlName="treatmentType" matInput>
+                          <option value="" disabled>Indica la respuesta</option>
+                          <option *ngFor="let t of otherCancerTreatments" [ngValue]="t">{{t}}</option>
+                        </select>
                       </mat-form-field>
                     </div>
 
-                    <div fxLayout="column">
-                      <div fxLayout="column" fxLayout.gt-sm="row">
-                        <mat-checkbox formControlName="isClinicalTrial">El tratamiento ha sido un ensayo clínico.</mat-checkbox>
-                      </div>
-                    </div>
-
-                    <mat-form-field appearance="outline" >
-                      <mat-label>Otros tratamientos</mat-label>
-                      <input matInput formControlName="otherMetastasisTreatment" type="text">
-                    </mat-form-field>
                   </div>
-                  <h3>(No operado - No metástasis) ¿Ha realizado algún tratamiento (no cirugía)?</h3>
-                  <div fxLayout="column" fxLayout.gt-sm="row">
-                    <mat-form-field appearance="outline" fxFlex.gt-sm="40">
-                      <mat-label>Respuesta</mat-label>
-                      <select  matNativeControl  formControlName="noSurgeryTreatmentAnswer" matInput (change)="enableOtherMetastasisTreatments()">
-                        <option value="" disabled>Indica la respuesta</option>
-                        <option *ngFor="let t of otherMetastasisTreatments" [ngValue]="t">{{t}}</option>
-                      </select>
-                    </mat-form-field>
-                    <div fxFlex="5" fxHide.lt-md="true"></div>
+                </div>
 
-                    <mat-form-field appearance="outline" fxFlex.gt-sm="55">
-                      <mat-label>Otros tratamientos</mat-label>
-                      <input matInput formControlName="otherNonSurgeryTreatment" type="text">
-                    </mat-form-field>
-                  </div>
-
-
-                  <h3>¿Le han diagnosticado alguna enfermedad pulmonar previa al cáncer de pulmón?</h3>
-                  <div fxLayout="column">
-                    <div fxLayout="row">
-                      <mat-form-field appearance="fill" fxFlex.gt-sm="55" fxFlex="100">
-                        <mat-label>Enfermedades previas</mat-label>
-                        <mat-select  formControlName="previousDiseases" multiple (selectionChange)="enableOtherPreviousDisease()">
-                          <mat-option *ngFor="let t of previousDiseasesOptions" [value]="t">{{t}}</mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                      <div fxFlex="45" fxHide.lt-md="true"></div>
-
-                    </div>
-
-                    <div fxLayout="row">
-                      <mat-form-field appearance="outline" fxFlex.gt-sm="55" fxFlex="100">
-                        <mat-label>Otros</mat-label>
-                        <input matInput formControlName="otherPreviousDiseases" type="text">
-                      </mat-form-field>
-                      <div fxFlex="45" fxHide.lt-md="true"></div>
-                    </div>
-
-                  </div>
-
-
-                  <h2>Datos de otros tumores</h2>
-                  <h3>Aparte del cáncer de pulmón, ¿se le ha diagnosticado otro tipo de cáncer?
-                  </h3>
-                  <mat-form-field appearance="outline" >
-                    <mat-label>Respuesta</mat-label>
-                    <select  matNativeControl  formControlName="additionalDiagnoseAnswer" matInput>
-                      <option value="" disabled>Indica la respuesta</option>
-                      <option *ngFor="let t of surgeryAnswers" [ngValue]="t">{{t}}</option>
-                    </select>
-                  </mat-form-field>
-                  <div fxLayout="column">
-                    <span>Para cada tipo de cáncer que haya experimentado añada una pestaña y rellene los datos relacionados.</span>
-                    <div fxLayout="row" fxLayoutAlign="center center">
-                      <button mat-button type="button" (click)="addCancerItem()" >Añadir</button>
-                      <button mat-button type="button" (click)="deleteCancerItem()">Eliminar</button>
-                    </div>
-                  </div>
-
-
-                  <div formArrayName="otherCancers"
-                    *ngFor="let item of getOtherCancers['controls']; let i = index;"
-                  class="cancerType">
-                    <div [formGroupName]="i" >
-                      <h3>Tipo de cáncer - {{i+1}}</h3>
-                      <div fxLayout="row" fxLayout.lt-md="column">
-                        <mat-form-field appearance="outline" >
-                          <mat-label>Tipo de cáncer</mat-label>
-                          <select  matNativeControl  formControlName="type" matInput >
-                            <option value="" disabled>Indica el tipo</option>
-                            <option *ngFor="let o of otherCancerTypes" [ngValue]="o">{{o}}</option>
-                          </select>
-                        </mat-form-field>
-                        <div fxFlex="10"></div>
-                        <mat-form-field appearance="outline">
-                          <mat-label>Año de diagnóstico</mat-label>
-                          <input matInput formControlName="year" required type="number">
-                        </mat-form-field>
-                      </div>
-                      <div fxLayout="row" fxLayout.lt-md="column">
-                        <mat-form-field appearance="outline" >
-                          <mat-label>¿Ha desarrollado metástasis?</mat-label>
-                          <select  matNativeControl  formControlName="metastasis" matInput (change)="enableOtherCancerMetastasisYear(i)">
-                            <option value="" disabled>Indica la respuesta</option>
-                            <option *ngFor="let t of surgeryAnswers" [ngValue]="t">{{t}}</option>
-                          </select>
-                        </mat-form-field>
-                        <div fxFlex="10"></div>
-                        <mat-form-field appearance="outline">
-                          <mat-label>Año de la metástasis</mat-label>
-                          <input matInput formControlName="metastasisYear" required type="number">
-                        </mat-form-field>
-                      </div>
-                      <div fxLayout="row" fxLayout.lt-md="column">
-                        <mat-form-field appearance="outline" >
-                          <mat-label>¿Ha realizado tratamiento?</mat-label>
-                          <select  matNativeControl  formControlName="treatmentAnswer" matInput (change)="enableOtherCancerTreatments(i)">
-                            <option value="" disabled>Indica la respuesta</option>
-                            <option *ngFor="let t of surgeryAnswers" [ngValue]="t">{{t}}</option>
-                          </select>
-                        </mat-form-field>
-                        <div fxFlex="10"></div>
-                        <mat-form-field appearance="outline">
-                          <mat-label>¿Qué tipo de tratamiento?</mat-label>
-                          <select  matNativeControl  formControlName="treatmentType" matInput>
-                            <option value="" disabled>Indica la respuesta</option>
-                            <option *ngFor="let t of otherCancerTreatments" [ngValue]="t">{{t}}</option>
-                          </select>
-                        </mat-form-field>
-                      </div>
-
-                    </div>
-                  </div>
-
-                  <div fxLayout="row" fxLayoutAlign="space-evenly center" style="margin-top: 50px;">
-                    <button mat-raised-button matStepperPrevious (click)="this.previous()">Anterior</button>
-                    <button mat-raised-button matStepperNext (click)="this.next()" [disabled]="this.clinicDetails.invalid">Siguiente</button>
-                  </div>
-              </form>
-            </div>
-          </mat-step>
+                <div fxLayout="row" fxLayoutAlign="space-evenly center" style="margin-top: 50px;">
+                  <button mat-raised-button matStepperPrevious (click)="this.previous()">Anterior</button>
+                  <button mat-raised-button matStepperNext (click)="this.next()" [disabled]="this.clinicDetails.invalid">Siguiente</button>
+                </div>
+            </form>
+          </div>
+        </mat-step>
         <mat-step [stepControl]="expositionDetails" [editable]="true">
           <div class="questions-div">
             <form [formGroup]="expositionDetails">
@@ -504,216 +505,224 @@
             </div>
             </form>
           </div>
-          </mat-step>
-          <mat-step  [stepControl]="jobDetails" [editable]="true">
-            <div class="questions-div">
-              <form [formGroup]="jobDetails">
-                <h3>¿Está trabajando actualmente?</h3>
-                <div fxLayout="column" fxLayout.gt-sm="row">
-                  <mat-form-field appearance="outline" fxFlex.gt-sm="40">
-                    <mat-label>Trabajando actualmente</mat-label>
-                    <select  matNativeControl  formControlName="currentlyWorkingAnswer" matInput (change)="enableJobInfoFields()">
-                       <option value="" disabled>Respuesta</option>
-                       <option *ngFor="let w of workingAnswers" [ngValue]="w">{{w}}</option>
-                    </select>
-                  </mat-form-field>
-                  <div fxFlex="5" fxHide.lt-md="true"></div>
-                  <mat-form-field appearance="outline" fxFlex.gt-sm="40">
-                    <mat-label>Puesto de trabajo</mat-label>
-                      <input
-                      type="text"
-                      placeholder="Entra el trabajo"
-                      formControlName="currentJobDescription"
-                      matInput
-                      [matAutocomplete]="auto">
-                      <mat-autocomplete #auto="matAutocomplete" [panelWidth]="400">
-                          <mat-option
-                              *ngFor="let option of filteredJobs"
-                              [value]="option">
-                            {{option}}
-                        </mat-option>
-                    </mat-autocomplete>
-                  </mat-form-field>
-                  <ng-container *ngIf="errorMsg">
-                    {{errorMsg}}
-                  </ng-container>
-                </div>
-                <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="start center">
-                  <mat-form-field appearance="outline" fxFlex.gt-sm="30">
-                    <mat-label>Año inicial</mat-label>
-                    <input matInput formControlName="initialYearCurrentJob" required type="number" >
-                  </mat-form-field>
-                  <div fxFlex="5" fxHide.lt-md="true"></div>
-
-                  <mat-checkbox formControlName="currentJobProtections" color="primary">¿Utilizaba medidas de protección (mascarillas, guantes…)?</mat-checkbox>
-
-                </div>
-              <div fxLayout="column" style="margin-top: 50px;">
-                  <span>¿Ha tenido trabajos previos? Para cada trabajo que haya tenido añada una pestaña y rellene los datos relacionados.</span>
-                  <div fxLayout="row" fxLayoutAlign="center center">
-                    <button mat-button type="button" (click)="addJobItem()" >Añadir</button>
-                    <button mat-button type="button" (click)="deleteJobItem()">Eliminar</button>
-                  </div>
-                </div>
-
-                <div formArrayName="otherJobs"
-                    *ngFor="let item of getOtherJob['controls']; let i = index;"
-                   class="cancerType">
-                    <div [formGroupName]="i" >
-                      <h3>Trabajo {{i+1}}</h3>
-                      <div fxLayout="column">
-
-                        <div fxLayout="row">
-                          <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50">
-                            <mat-label>Puesto de trabajo</mat-label>
-                            <input
-                              type="text"
-                              placeholder="Entra el trabajo"
-                              formControlName="jobDescription"
-                              matInput
-                              [matAutocomplete]="auto">
-                              <mat-autocomplete #auto="matAutocomplete" [panelWidth]="400">
-                                  <mat-option
-                                      *ngFor="let option of filteredJobs"
-                                      [value]="option">
-                                    {{option}}
-                                </mat-option>
-                            </mat-autocomplete>
-                          </mat-form-field>
-                          <div fxFlex="50" fxHide.lt-md="true"></div>
-
-                        </div>
-
-                        <div fxlayout="row">
-                          <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50">
-                            <mat-label>Año inicial</mat-label>
-                            <input matInput formControlName="initialYearJob" required type="number">
-                          </mat-form-field>
-                          <div fxFlex="50" fxHide.lt-md="true"></div>
-                        </div>
-                        <div fxLayout="row">
-                          <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50">
-                            <mat-label>Año final</mat-label>
-                            <input matInput formControlName="finalYearJob" required type="number">
-                          </mat-form-field>
-                          <div fxFlex="50" fxHide.lt-md="true"></div>
-                        </div>
-                        <mat-checkbox formControlName="jobProtections" color="primary">¿Utilizaba medidas de protección (mascarillas, guantes…)?</mat-checkbox>
-                    </div>
-                  </div>
-                </div>
-
-
-               <div fxLayout="row" fxLayoutAlign="space-evenly center" style="margin-top: 50px;">
-                <button mat-raised-button matStepperPrevious (click)="this.previous()">Anterior</button>
-                <button mat-raised-button matStepperNext (click)="this.next()" [disabled]="this.jobDetails.invalid">Siguiente</button>
+        </mat-step>
+        <mat-step  [stepControl]="jobDetails" [editable]="true">
+          <div class="questions-div">
+            <form [formGroup]="jobDetails">
+              <h3>¿Está trabajando actualmente?</h3>
+              <div fxLayout="column" fxLayout.gt-sm="row">
+                <mat-form-field appearance="outline" fxFlex.gt-sm="40">
+                  <mat-label>Trabajando actualmente</mat-label>
+                  <select  matNativeControl  formControlName="currentlyWorkingAnswer" matInput (change)="enableJobInfoFields()">
+                      <option value="" disabled>Respuesta</option>
+                      <option *ngFor="let w of workingAnswers" [ngValue]="w">{{w}}</option>
+                  </select>
+                </mat-form-field>
+                <div fxFlex="5" fxHide.lt-md="true"></div>
+                <mat-form-field appearance="outline" fxFlex.gt-sm="40">
+                  <mat-label>Puesto de trabajo</mat-label>
+                    <input
+                    type="text"
+                    placeholder="Entra el trabajo"
+                    formControlName="currentJobDescription"
+                    matInput
+                    [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete" [panelWidth]="400">
+                        <mat-option
+                            *ngFor="let option of filteredJobs"
+                            [value]="option">
+                          {{option}}
+                      </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+                <ng-container *ngIf="errorMsg">
+                  {{errorMsg}}
+                </ng-container>
               </div>
-              </form>
-            </div>
-          </mat-step>
-          <mat-step [stepControl]="familyDetails" [editable]="true">
-            <div class="questions-div">
-              <form [formGroup]="familyDetails">
-                <h2>Familiares</h2>
-                <h3>¿Se ha diagnosticado a algún miembro de su familia (no política) de cáncer?</h3>
-                <mat-form-field appearance="outline">
-                  <mat-label>Respuesta</mat-label>
-                  <select  matNativeControl  formControlName="anyFamilyDiagnoseAnswer" matInput (change) ="enableFamilyNumber()">
-                    <option value="" disabled>Respuesta</option>
-                    <option *ngFor="let t of familyAnswers" [ngValue]="t">{{t}}</option>
-                  </select>
-    
+              <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="start start">
+                <mat-form-field appearance="outline" fxFlex.gt-sm="30">
+                  <mat-label>Año inicial</mat-label>
+                  <input matInput formControlName="initialYearCurrentJob" required type="number" >
                 </mat-form-field>
-    
-                <h3>¿Cuántos miembros?</h3>
+                <div fxFlex="5" fxHide.lt-md="true"></div>
+  
+                <mat-checkbox formControlName="currentJobProtections" color="primary">¿Utilizaba medidas de protección (mascarillas, guantes…)?</mat-checkbox>
+  
+              </div>
+  
+              <h3>¿Has tenido trabajos previos?</h3>
                 <mat-form-field appearance="outline">
-                  <mat-label>Respuesta</mat-label>
-                  <select  matNativeControl  formControlName="anyFamilyNumberAnswer" matInput (change) = "addFamilyMembers()" >
+                  <mat-label>En caso afirmativo, ¿cuántos?</mat-label>
+                  <select  matNativeControl  formControlName="numberPreviousJobs" matInput (change)="addPreviousJobs()">
                     <option value="" disabled>Respuesta</option>
-                    <option *ngFor="let t of familyNumberAnswers" [ngValue]="t">{{t}}</option>
+                    <option *ngFor="let w of numberPreviousJobs" [ngValue]="w">{{w}}</option>
                   </select>
-    
                 </mat-form-field>
-    
-                <div fxLayout="column" style="margin-top: 50px;">
-                  <span>Para cada familiar diagnosticado que haya tenido rellene los datos relacionados.</span>
-                </div>
-                <div formArrayName="familyDiagnoses"
-                  *ngFor="let item of getOtherFamily['controls']; let i = index;"
-                class="cancerType">
+                  
+  
+  
+            <div fxLayout="column" style="margin-top: 50px;">
+                <span>Indica los 2 trabajos de más duración.</span>
+              </div>
+  
+              <div formArrayName="otherJobs"
+                  *ngFor="let item of getOtherJob['controls']; let i = index;"
+                  class="cancerType">
                   <div [formGroupName]="i" >
-                    <h3><b>Familiar {{i+1}}</b></h3>
-                    <h3>Información personal</h3>
-                    <div fxLayout="row" fxLayoutAlign="start center" >
-                      <mat-form-field appearance="outline" >
-                        <mat-label>Relación</mat-label>
-                        <select  matNativeControl  formControlName="relation" matInput >
-                          <option value="" disabled>Tipo de relación</option>
-                          <option *ngFor="let t of familyRealtions" [ngValue]="t">{{t}}</option>
+                    <h3>Trabajo {{i+1}}</h3>
+                    <div fxLayout="column">
+  
+                      <div fxLayout="row">
+                        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50">
+                          <mat-label>Puesto de trabajo</mat-label>
+                          <input
+                            type="text"
+                            placeholder="Entra el trabajo"
+                            formControlName="jobDescription"
+                            matInput
+                            [matAutocomplete]="auto">
+                            <mat-autocomplete #auto="matAutocomplete" [panelWidth]="400">
+                                <mat-option
+                                    *ngFor="let option of filteredJobs"
+                                    [value]="option">
+                                  {{option}}
+                              </mat-option>
+                          </mat-autocomplete>
+                        </mat-form-field>
+                        <div fxFlex="50" fxHide.lt-md="true"></div>
+  
+                      </div>
+  
+                      <div fxlayout="row">
+                        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50">
+                          <mat-label>Año inicial</mat-label>
+                          <input matInput formControlName="initialYearJob" required type="number">
+                        </mat-form-field>
+                        <div fxFlex="50" fxHide.lt-md="true"></div>
+                      </div>
+                      <div fxLayout="row">
+                        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50">
+                          <mat-label>Año final</mat-label>
+                          <input matInput formControlName="finalYearJob" required type="number">
+                        </mat-form-field>
+                        <div fxFlex="50" fxHide.lt-md="true"></div>
+                      </div>
+                      <mat-checkbox formControlName="jobProtections" color="primary">¿Utilizaba medidas de protección (mascarillas, guantes…)?</mat-checkbox>
+                  </div>
+                </div>
+              </div>
+  
+  
+              <div fxLayout="row" fxLayoutAlign="space-evenly center" style="margin-top: 50px;">
+              <button mat-raised-button matStepperPrevious (click)="this.previous()">Anterior</button>
+              <button mat-raised-button matStepperNext (click)="this.next()" [disabled]="this.jobDetails.invalid">Siguiente</button>
+            </div>
+            </form>
+          </div>
+        </mat-step>
+        <mat-step [stepControl]="familyDetails" [editable]="true">
+          <div class="questions-div">
+            <form [formGroup]="familyDetails">
+              <h2>Familiares</h2>
+              <h3>¿Se ha diagnosticado a algún miembro de su familia (no política) de cáncer?</h3>
+              <mat-form-field appearance="outline">
+                <mat-label>Respuesta</mat-label>
+                <select  matNativeControl  formControlName="anyFamilyDiagnoseAnswer" matInput (change) ="enableFamilyNumber()">
+                  <option value="" disabled>Respuesta</option>
+                  <option *ngFor="let t of familyAnswers" [ngValue]="t">{{t}}</option>
+                </select>
+  
+              </mat-form-field>
+  
+              <h3>¿Cuántos miembros?</h3>
+              <mat-form-field appearance="outline">
+                <mat-label>Respuesta</mat-label>
+                <select  matNativeControl  formControlName="anyFamilyNumberAnswer" matInput (change) = "addFamilyMembers()" >
+                  <option value="" disabled>Respuesta</option>
+                  <option *ngFor="let t of familyNumberAnswers" [ngValue]="t">{{t}}</option>
+                </select>
+  
+              </mat-form-field>
+  
+              <div fxLayout="column" style="margin-top: 50px;">
+                <span>Para cada familiar diagnosticado que haya tenido rellene los datos relacionados.</span>
+              </div>
+              <div formArrayName="familyDiagnoses"
+                *ngFor="let item of getOtherFamily['controls']; let i = index;"
+              class="cancerType">
+                <div [formGroupName]="i" >
+                  <h3><b>Familiar {{i+1}}</b></h3>
+                  <h3>Información personal</h3>
+                  <div fxLayout="row" fxLayoutAlign="start center" >
+                    <mat-form-field appearance="outline" >
+                      <mat-label>Relación</mat-label>
+                      <select  matNativeControl  formControlName="relation" matInput >
+                        <option value="" disabled>Tipo de relación</option>
+                        <option *ngFor="let t of familyRealtions" [ngValue]="t">{{t}}</option>
+                      </select>
+                    </mat-form-field>
+                    <div fxFlex="10"></div>
+                    <mat-checkbox formControlName="isDead" color="primary" (change)="isDeadEnables(i)">¿Ha fallecido?</mat-checkbox>
+  
+                  </div>
+  
+                  <mat-form-field appearance="outline" *ngIf="!getFamilyForm(i).get('isDead')?.value">
+                    <mat-label>Edad</mat-label>
+                    <input matInput formControlName="age" required type="number">
+                  </mat-form-field>
+  
+                  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign.gt-sm="start center">
+                    <mat-form-field appearance="outline" *ngIf="getFamilyForm(i).get('isDead')?.value">
+                      <mat-label>Edad de defunción</mat-label>
+                      <input matInput formControlName="deadDate" required type="number">
+                    </mat-form-field>
+                    <div fxFlex="10"></div>
+                    <mat-checkbox style="margin-bottom: 20px" formControlName="deadCause" color="primary" *ngIf="getFamilyForm(i).get('isDead')?.value">Fallecimiento debido al cáncer</mat-checkbox>
+                  </div>
+  
+  
+                  <h3>Datos clínicos</h3>
+                  <div fxLayout="column">
+                    <div fxLayout="row" fxLayoutAlign="start center">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Tipo de cáncer</mat-label>
+                        <select  matNativeControl  formControlName="cancerType" matInput (change)="enableOtherFamilyTypes(i)">
+                          <option value="" disabled>Indica el tipo</option>
+                          <option *ngFor="let gen of familiarCancerTypes" [ngValue]="gen">{{gen}}</option>
                         </select>
                       </mat-form-field>
                       <div fxFlex="10"></div>
-                      <mat-checkbox formControlName="isDead" color="primary" (change)="isDeadEnables(i)">¿Ha fallecido?</mat-checkbox>
-    
-                    </div>
-    
-                    <mat-form-field appearance="outline" *ngIf="!getFamilyForm(i).get('isDead')?.value">
-                      <mat-label>Edad</mat-label>
-                      <input matInput formControlName="age" required type="number">
-                    </mat-form-field>
-    
-                    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign.gt-sm="start center">
-                      <mat-form-field appearance="outline" *ngIf="getFamilyForm(i).get('isDead')?.value">
-                        <mat-label>Edad de defunción</mat-label>
-                        <input matInput formControlName="deadDate" required type="number">
+                      <mat-form-field appearance="outline" fxFlex="40">
+                        <mat-label>Otros tipos</mat-label>
+                        <input matInput formControlName="otherCancerType" type="text">
                       </mat-form-field>
-                      <div fxFlex="10"></div>
-                      <mat-checkbox style="margin-bottom: 20px" formControlName="deadCause" color="primary" *ngIf="getFamilyForm(i).get('isDead')?.value">Fallecimiento debido al cáncer</mat-checkbox>
                     </div>
-    
-    
-                    <h3>Datos clínicos</h3>
-                    <div fxLayout="column">
-                      <div fxLayout="row" fxLayoutAlign="start center">
-                        <mat-form-field appearance="outline">
-                          <mat-label>Tipo de cáncer</mat-label>
-                          <select  matNativeControl  formControlName="cancerType" matInput (change)="enableOtherFamilyTypes(i)">
-                            <option value="" disabled>Indica el tipo</option>
-                            <option *ngFor="let gen of familiarCancerTypes" [ngValue]="gen">{{gen}}</option>
-                          </select>
-                        </mat-form-field>
-                        <div fxFlex="10"></div>
-                        <mat-form-field appearance="outline" fxFlex="40">
-                          <mat-label>Otros tipos</mat-label>
-                          <input matInput formControlName="otherCancerType" type="text">
-                        </mat-form-field>
-                      </div>
-    
-    
-                      <span>¿Ha desarrollado metástasis?</span>
-                      <div fxLayout="row">
-                        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="30">
-                          <mat-label>Respuesta</mat-label>
-                          <select  matNativeControl  formControlName="hasMetastasis" matInput>
-                            <option value="" disabled>Indica tu respuesta</option>
-                            <option *ngFor="let gen of familyAnswers" [ngValue]="gen">{{gen}}</option>
-                          </select>
-                        </mat-form-field>
-                        <div fxFlex="70" fxHide.lt-md="true"></div>
-                      </div>
+  
+  
+                    <span>¿Ha desarrollado metástasis?</span>
+                    <div fxLayout="row">
+                      <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="30">
+                        <mat-label>Respuesta</mat-label>
+                        <select  matNativeControl  formControlName="hasMetastasis" matInput>
+                          <option value="" disabled>Indica tu respuesta</option>
+                          <option *ngFor="let gen of familyAnswers" [ngValue]="gen">{{gen}}</option>
+                        </select>
+                      </mat-form-field>
+                      <div fxFlex="70" fxHide.lt-md="true"></div>
                     </div>
-    
                   </div>
+  
                 </div>
-                
-                <div style="width: 100%; margin-top: 50px;" fxLayout="row" fxLayoutAlign="center center">
-                  <button mat-raised-button mat-button (click)="this.submitForm()" [disabled]="this.familyDetails.invalid || loadingSubmit" color="primary">
-                    <span *ngIf="!loadingSubmit">Enviar Formulario</span>
-                  <mat-spinner *ngIf="loadingSubmit" color="primary" [diameter]="30"> </mat-spinner></button>
               </div>
-              </form>
+              
+              <div style="width: 100%; margin-top: 50px;" fxLayout="row" fxLayoutAlign="center center">
+                <button mat-raised-button mat-button (click)="this.submitForm()" [disabled]="this.familyDetails.invalid || loadingSubmit" color="primary">
+                  <span *ngIf="!loadingSubmit">Enviar Formulario</span>
+                <mat-spinner *ngIf="loadingSubmit" color="primary" [diameter]="30"> </mat-spinner></button>
             </div>
-          </mat-step>
+            </form>
+          </div>
+        </mat-step>
 
 
 

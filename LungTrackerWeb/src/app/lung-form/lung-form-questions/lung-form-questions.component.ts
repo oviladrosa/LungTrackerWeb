@@ -145,6 +145,12 @@ export class LungFormQuestionsComponent implements OnInit {
     'NS/NC'
   ]
 
+  numberPreviousJobs: any = [
+    'No',
+    '1',
+    '2 o más'
+  ]
+
   familyAnswers: any = [
     'Sí',
     'No',
@@ -281,8 +287,10 @@ export class LungFormQuestionsComponent implements OnInit {
     this.jobDetails = this.formBuilder.group({
       currentlyWorkingAnswer: ['', Validators.required],
       initialYearCurrentJob: ['', Validators.required],
+      numberPreviousJobs: ['', Validators.required],
       currentJobDescription: new FormControl(),
       currentJobProtections: [false, null],
+
       otherJobs: new FormArray([])
     });
     this.familyDetails = this.formBuilder.group({
@@ -395,6 +403,24 @@ export class LungFormQuestionsComponent implements OnInit {
     return this.jobDetails.get('otherJobs') as FormArray
   }
 
+  addPreviousJobs() {
+    this.deleteJobsForm();
+    const answer = this.jobDetails.get('numberPreviousJobs').value
+    if (answer !== 'No') {
+      let x = answer[0];
+      for (let i = 0; i < x; i++) {
+        this.addJobItem()
+      }
+    }
+  }
+
+  deleteJobsForm() {
+    this.jobItems = this.jobDetails.get('otherJobs') as FormArray;
+    while (this.jobItems.length !== 0) {
+      this.jobItems.removeAt(0);
+    }
+  }
+
   addFamilyItem() {
     this.familyItems = this.familyDetails.get('familyDiagnoses') as FormArray;
     const newFormGroup = this.createFamilyItems();
@@ -413,6 +439,7 @@ export class LungFormQuestionsComponent implements OnInit {
        this.addFamilyItem()
      }
    }
+
 
    deleteFamilyMembers() {
     this.familyItems = this.familyDetails.get('familyDiagnoses') as FormArray;
