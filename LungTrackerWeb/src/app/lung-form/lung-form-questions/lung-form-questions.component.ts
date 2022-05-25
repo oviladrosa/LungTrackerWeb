@@ -63,7 +63,7 @@ export class LungFormQuestionsComponent implements OnInit {
     'Subtipo no especificado',
     'Otros'
   ];
-  mutationAnswer: any = ['Mutación', 'Amplificación', 'Fusión'];
+  mutationAnswer: any = ['No', 'NS/NC', 'Mutación', 'Amplificación', 'Fusión'];
   mutationTypes: any = ['EGFR',
     'KRAS',
     'BRAF',
@@ -89,7 +89,6 @@ export class LungFormQuestionsComponent implements OnInit {
   surgeryExtraTreatments: any = ['Quimio', 'Otros', 'No'];
   metastasisOptions: any = ['Quimioterapia',
     'Inmunoterapia',
-    'Combinación de quimio+Inmuno',
     'Tratamiento dirigido',
     'Ninguno',
     'Otros',
@@ -715,7 +714,7 @@ export class LungFormQuestionsComponent implements OnInit {
 
   enableMutationType() {
     const answer = this.clinicDetails.get('mutationAnswer')?.value;
-    if (answer !== ''){
+    if (answer !== '' && answer !== 'No' && answer !== 'NS/NC'){
       this.clinicDetails.controls['mutationType'].enable();
     } else {
       this.clinicDetails.controls['mutationType'].setValue('');
@@ -1032,7 +1031,7 @@ export class LungFormQuestionsComponent implements OnInit {
         requestData.clinicDetails.mainDiagnose.nonmicrocyticSubtype = this.clinicDetails.get('otherNonMicrocyticCancerType')?.value;
       }
     }
-    requestData.clinicDetails.mainDiagnose.mutation = this.clinicDetails.get('mutationAnswer')?.value == 'Sí' ? true : false;
+    requestData.clinicDetails.mainDiagnose.mutation = this.clinicDetails.get('mutationAnswer')?.value;
     requestData.clinicDetails.mainDiagnose.mutationType = this.clinicDetails.get('mutationType')?.value == 'Otros' ?
     this.clinicDetails.get('otherMutationType')?.value : this.clinicDetails.get('mutationType')?.value;
     requestData.clinicDetails.mainDiagnose.notListedMutationType = this.clinicDetails.get('mutationType')?.value == 'Otros' ?
@@ -1043,13 +1042,13 @@ export class LungFormQuestionsComponent implements OnInit {
       this.clinicDetails.get('surgeryYear')?.value : null;
     // Creo que esto va a fallar
     requestData.clinicDetails.mainDiagnose.extraTreatment = this.clinicDetails.get('surgeryExtraTreatment')?.value;
-    if (this.clinicDetails.get('otherSurgeryExtraTreatment')?.value != '') {
+    if (this.clinicDetails.get('otherSurgeryExtraTreatment')?.value !== '') {
       requestData.clinicDetails.mainDiagnose.extraTreatment.push(this.clinicDetails.get('otherSurgeryExtraTreatment')?.value);
     }
     // Acaba aqui el posible fallo
     requestData.clinicDetails.mainDiagnose.hasReceivedComplementaryRadiotherapy = this.clinicDetails.get('isRadiotherapy')?.value;
     if (this.clinicDetails.get('isRadiotherapy')?.value){
-      requestData.clinicDetails.mainDiagnose.complementaryRadiotherapyTarget.push(this.clinicDetails.get('radiotherapyTarget')?.value);
+      requestData.clinicDetails.mainDiagnose.complementaryRadiotherapyTarget = this.clinicDetails.get('radiotherapyTarget')?.value;
       if (this.clinicDetails.get('radiotherapyTarget')?.value.includes('Otros')){
         requestData.clinicDetails.mainDiagnose.complementaryRadiotherapyTarget.push(this.clinicDetails.get('otherRadiotherapyTarget')?.value);
       }
@@ -1057,7 +1056,7 @@ export class LungFormQuestionsComponent implements OnInit {
     requestData.clinicDetails.mainDiagnose.metastasis = this.clinicDetails.get('metastasisAnswer')?.value == 'Sí' ? true : false;
     requestData.clinicDetails.mainDiagnose.metastasisYear = this.clinicDetails.get('metastasisAnswer')?.value == 'Sí' ?  this.clinicDetails.get('metastasisYear')?.value : null;
     if (this.clinicDetails.get('metastasisAnswer').value === 'Sí'){
-      requestData.clinicDetails.mainDiagnose.metastasisTreatment.push(this.clinicDetails.get('metastatisTreatment')?.value);
+      requestData.clinicDetails.mainDiagnose.metastasisTreatment = this.clinicDetails.get('metastatisTreatment')?.value;
       if (requestData.clinicDetails.mainDiagnose.metastasisTreatment.includes('Otros')) {
         requestData.clinicDetails.mainDiagnose.metastasisTreatment.push(this.clinicDetails.get('otherMetastasisTreatment')?.value);
         requestData.clinicDetails.mainDiagnose.notListedTreatment = true;
@@ -1148,15 +1147,7 @@ export class LungFormQuestionsComponent implements OnInit {
        if (familiar.diagnose.cancerType == 'Otros') {
          familiar.diagnose.cancerType = fg.get('otherCancerType')?.value;
        }
-
        familiar.diagnose.metastasis = fg.get('hasMetastasis')?.value == 'Sí';
-
-       if (fg.get('hasTreatment')?.value == 'Sí') {
-         familiar.diagnose.extraTreatment = fg.get('treatmentType')?.value;
-         if (fg.get('otherTreatment')?.value != '') {
-          familiar.diagnose.extraTreatment.push(fg.get('otherTreatment')?.value)
-         }
-       }
 
        requestData.familyDetails.push(familiar);
     });
