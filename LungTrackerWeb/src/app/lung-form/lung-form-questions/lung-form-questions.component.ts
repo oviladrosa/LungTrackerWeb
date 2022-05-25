@@ -63,18 +63,28 @@ export class LungFormQuestionsComponent implements OnInit {
     'Subtipo no especificado',
     'Otros'
   ];
-  mutationAnswer: any = ['No se ha detectado mutación','Sí','NS/NC'];
+  mutationAnswer: any = ['Mutación', 'Amplificación', 'Fusión'];
   mutationTypes: any = ['EGFR',
-  'KRAS',
-  'ALK',
-  'ROS1',
-  'BRAF',
-  'MET',
-  'RET',
-  'HER2',
-  'NRTK',
-  'Otros',
+    'KRAS',
+    'BRAF',
+    'MET',
+    'HER2',
+    'Otros'
   ];
+  amplificationTypes: any = [
+    'HER2',
+    'MET',
+    'Otros'
+  ];
+  fusionTypes: any = [
+    'ALK',
+    'ROS1',
+    'RET',
+    'NTRK',
+    'Otros'
+  ];
+  mutationTypesArray: any = [];
+
   surgeryAnswers: any = ['Sí', 'No', 'NS/NC'];
   surgeryExtraTreatments: any = ['Quimio', 'Otros', 'No'];
   metastasisOptions: any = ['Quimioterapia',
@@ -447,7 +457,7 @@ export class LungFormQuestionsComponent implements OnInit {
       this.familyItems.removeAt(0);
     }
    }
-   
+
 
    deleteFamilyItem() {
     this.familyItems = this.familyDetails.get('familyDiagnoses') as FormArray;
@@ -705,11 +715,20 @@ export class LungFormQuestionsComponent implements OnInit {
 
   enableMutationType() {
     const answer = this.clinicDetails.get('mutationAnswer')?.value;
-    if (answer === 'Sí') {
+    if (answer !== ''){
       this.clinicDetails.controls['mutationType'].enable();
     } else {
-      this.clinicDetails.controls['mutationType'].setValue("");
+      this.clinicDetails.controls['mutationType'].setValue('');
       this.clinicDetails.controls['mutationType'].disable();
+    }
+    if (answer === 'Mutación'){
+      this.mutationTypesArray = this.mutationTypes;
+    }
+    else if (answer === 'Amplificación'){
+      this.mutationTypesArray = this.amplificationTypes;
+    }
+    else if (answer === 'Fusión'){
+      this.mutationTypesArray = this.fusionTypes;
     }
   }
 
@@ -719,7 +738,7 @@ export class LungFormQuestionsComponent implements OnInit {
       this.clinicDetails.controls['otherMutationType'].enable();
     } else {
       this.clinicDetails.controls['otherMutationType'].disable();
-      this.clinicDetails.controls['otherMutationType'].setValue("");
+      this.clinicDetails.controls['otherMutationType'].setValue('');
     }
   }
 

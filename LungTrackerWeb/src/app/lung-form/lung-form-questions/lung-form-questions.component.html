@@ -7,7 +7,7 @@
       <span class="form-item" [class.light-text]="this.step==3">03. Exposición a tóxicos contaminantes</span>
       <span class="form-item" [class.light-text]="this.step==4">04. Historial laboral</span>
       <span class="form-item" [class.light-text]="this.step==5">05. Historial familiar</span>
-      
+
     </div>
 
  </div>
@@ -191,10 +191,10 @@
                   </mat-form-field>
                 </div>
 
-                <h3>¿Sabe si se ha detectado alguna mutación en su tumor?</h3>
+                <h3>¿Sabe si se ha detectado alguna alteración molecular en su tumor?</h3>
                 <div fxLayout="column" fxLayout.gt-sm="row">
                   <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="30">
-                    <mat-label>Respuesta</mat-label>
+                    <mat-label>Tipo de alteración molecular</mat-label>
                     <select  matNativeControl  formControlName="mutationAnswer" matInput (change)="enableMutationType()">
                         <option value="" disabled>Indica la respuesta</option>
                         <option *ngFor="let t of mutationAnswer" [ngValue]="t">{{t}}</option>
@@ -205,7 +205,7 @@
                     <mat-label>Tipo de mutación</mat-label>
                     <select  matNativeControl  formControlName="mutationType" matInput (change)="enableOtherMutationType()">
                         <option value="" disabled>Indica el tipo</option>
-                        <option *ngFor="let t of mutationTypes" [ngValue]="t">{{t}}</option>
+                        <option *ngFor="let t of mutationTypesArray" [ngValue]="t">{{t}}</option>
                     </select>
                   </mat-form-field>
                   <div fxFlex="5" fxHide.lt-md="true"></div>
@@ -545,11 +545,11 @@
                   <input matInput formControlName="initialYearCurrentJob" required type="number" >
                 </mat-form-field>
                 <div fxFlex="5" fxHide.lt-md="true"></div>
-  
+
                 <mat-checkbox formControlName="currentJobProtections" color="primary">¿Utilizaba medidas de protección (mascarillas, guantes…)?</mat-checkbox>
-  
+
               </div>
-  
+
               <h3>¿Has tenido trabajos previos?</h3>
                 <mat-form-field appearance="outline">
                   <mat-label>En caso afirmativo, ¿cuántos?</mat-label>
@@ -558,20 +558,20 @@
                     <option *ngFor="let w of numberPreviousJobs" [ngValue]="w">{{w}}</option>
                   </select>
                 </mat-form-field>
-                  
-  
-  
+
+
+
             <div fxLayout="column" style="margin-top: 50px;">
                 <span>Indica los 2 trabajos de más duración.</span>
               </div>
-  
+
               <div formArrayName="otherJobs"
                   *ngFor="let item of getOtherJob['controls']; let i = index;"
                   class="cancerType">
                   <div [formGroupName]="i" >
                     <h3>Trabajo {{i+1}}</h3>
                     <div fxLayout="column">
-  
+
                       <div fxLayout="row">
                         <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50">
                           <mat-label>Puesto de trabajo</mat-label>
@@ -590,9 +590,9 @@
                           </mat-autocomplete>
                         </mat-form-field>
                         <div fxFlex="50" fxHide.lt-md="true"></div>
-  
+
                       </div>
-  
+
                       <div fxlayout="row">
                         <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50">
                           <mat-label>Año inicial</mat-label>
@@ -611,8 +611,8 @@
                   </div>
                 </div>
               </div>
-  
-  
+
+
               <div fxLayout="row" fxLayoutAlign="space-evenly center" style="margin-top: 50px;">
               <button mat-raised-button matStepperPrevious (click)="this.previous()">Anterior</button>
               <button mat-raised-button matStepperNext (click)="this.next()" [disabled]="this.jobDetails.invalid">Siguiente</button>
@@ -631,9 +631,9 @@
                   <option value="" disabled>Respuesta</option>
                   <option *ngFor="let t of familyAnswers" [ngValue]="t">{{t}}</option>
                 </select>
-  
+
               </mat-form-field>
-  
+
               <h3>¿Cuántos miembros?</h3>
               <mat-form-field appearance="outline">
                 <mat-label>Respuesta</mat-label>
@@ -641,9 +641,9 @@
                   <option value="" disabled>Respuesta</option>
                   <option *ngFor="let t of familyNumberAnswers" [ngValue]="t">{{t}}</option>
                 </select>
-  
+
               </mat-form-field>
-  
+
               <div fxLayout="column" style="margin-top: 50px;">
                 <span>Para cada familiar diagnosticado que haya tenido rellene los datos relacionados.</span>
               </div>
@@ -663,14 +663,14 @@
                     </mat-form-field>
                     <div fxFlex="10"></div>
                     <mat-checkbox formControlName="isDead" color="primary" (change)="isDeadEnables(i)">¿Ha fallecido?</mat-checkbox>
-  
+
                   </div>
-  
+
                   <mat-form-field appearance="outline" *ngIf="!getFamilyForm(i).get('isDead')?.value">
                     <mat-label>Edad</mat-label>
                     <input matInput formControlName="age" required type="number">
                   </mat-form-field>
-  
+
                   <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign.gt-sm="start center">
                     <mat-form-field appearance="outline" *ngIf="getFamilyForm(i).get('isDead')?.value">
                       <mat-label>Edad de defunción</mat-label>
@@ -679,8 +679,8 @@
                     <div fxFlex="10"></div>
                     <mat-checkbox style="margin-bottom: 20px" formControlName="deadCause" color="primary" *ngIf="getFamilyForm(i).get('isDead')?.value">Fallecimiento debido al cáncer</mat-checkbox>
                   </div>
-  
-  
+
+
                   <h3>Datos clínicos</h3>
                   <div fxLayout="column">
                     <div fxLayout="row" fxLayoutAlign="start center">
@@ -697,8 +697,8 @@
                         <input matInput formControlName="otherCancerType" type="text">
                       </mat-form-field>
                     </div>
-  
-  
+
+
                     <span>¿Ha desarrollado metástasis?</span>
                     <div fxLayout="row">
                       <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="30">
@@ -711,10 +711,10 @@
                       <div fxFlex="70" fxHide.lt-md="true"></div>
                     </div>
                   </div>
-  
+
                 </div>
               </div>
-              
+
               <div style="width: 100%; margin-top: 50px;" fxLayout="row" fxLayoutAlign="center center">
                 <button mat-raised-button mat-button (click)="this.submitForm()" [disabled]="this.familyDetails.invalid || loadingSubmit" color="primary">
                   <span *ngIf="!loadingSubmit">Enviar Formulario</span>
