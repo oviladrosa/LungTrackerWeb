@@ -53,7 +53,7 @@ export class UserService {
   }
 
   getLocalitzation() {
-    return this.http.get("https://young-hollows-40979.herokuapp.com/https://apiclinic.herokuapp.com/livingPlaces?count=true", {headers: new HttpHeaders().set('Authorization', this.getToken())});
+    return this.http.get("https://young-hollows-40979.herokuapp.com/https://apiclinic.herokuapp.com/livingPlaces?count=true");
   }
 
   getAgeRanges() {

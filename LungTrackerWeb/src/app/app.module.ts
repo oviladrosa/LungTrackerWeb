@@ -42,6 +42,8 @@ import { LeafletMapComponent } from './researcher/researcher-map/leaflet-map/lea
 import { MarkerService } from './researcher/researcher-map/leaflet-map/marker.service';
 import { PopupService } from './researcher/researcher-map/leaflet-map/popup.service';
 import { ResearcherMapComponent } from './researcher/researcher-map/researcher-map.component';
+import { InformationComponent } from './information/information.component';
+import { LeafletPublicMapComponent } from './information/leaflet-public-map/leaflet-public-map.component';
 
 
 
@@ -57,7 +59,9 @@ import { ResearcherMapComponent } from './researcher/researcher-map/researcher-m
     MapsComponent,
     PatientContaminantsStationsComponent,
     LeafletMapComponent,
-    ResearcherMapComponent
+    ResearcherMapComponent,
+    InformationComponent,
+    LeafletPublicMapComponent
   ],
   imports: [
     BrowserModule,
