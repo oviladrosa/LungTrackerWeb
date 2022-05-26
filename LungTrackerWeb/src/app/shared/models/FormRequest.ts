@@ -27,7 +27,7 @@ export default class formRequest {
                 cancerType: '',
                 nonmicrocyticSubtype: '',
                 notListedCancerType: false,
-                mutation: false,
+                mutation: '',
                 mutationType: '',
                 notListedMutationType: false,
                 operatedCancer: false,
@@ -88,7 +88,7 @@ export default class formRequest {
             cancerType: string;
             nonmicrocyticSubtype: string;
             notListedCancerType: boolean;
-            mutation: boolean;
+            mutation: string;
             mutationType: string;
             notListedMutationType: boolean;
             operatedCancer: boolean;
@@ -148,7 +148,7 @@ export class FamilyDiagnose {
         this.diagnoseYear = 0;
         this.metastasis = false;
         this.metastasisYear = 0;
-        this.extraTreatment = [];
+        this.extraTreatment = '';
 
     }
 
@@ -156,7 +156,7 @@ export class FamilyDiagnose {
     diagnoseYear!: number;
     metastasis!: boolean;
     metastasisYear!: number;
-    extraTreatment!: Array<string>;
+    extraTreatment!: string;
 }
 
 export class Job {

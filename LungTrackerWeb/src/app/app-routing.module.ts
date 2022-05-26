@@ -9,6 +9,7 @@ import { AuthGuard } from './services/auth.guard';
 import { MapsComponent } from './maps/maps.component';
 import { PatientContaminantsStationsComponent } from './patient-contaminants-stations/patient-contaminants-stations.component';
 import { ResearcherMapComponent } from './researcher/researcher-map/researcher-map.component';
+import{ InformationComponent } from './information/information.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'contaminants', component: PatientContaminantsStationsComponent },
   { path: 'login', component: LoginComponent },
   { path: 'maps', component: MapsComponent },
+  { path: 'information', component: InformationComponent },
   { path: 'researcher', component: ResearcherComponent, canActivate: [AuthGuard] },
   { path: 'researcher/maps', component: ResearcherMapComponent, canActivate: [AuthGuard] },
 

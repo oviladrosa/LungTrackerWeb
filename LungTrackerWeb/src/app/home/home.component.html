@@ -13,7 +13,7 @@
     <div class ="principal-text"   fxLayout="column" fxLayoutAlign= "center start" fxLayoutAlign.lt-md="center center" fxFlex="40">
       <h1 class="welcome-text">¡Bienvenidos a
         LungTracker!</h1>
-      <p class="text-header">¿Estás luchando contra el cáncer de pulmón o ya lo has batido?
+      <p class="text-header">¿Eres o has sido paciente de cáncer de pulmón?
           <br>Ayúdanos en la recopilación de información mediante el siguiente formulario:</p>
 
       <!-- <button mat-raised-button class="card" (click)="lungForm()" >Participa</button> -->
@@ -51,6 +51,32 @@
 <div class="half-circle">
 
 </div>
+
+<div fxLayout="column" style="margin-bottom: 100px;">
+  <h4>INFORMACIÓN SOBRE EL SISTEMA</h4>
+  <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayout.lt-md="column" >
+    <div fxLayout="column" fxLayoutAlign.lt-md="center center">
+      <span class="info-text" style="width: 80%;">Han participado en la investigación del cáncer de pulmón:</span>
+
+      <div fxLayout="row" fxLayoutAlign="center center" class="numbers-div">
+        <span class="info-text big-numbers padding-text">{{formsSubmitted}}</span>
+        <mat-icon class="big-numbers" style="color: #CDCDF5">person</mat-icon>
+      </div>
+    </div>
+    <div style="width: 100%; height: 100px" fxShow.lt-md="true" fxShow="false">
+
+    </div>
+    <div fxLayout="column" fxLayoutAlign.lt-md="center center">
+      <span class="info-text" >Los usuarios han valorado el sistema con un:</span>
+      <div fxLayout="row" fxLayoutAlign="center center"  class="numbers-div">
+        <span class="info-text big-numbers padding-text" style="padding-top: 20px;">{{avgSuggestMark}}<span style="font-size: 25px;" class="info-text big-numbers padding-text">/5</span></span>
+        <mat-icon class="big-numbers" style="color: #CDCDF5">star</mat-icon>
+      </div>
+
+    </div>
+  </div>
+</div>
+<mat-divider></mat-divider>
 <div class = "about_us" fxLayoutGap="10px" fxLayout = "column" fxLayoutAlign = "start start">
   <div style="width: 100%" fxLayout="row" fxLayoutAlign="center center">
     <h4>SOBRE NOSOTROS</h4>
@@ -102,31 +128,7 @@
 
   </div>
 </div>
-<mat-divider></mat-divider>
-<div fxLayout="column" style="margin-bottom: 100px;">
-  <h4>INFORMACIÓN SOBRE EL SISTEMA</h4>
-  <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayout.lt-md="column" >
-    <div fxLayout="column" fxLayoutAlign.lt-md="center center">
-      <span class="info-text" style="width: 80%;">Han participado en la investigación del cáncer de pulmón:</span>
 
-      <div fxLayout="row" fxLayoutAlign="center center" class="numbers-div">
-        <span class="info-text big-numbers padding-text">{{formsSubmitted}}</span>
-        <mat-icon class="big-numbers" style="color: #CDCDF5">person</mat-icon>
-      </div>
-    </div>
-    <div style="width: 100%; height: 100px" fxShow.lt-md="true" fxShow="false">
-
-    </div>
-    <div fxLayout="column" fxLayoutAlign.lt-md="center center">
-      <span class="info-text" >Los usuarios han valorado el sistema con un:</span>
-      <div fxLayout="row" fxLayoutAlign="center center"  class="numbers-div">
-        <span class="info-text big-numbers padding-text" style="padding-top: 20px;">{{avgSuggestMark}}<span style="font-size: 25px;" class="info-text big-numbers padding-text">/5</span></span>
-        <mat-icon class="big-numbers" style="color: #CDCDF5">star</mat-icon>
-      </div>
-
-    </div>
-  </div>
-</div>
 <mat-divider class="linia"></mat-divider>
 <h4>EQUIPO DESARROLLADOR</h4>
 <div class="equipo" fxLayout="row" fxLayoutAlign="space-evenly center">

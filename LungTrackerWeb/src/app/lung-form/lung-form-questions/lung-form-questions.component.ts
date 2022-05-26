@@ -63,23 +63,32 @@ export class LungFormQuestionsComponent implements OnInit {
     'Subtipo no especificado',
     'Otros'
   ];
-  mutationAnswer: any = ['No se ha detectado mutación','Sí','NS/NC'];
+  mutationAnswer: any = ['No', 'NS/NC', 'Mutación', 'Amplificación', 'Fusión'];
   mutationTypes: any = ['EGFR',
-  'KRAS',
-  'ALK',
-  'ROS1',
-  'BRAF',
-  'MET',
-  'RET',
-  'HER2',
-  'NRTK',
-  'Otros',
+    'KRAS',
+    'BRAF',
+    'MET',
+    'HER2',
+    'Otros'
   ];
+  amplificationTypes: any = [
+    'HER2',
+    'MET',
+    'Otros'
+  ];
+  fusionTypes: any = [
+    'ALK',
+    'ROS1',
+    'RET',
+    'NTRK',
+    'Otros'
+  ];
+  mutationTypesArray: any = [];
+
   surgeryAnswers: any = ['Sí', 'No', 'NS/NC'];
   surgeryExtraTreatments: any = ['Quimio', 'Otros', 'No'];
   metastasisOptions: any = ['Quimioterapia',
     'Inmunoterapia',
-    'Combinación de quimio+Inmuno',
     'Tratamiento dirigido',
     'Ninguno',
     'Otros',
@@ -145,10 +154,22 @@ export class LungFormQuestionsComponent implements OnInit {
     'NS/NC'
   ]
 
+  numberPreviousJobs: any = [
+    'No',
+    '1',
+    '2 o más'
+  ]
+
   familyAnswers: any = [
     'Sí',
     'No',
     'NS/NC'
+  ]
+
+  familyNumberAnswers: any = [
+    '1',
+    '2',
+    '3 o más'
   ]
 
   familyRealtions: any = [
@@ -275,12 +296,15 @@ export class LungFormQuestionsComponent implements OnInit {
     this.jobDetails = this.formBuilder.group({
       currentlyWorkingAnswer: ['', Validators.required],
       initialYearCurrentJob: ['', Validators.required],
+      numberPreviousJobs: ['', Validators.required],
       currentJobDescription: new FormControl(),
       currentJobProtections: [false, null],
+
       otherJobs: new FormArray([])
     });
     this.familyDetails = this.formBuilder.group({
       anyFamilyDiagnoseAnswer: ['', Validators.required],
+      anyFamilyNumberAnswer:['', Validators.required],
       familyDiagnoses: new FormArray([])
     });
    }
@@ -388,6 +412,24 @@ export class LungFormQuestionsComponent implements OnInit {
     return this.jobDetails.get('otherJobs') as FormArray
   }
 
+  addPreviousJobs() {
+    this.deleteJobsForm();
+    const answer = this.jobDetails.get('numberPreviousJobs').value
+    if (answer !== 'No') {
+      let x = answer[0];
+      for (let i = 0; i < x; i++) {
+        this.addJobItem()
+      }
+    }
+  }
+
+  deleteJobsForm() {
+    this.jobItems = this.jobDetails.get('otherJobs') as FormArray;
+    while (this.jobItems.length !== 0) {
+      this.jobItems.removeAt(0);
+    }
+  }
+
   addFamilyItem() {
     this.familyItems = this.familyDetails.get('familyDiagnoses') as FormArray;
     const newFormGroup = this.createFamilyItems();
@@ -397,6 +439,24 @@ export class LungFormQuestionsComponent implements OnInit {
     newFormGroup.controls['deadCause'].disable();
     this.familyItems.push(newFormGroup);
    }
+
+   addFamilyMembers() {
+     this.deleteFamilyMembers();
+     const answer = this.familyDetails.get('anyFamilyNumberAnswer')?.value;
+     let x = answer[0];
+     for (let i = 0; i < x; i++) {
+       this.addFamilyItem()
+     }
+   }
+
+
+   deleteFamilyMembers() {
+    this.familyItems = this.familyDetails.get('familyDiagnoses') as FormArray;
+    while (this.familyItems.length !== 0) {
+      this.familyItems.removeAt(0);
+    }
+   }
+
 
    deleteFamilyItem() {
     this.familyItems = this.familyDetails.get('familyDiagnoses') as FormArray;
@@ -467,6 +527,8 @@ export class LungFormQuestionsComponent implements OnInit {
     this.jobDetails.controls['initialYearCurrentJob'].disable();
     this.jobDetails.controls['currentJobDescription'].disable();
     this.jobDetails.controls['currentJobProtections'].disable();
+
+    this.familyDetails.controls['anyFamilyNumberAnswer'].disable();
 
     this.jobDetails.get('currentJobDescription')?.valueChanges
       .pipe(
@@ -652,11 +714,20 @@ export class LungFormQuestionsComponent implements OnInit {
 
   enableMutationType() {
     const answer = this.clinicDetails.get('mutationAnswer')?.value;
-    if (answer === 'Sí') {
+    if (answer !== '' && answer !== 'No' && answer !== 'NS/NC'){
       this.clinicDetails.controls['mutationType'].enable();
     } else {
-      this.clinicDetails.controls['mutationType'].setValue("");
+      this.clinicDetails.controls['mutationType'].setValue('');
       this.clinicDetails.controls['mutationType'].disable();
+    }
+    if (answer === 'Mutación'){
+      this.mutationTypesArray = this.mutationTypes;
+    }
+    else if (answer === 'Amplificación'){
+      this.mutationTypesArray = this.amplificationTypes;
+    }
+    else if (answer === 'Fusión'){
+      this.mutationTypesArray = this.fusionTypes;
     }
   }
 
@@ -666,7 +737,7 @@ export class LungFormQuestionsComponent implements OnInit {
       this.clinicDetails.controls['otherMutationType'].enable();
     } else {
       this.clinicDetails.controls['otherMutationType'].disable();
-      this.clinicDetails.controls['otherMutationType'].setValue("");
+      this.clinicDetails.controls['otherMutationType'].setValue('');
     }
   }
 
@@ -705,6 +776,7 @@ export class LungFormQuestionsComponent implements OnInit {
       this.clinicDetails.controls['isClinicalTrial'].disable();
     }
   }
+
 
   enableOtherMetastasis() {
     const type = this.clinicDetails.get('metastatisTreatment')?.value;
@@ -918,6 +990,16 @@ export class LungFormQuestionsComponent implements OnInit {
     }
   }
 
+  enableFamilyNumber() {
+    const answer = this.familyDetails.get('anyFamilyDiagnoseAnswer')?.value;
+    if (answer === 'Sí') {
+      this.familyDetails.controls['anyFamilyNumberAnswer'].enable();
+    } else {
+      this.familyDetails.controls['anyFamilyNumberAnswer'].setValue(0);
+      this.familyDetails.controls['anyFamilyNumberAnswer'].disable();
+    }
+  }
+
   fillRequestData() {
     const requestData = new formRequest();
     // DEMOGRAPHIC DETAILS
@@ -949,7 +1031,7 @@ export class LungFormQuestionsComponent implements OnInit {
         requestData.clinicDetails.mainDiagnose.nonmicrocyticSubtype = this.clinicDetails.get('otherNonMicrocyticCancerType')?.value;
       }
     }
-    requestData.clinicDetails.mainDiagnose.mutation = this.clinicDetails.get('mutationAnswer')?.value == 'Sí' ? true : false;
+    requestData.clinicDetails.mainDiagnose.mutation = this.clinicDetails.get('mutationAnswer')?.value;
     requestData.clinicDetails.mainDiagnose.mutationType = this.clinicDetails.get('mutationType')?.value == 'Otros' ?
     this.clinicDetails.get('otherMutationType')?.value : this.clinicDetails.get('mutationType')?.value;
     requestData.clinicDetails.mainDiagnose.notListedMutationType = this.clinicDetails.get('mutationType')?.value == 'Otros' ?
@@ -960,13 +1042,13 @@ export class LungFormQuestionsComponent implements OnInit {
       this.clinicDetails.get('surgeryYear')?.value : null;
     // Creo que esto va a fallar
     requestData.clinicDetails.mainDiagnose.extraTreatment = this.clinicDetails.get('surgeryExtraTreatment')?.value;
-    if (this.clinicDetails.get('otherSurgeryExtraTreatment')?.value != '') {
+    if (this.clinicDetails.get('otherSurgeryExtraTreatment')?.value !== '') {
       requestData.clinicDetails.mainDiagnose.extraTreatment.push(this.clinicDetails.get('otherSurgeryExtraTreatment')?.value);
     }
     // Acaba aqui el posible fallo
     requestData.clinicDetails.mainDiagnose.hasReceivedComplementaryRadiotherapy = this.clinicDetails.get('isRadiotherapy')?.value;
     if (this.clinicDetails.get('isRadiotherapy')?.value){
-      requestData.clinicDetails.mainDiagnose.complementaryRadiotherapyTarget.push(this.clinicDetails.get('radiotherapyTarget')?.value);
+      requestData.clinicDetails.mainDiagnose.complementaryRadiotherapyTarget = this.clinicDetails.get('radiotherapyTarget')?.value;
       if (this.clinicDetails.get('radiotherapyTarget')?.value.includes('Otros')){
         requestData.clinicDetails.mainDiagnose.complementaryRadiotherapyTarget.push(this.clinicDetails.get('otherRadiotherapyTarget')?.value);
       }
@@ -974,7 +1056,7 @@ export class LungFormQuestionsComponent implements OnInit {
     requestData.clinicDetails.mainDiagnose.metastasis = this.clinicDetails.get('metastasisAnswer')?.value == 'Sí' ? true : false;
     requestData.clinicDetails.mainDiagnose.metastasisYear = this.clinicDetails.get('metastasisAnswer')?.value == 'Sí' ?  this.clinicDetails.get('metastasisYear')?.value : null;
     if (this.clinicDetails.get('metastasisAnswer').value === 'Sí'){
-      requestData.clinicDetails.mainDiagnose.metastasisTreatment.push(this.clinicDetails.get('metastatisTreatment')?.value);
+      requestData.clinicDetails.mainDiagnose.metastasisTreatment = this.clinicDetails.get('metastatisTreatment')?.value;
       if (requestData.clinicDetails.mainDiagnose.metastasisTreatment.includes('Otros')) {
         requestData.clinicDetails.mainDiagnose.metastasisTreatment.push(this.clinicDetails.get('otherMetastasisTreatment')?.value);
         requestData.clinicDetails.mainDiagnose.notListedTreatment = true;
@@ -1065,15 +1147,7 @@ export class LungFormQuestionsComponent implements OnInit {
        if (familiar.diagnose.cancerType == 'Otros') {
          familiar.diagnose.cancerType = fg.get('otherCancerType')?.value;
        }
-
        familiar.diagnose.metastasis = fg.get('hasMetastasis')?.value == 'Sí';
-
-       if (fg.get('hasTreatment')?.value == 'Sí') {
-         familiar.diagnose.extraTreatment = fg.get('treatmentType')?.value;
-         if (fg.get('otherTreatment')?.value != '') {
-          familiar.diagnose.extraTreatment.push(fg.get('otherTreatment')?.value)
-         }
-       }
 
        requestData.familyDetails.push(familiar);
     });
