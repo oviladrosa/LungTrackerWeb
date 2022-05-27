@@ -351,6 +351,15 @@ export class LungFormQuestionsComponent implements OnInit {
     this.cancerItems.push(newFormGroup);
    }
 
+   addCancerData() {
+     this.deleteCancerItem();
+     const answer = this.clinicDetails.get('additionalDiagnoseAnswer')?.value;
+     if (answer === 'Sí') {
+       this.addCancerItem();
+     }
+   }
+
+
    deleteCancerItem() {
     this.cancerItems = this.clinicDetails.get('otherCancers') as FormArray;
     const leng = this.cancerItems.length;
@@ -995,7 +1004,7 @@ export class LungFormQuestionsComponent implements OnInit {
     if (answer === 'Sí') {
       this.familyDetails.controls['anyFamilyNumberAnswer'].enable();
     } else {
-      this.familyDetails.controls['anyFamilyNumberAnswer'].setValue(0);
+      this.familyDetails.controls['anyFamilyNumberAnswer'].setValue('');
       this.familyDetails.controls['anyFamilyNumberAnswer'].disable();
     }
   }
