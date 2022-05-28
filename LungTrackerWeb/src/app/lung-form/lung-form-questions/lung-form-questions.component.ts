@@ -240,13 +240,13 @@ export class LungFormQuestionsComponent implements OnInit {
     this.demographicDetails = this.formBuilder.group({
       birthDate: ['', Validators.required],
       gender: ['', Validators.required],
-      residenceCountry: ['',Validators.required],
+      residenceCountry: ['', Validators.required],
       residenceRegion: ['',Validators.required],
       residenceCity: ['',Validators.required],
       residencePostCode: ['',Validators.required],
       residenceInitialYears: ['',Validators.required],
       residenceEndYears: ['',Validators.required],
-      bornCountry: ['',Validators.required],
+      bornCountry: ['', Validators.required],
       bornRegion: ['',Validators.required],
       bornCity: ['',Validators.required],
       bornPostCode: ['',Validators.required],
@@ -350,6 +350,15 @@ export class LungFormQuestionsComponent implements OnInit {
     newFormGroup.controls['treatmentType'].disable();
     this.cancerItems.push(newFormGroup);
    }
+
+   addCancerData() {
+     this.deleteCancerItem();
+     const answer = this.clinicDetails.get('additionalDiagnoseAnswer')?.value;
+     if (answer === 'Sí') {
+       this.addCancerItem();
+     }
+   }
+
 
    deleteCancerItem() {
     this.cancerItems = this.clinicDetails.get('otherCancers') as FormArray;
@@ -481,23 +490,12 @@ export class LungFormQuestionsComponent implements OnInit {
   }
 
   async ngOnInit() {
-    // const geonames = Geonames({
-    //   username: 'clinic_test',
-    //   lan: 'es',
-    //   encoding: 'JSON'
-    // });
     try{
-      // let resCountries = await geonames.countryInfo();
-      // console.log(resCountries['geonames']);
-      // resCountries = resCountries['geonames'];
-      // this.countries = [];
-      // for (const c of resCountries) {
-      //   this.countries.push(c);
-      // }
-      // this.countries.sort();
       this.countries = Country.getAllCountries();
       this.bornCountries = Country.getAllCountries();
-    }catch(err){
+      const object = this.countries.find(country => country.name === "Spain");
+      this.countries.unshift(object);
+    }catch (err){
       console.error(err);
     }
     this.clinicDetails.controls['otherCancerType'].disable();
@@ -995,8 +993,9 @@ export class LungFormQuestionsComponent implements OnInit {
     if (answer === 'Sí') {
       this.familyDetails.controls['anyFamilyNumberAnswer'].enable();
     } else {
-      this.familyDetails.controls['anyFamilyNumberAnswer'].setValue(0);
+      this.familyDetails.controls['anyFamilyNumberAnswer'].setValue('');
       this.familyDetails.controls['anyFamilyNumberAnswer'].disable();
+      this.deleteFamilyMembers();
     }
   }
 
