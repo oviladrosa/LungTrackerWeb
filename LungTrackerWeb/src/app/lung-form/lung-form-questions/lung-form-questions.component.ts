@@ -995,6 +995,7 @@ export class LungFormQuestionsComponent implements OnInit {
     } else {
       this.familyDetails.controls['anyFamilyNumberAnswer'].setValue('');
       this.familyDetails.controls['anyFamilyNumberAnswer'].disable();
+      this.deleteFamilyMembers();
     }
   }
 
