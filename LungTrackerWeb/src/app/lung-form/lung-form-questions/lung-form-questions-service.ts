@@ -22,6 +22,14 @@ export class LungFormQuestionsService {
         return this.httpService.get(`https://young-hollows-40979.herokuapp.com/https://www.qualificalia.com/terms/cno/services.php?task=search&arg=${text}&output=json`, {headers: header});
     }
 
+    findProvinces(){
+        return this.httpService.get("https://young-hollows-40979.herokuapp.com/https://apiclinic.herokuapp.com/postalCodes/provinces" );
+    }
+
+    findCitiesByProvince(province: string){
+        return this.httpService.get("https://young-hollows-40979.herokuapp.com/https://apiclinic.herokuapp.com/postalCodes/cities?provincia="+province );
+    }
+
     communicateForm(data: any): Promise<any> {
 
         return this.httpService.post('https://young-hollows-40979.herokuapp.com/https://apiclinic.herokuapp.com/upload',data).toPromise();
