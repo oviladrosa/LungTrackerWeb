@@ -31,6 +31,8 @@ export class PatientContaminantsStationsComponent implements OnInit {
   loading = true;
   localLoading = true;
   bornLoading = true;
+  localCountryIsSpain = false;
+  bornCountryIsSpain = false;
   loadingColor: ThemePalette = 'primary';
 
   constructor(private router: Router,
@@ -80,29 +82,50 @@ export class PatientContaminantsStationsComponent implements OnInit {
   }
 
   getLocalStations(lat: number, lon: number, country: string, born: boolean){
-    this.apiService.getStations(lat, lon, country).subscribe((stationsInfo: PollutionStations) => {
+    if (country === 'Spain'){
+      this.localCountryIsSpain = true;
+      this.apiService.getStations(lat, lon).subscribe((stationsInfo: PollutionStations) => {
+        this.localLoading = false;
+        stationsInfo['born'] = born;
+        console.log(stationsInfo);
+        this.localPollutionStations = stationsInfo;
+        this.updateLoading();
+      });
+    }
+    else {
       this.localLoading = false;
-      stationsInfo['born'] = born;
-      console.log(stationsInfo);
-      this.localPollutionStations = stationsInfo;
       this.updateLoading();
-    });
+    }
   }
 
   getBornStations(lat: number, lon: number, country: string, born: boolean){
-    this.apiService.getStations(lat, lon, country).subscribe((stationsInfo: PollutionStations) => {
+    if (country === 'Spain') {
+      this.bornCountryIsSpain = true;
+      this.apiService.getStations(lat, lon).subscribe((stationsInfo: PollutionStations) => {
+        this.bornLoading = false;
+        stationsInfo['born'] = born;
+        console.log(stationsInfo);
+        this.bornPollutionStations = stationsInfo;
+        this.updateLoading();
+      });
+    }
+    else {
       this.bornLoading = false;
-      stationsInfo['born'] = born;
-      console.log(stationsInfo);
-      this.bornPollutionStations = stationsInfo;
       this.updateLoading();
-    });
+    }
   }
 
   updateLoading(){
     this.loading = this.bornLoading || this.localLoading;
     if (!this.loading){
-      this.changePollutionStations(1);
+      if (!this.localCountryIsSpain) {
+        if (this.bornCountryIsSpain) {
+          this.changePollutionStations(0);
+        }
+      }
+      else{
+        this.changePollutionStations(1);
+      }
     }
   }
 }
