@@ -240,13 +240,13 @@ export class LungFormQuestionsComponent implements OnInit {
     this.demographicDetails = this.formBuilder.group({
       birthDate: ['', Validators.required],
       gender: ['', Validators.required],
-      residenceCountry: ['', Validators.required],
+     // residenceCountry: ['', Validators.required],
       residenceRegion: ['',Validators.required],
       residenceCity: ['',Validators.required],
       residencePostCode: ['',Validators.required],
       residenceInitialYears: ['',Validators.required],
       residenceEndYears: ['',Validators.required],
-      bornCountry: ['', Validators.required],
+     // bornCountry: ['', Validators.required],
       bornRegion: ['',Validators.required],
       bornCity: ['',Validators.required],
       bornPostCode: ['',Validators.required],
@@ -491,10 +491,12 @@ export class LungFormQuestionsComponent implements OnInit {
 
   async ngOnInit() {
     try{
-      this.countries = Country.getAllCountries();
-      this.bornCountries = Country.getAllCountries();
-      const object = this.countries.find(country => country.name === "Spain");
-      this.countries.unshift(object);
+     this.getProvinces();
+     this.getBornProvinces();
+      //this.countries = Country.getAllCountries();
+     // this.bornCountries = Country.getAllCountries();
+      //const object = this.countries.find(country => country.name === "Spain");
+      //this.countries.unshift(object);
     }catch (err){
       console.error(err);
     }
@@ -639,31 +641,43 @@ export class LungFormQuestionsComponent implements OnInit {
     }
   }
 
-  async changeRegions() {
+  async getProvinces() {
       this.cities = [];
       this.regions = [];
-      const state = this.demographicDetails.get('residenceCountry')?.value.isoCode;
-      this.regions = State.getStatesOfCountry(state);
+      //const state = this.demographicDetails.get('residenceCountry')?.value.isoCode;
+      this.questionService.findProvinces().subscribe(res=>{
+        this.regions = res;
+      })
+      
+      //console.log(this.regions)
   }
 
-  async changeBornRegions() {
+  async getBornProvinces() {
     this.bornCities = [];
     this.bornRegions = [];
-    const state = this.demographicDetails.get('bornCountry')?.value.isoCode;
-    this.bornRegions = State.getStatesOfCountry(state);
+    //const state = this.demographicDetails.get('bornCountry')?.value.isoCode;
+    this.questionService.findProvinces().subscribe(res=>{
+      this.bornRegions = res;
+    })
+    
   }
 
   async changeCities() {
-      const country = this.demographicDetails.get('residenceCountry')?.value;
-      const state = this.demographicDetails.get('residenceRegion')?.value;
-      this.cities = City.getCitiesOfState(country.isoCode, state.isoCode);
+      //const province = this.demographicDetails.get('residenceCountry')?.value;
+      //const state = this.demographicDetails.get('residenceRegion')?.value;
+      this.questionService.findCitiesByProvince(this.demographicDetails.get('residenceRegion')?.value).subscribe(res=>{
+        this.cities = res;
+      })
+      
+      //this.cities = City.getCitiesOfState(country.isoCode, state.isoCode);
   }
 
   async changeBornCities() {
-    const country = this.demographicDetails.get('bornCountry')?.value;
-    const state = this.demographicDetails.get('bornRegion')?.value;
-    this.bornCities = City.getCitiesOfState(country.isoCode, state.isoCode);
-  }
+    //const country = this.demographicDetails.get('bornCountry')?.value;
+   // const state = this.demographicDetails.get('bornRegion')?.value;
+   this.questionService.findCitiesByProvince(this.demographicDetails.get('residenceRegion')?.value).subscribe(res=>{
+    this.bornCities = res;
+  })  }
 
   getTitle() {
     switch(this.step){
@@ -995,6 +1009,7 @@ export class LungFormQuestionsComponent implements OnInit {
     } else {
       this.familyDetails.controls['anyFamilyNumberAnswer'].setValue('');
       this.familyDetails.controls['anyFamilyNumberAnswer'].disable();
+      this.deleteFamilyMembers();
     }
   }
 
