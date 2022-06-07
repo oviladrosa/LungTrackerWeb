@@ -11,13 +11,13 @@ export class PatientsContaminantsStationsService {
 
   }
 
-  getStations(lat: number, lon: number, country: string){
+  getStations(lat: number, lon: number){
     let header = new HttpHeaders().set('Access-Control-Allow-Headers', 'Content-Type');
     header.set('Access-Control-Allow-Methods', 'GET');
     header.set('Access-Control-Allow-Origin', '*');
     header.set('Access-Control-Allow-Headers', 'Origin');
     return this.httpService.get('https://young-hollows-40979.herokuapp.com/https://apiclinic.herokuapp.com/contaminants?latitude='
-                                      + lat + '&longitude=' + lon + '&country=' + country, {
+                                      + lat + '&longitude=' + lon, {
       headers: header
     });
   }
