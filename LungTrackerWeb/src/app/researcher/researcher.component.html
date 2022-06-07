@@ -12,10 +12,11 @@
     </button>-->
     <app-leaflet-map></app-leaflet-map>
     <div class="inline-charts">
-        <chart *ngIf="showGraphs[1]" class="dashchart2" [type]="typeSmokers" [data]="dataSmokers"
-        [options]="optionsSmokers"></chart>
+       
         <chart *ngIf="showGraphs[3]" class="dashchart" [type]="typeExpositions" [data]="dataExpositions"
         [options]="optionsExpositions"></chart>
+        <chart  class="dashchart2" [type]="typeSmokers" [data]="dataSmokers"
+        [options]="optionsSmokers"></chart>
     </div>
     <div class="inline-charts-bottom">
         <chart *ngIf="showGraphs[1]" class="dashchart2" [type]="typeAgeRanges" [data]="dataAgeRanges"

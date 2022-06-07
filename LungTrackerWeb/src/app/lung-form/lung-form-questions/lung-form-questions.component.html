@@ -41,31 +41,28 @@
                   <h2>Lugar de residencia</h2>
                   <div fxLayout="column" >
                     <div fxLayout="column" fxLayout.gt-sm="row">
-                     <!--<mat-form-field appearance="outline" fxFlex.gt-sm="30" fxFlex="45">
+                     <mat-form-field appearance="outline" fxFlex.gt-sm="30" fxFlex="45">
                         <mat-label>País de residencia</mat-label>
-                        <select  matNativeControl  formControlName="residenceCountry" matInput (change)="changeRegions()">
+                        <select  matNativeControl  formControlName="residenceCountry" matInput (change)="getProvinces()">
                             <option value="" disabled>Indica el país</option>
                             <option *ngFor="let c of countries" [ngValue]="c">{{c.name}}</option>
                         </select>
-                      </mat-form-field> -->
-
+                      </mat-form-field>
+                      <div fxFlex="5" fxHide.lt-md="true"></div>
                       <mat-form-field appearance="outline" fxFlex.gt-sm="30" fxFlex="45">
                         <mat-label>Provincia de residencia</mat-label>
                         <select  matNativeControl  formControlName="residenceRegion" matInput (change)="changeCities()">
                             <option value="" disabled>Indica la provincia</option>
-                            <option *ngFor="let r of regions" [ngValue]="r">{{r}}</option>
+                            <option  *ngFor="let r of regions" [ngValue]="r">{{r.name?r.name:r}}</option>
                         </select>
-
                       </mat-form-field>
                       <div fxFlex="5" fxHide.lt-md="true"></div>
-
                       <mat-form-field appearance="outline" fxFlex.gt-sm="30" fxFlex="45">
                         <mat-label>Ciudad de residencia</mat-label>
                         <select  matNativeControl  formControlName="residenceCity" matInput>
                             <option value="" disabled>Indica la ciudad</option>
-                            <option *ngFor="let c of cities" [ngValue]="c">{{c.poblacion}}</option>
+                            <option *ngFor="let c of cities" [ngValue]="c">{{c.poblacion? c.poblacion:c}}</option>
                         </select>
-
                       </mat-form-field>
                       <div fxFlex="5" fxHide.lt-md="true"></div>
                       <mat-form-field appearance="outline" fxFlex.gt-sm="30" fxFlex="45">
@@ -74,9 +71,6 @@
                       </mat-form-field>
                     </div>
                     <div  fxLayout="column" fxLayout.gt-sm="row">
-                     
-                      
-
                       <mat-form-field appearance="outline" fxFlex.gt-sm="30" fxFlex="45">
                         <mat-label>Año inicial de residencia</mat-label>
                         <input matInput formControlName="residenceInitialYears" required type="number">
@@ -95,20 +89,20 @@
                   <h2>Lugar de nacimiento o primera residencia importante</h2>
                   <div fxLayout="column" >
                     <div fxLayout="column" fxLayout.gt-sm="row">
-                     <!-- <mat-form-field appearance="outline" fxFlex.gt-sm="30" fxFlex="45">
+                     <mat-form-field appearance="outline" fxFlex.gt-sm="30" fxFlex="45">
                         <mat-label>País</mat-label>
-                        <select  matNativeControl  formControlName="bornCountry" matInput (change)="changeBornRegions()">
+                        <select  matNativeControl  formControlName="bornCountry" matInput (change)="getBornProvinces()">
                             <option value="" disabled>Indica el país</option>
                             <option *ngFor="let c of bornCountries" [ngValue]="c">{{c.name}}</option>
                         </select>
-
-                      </mat-form-field>-->
+                      </mat-form-field>
+                      <div fxFlex="5" fxHide.lt-md="true"></div>
 
                       <mat-form-field appearance="outline" fxFlex.gt-sm="30" fxFlex="45">
                         <mat-label>Provincia de residencia</mat-label>
                         <select  matNativeControl  formControlName="bornRegion" matInput (change)="changeBornCities()">
                             <option value="" disabled>Indica la región</option>
-                            <option *ngFor="let r of bornRegions" [ngValue]="r">{{r}}</option>
+                            <option *ngFor="let r of bornRegions" [ngValue]="r">{{r.name?r.name:r}}</option>
                         </select>
 
                       </mat-form-field>
@@ -118,7 +112,7 @@
                         <mat-label>Ciudad de residencia</mat-label>
                         <select  matNativeControl  formControlName="bornCity" matInput>
                             <option value="" disabled>Indica la ciudad</option>
-                            <option *ngFor="let c of bornCities" [ngValue]="c">{{c.poblacion}}</option>
+                            <option *ngFor="let c of bornCities" [ngValue]="c">{{c.poblacion? c.poblacion:c}}</option>
                         </select>
                       </mat-form-field>
                       <div fxFlex="5" fxHide.lt-md="true"></div>
