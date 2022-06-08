@@ -80,11 +80,13 @@ export class MarkerService {
               found = true;
             }
           }
-          const circle = L.circleMarker([lat, lon], {
-            radius: MarkerService.scaledRadius(dictPlace.value, maxVal)
-          });
-          circle.bindPopup(this.popupService.makeCapitalPopup(dictPlace),{closeButton: false});
-          circle.addTo(map);
+          if(lat && lon){
+            const circle = L.circleMarker([lat, lon], {
+              radius: MarkerService.scaledRadius(dictPlace.value, maxVal)
+            });
+            circle.bindPopup(this.popupService.makeCapitalPopup(dictPlace),{closeButton: false});
+            circle.addTo(map);
+          }
         }
       }
     }
@@ -102,7 +104,7 @@ export class MarkerService {
       }
     }
     if (!found) {
-      this.placesDictionary.push({name: name.toString(), postalCode: parseInt(postalCode, 10), value: 1});
+      this.placesDictionary.push({name: name, postalCode: parseInt(postalCode, 10), value: 1});
     }
   }
 

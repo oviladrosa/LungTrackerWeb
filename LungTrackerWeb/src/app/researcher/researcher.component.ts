@@ -99,7 +99,7 @@ export class ResearcherComponent implements OnInit {
     })
   }
 
-  getSmokerChart(){
+ async getSmokerChart(){
     this.userService.getSmokerData().subscribe((res: any)=>{
       for(let i=0; i<res.length; i++){
         this.dataSmokers.labels.push(res[i]["_id"]["grupo"])

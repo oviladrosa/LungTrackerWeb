@@ -6,7 +6,7 @@
   <div class="half-circle">
 
   </div>
-  <div *ngIf="!loading; else elseBlock" >
+  <div *ngIf="!loading && (localCountryIsSpain || bornCountryIsSpain); else elseIfBlock" >
     <div fxLayout="column" fxLayout.gt-sm="start center" class="flex-content">
       <div fxLayout="row">
         <h2>Datos de tu {{residence}}</h2>
@@ -16,13 +16,13 @@
       <div fxFlex="50%" fxLayoutAlign="center start">
         <div fxLayout="row">
           <button type="button" mat-raised-button color="primary" class="residence-button" title="Pick your first Residence"
-                  (click)="changePollutionStations(0)">
+                  [disabled]="!bornCountryIsSpain" (click)="changePollutionStations(0)">
             Primera Residencia
           </button>
         </div>
         <div fxLayout="row">
           <button type="button" mat-raised-button color="primary" class="residence-button" title="Pick your current Residence"
-                  (click)="changePollutionStations(1)">
+                  [disabled]="!localCountryIsSpain" (click)="changePollutionStations(1)">
             Residencia Actual
           </button>
         </div>
@@ -177,6 +177,12 @@
     </div>
   </div>
 
+
+  <ng-template #elseIfBlock>
+    <div  *ngIf="!loading && !localCountryIsSpain && !bornCountryIsSpain; else elseBlock" fxLayout="column" fxLayoutAlign.gt-sm="start center" class="flex-content">
+      <span class="loading-span"><b>Lamentablemente, no podemos mostrarle información relativa a sus lugares de residencia.</b></span>
+    </div>
+  </ng-template>
 
   <ng-template #elseBlock>
     <div fxLayout="column" fxLayoutAlign.gt-sm="start center" class="flex-content">
