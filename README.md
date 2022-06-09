@@ -1,6 +1,6 @@
 # LungTrackerWeb
 
-Roger Homs
-Daniel Vega
-Marc Vizcaino
-Oriol Viladrosa
+Roger Homs   
+Daniel Vega   
+Marc Vizcaino   
+Oriol Viladrosa   
